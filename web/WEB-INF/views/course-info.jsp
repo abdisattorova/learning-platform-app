@@ -20,6 +20,7 @@
 <body>
 <c:set var="authors" value="${course.authorDtoList}"></c:set>
 <div class="card-header text-muted">
+    <img src="${course.imageUrl}" alt="keldi">
     <h5 class="card-title"> All about ${course.name}</h5>
     <p class="card-text">${course.description}</p>
     <h6>Authors: </h6>

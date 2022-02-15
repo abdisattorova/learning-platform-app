@@ -56,7 +56,7 @@ public class CourseDao {
     public int saveCourseToDb(CourseDto courseDto) {
         String name = courseDto.getName();
         String description = courseDto.getDescription();
-        String sqlQuery = "insert into courses (name, description) values ('" + name + "', '" + description + "' )";
+        String sqlQuery = "insert into courses (name, description,image_url) values ('" + name + "', '" + description + "' ,'" + courseDto.getImageUrl() + "')";
         int res = template.update(sqlQuery);
         int courseId = template.queryForObject("select max(id) from courses ", (rs, row) -> {
             int result = rs.getInt(1);
@@ -83,6 +83,7 @@ public class CourseDao {
             courseDto1.setName(rs.getString(2));
             courseDto1.setDescription(rs.getString(3));
             courseDto1.setActive(rs.getBoolean(4));
+            courseDto1.setImageUrl(rs.getString(5));
             Array authors = rs.getArray("authors");
             Type type = new TypeToken<ArrayList<AuthorDto>>() {
             }.getType();
@@ -104,6 +105,7 @@ public class CourseDao {
                 "set name = '" + courseDto.getName() +
                 "',updated_at=now() " +
                 ",description = '" + courseDto.getDescription() +
+                "',image_url = '" + courseDto.getImageUrl() +
                 "' where id = " + courseDto.getId();
         template.update(queryStr);
 
