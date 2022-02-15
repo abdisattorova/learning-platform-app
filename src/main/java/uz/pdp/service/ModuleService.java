@@ -11,23 +11,28 @@ public class ModuleService {
 
     @Autowired
     ModuleDao moduleDao;
-    public int addModule(Module module) {
-        return  moduleDao.addModule(module);
+
+    public String addModule(Module module) {
+        if (moduleDao.addModule(module) == 1) {
+            return "Successfully added!";
+        }
+        return "Not added!";
     }
 
-    public String deleteModuleById(int id) {
-        int i = moduleDao.deleteModuleByIdFromDb(id);
-        if (i != 0) {
-            return "Successfully deleted!!";
-        } else return "Could not delete!!";
+    public int deleteModuleById(int id) {
+        return moduleDao.deleteModuleByIdFromDb(id);
     }
 
 
-    public void editModule(Module module) {
-        moduleDao.editModule(module);
+    public String editModule(Module module) {
+        int res = moduleDao.editModule(module);
+        if (res == 1) {
+            return "Successfully edited!";
+        }
+        return "Not edited";
     }
 
     public Module getModuleById(int id) {
-       return moduleDao.getModuleById(id);
+        return moduleDao.getModuleById(id);
     }
 }

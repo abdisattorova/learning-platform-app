@@ -22,6 +22,7 @@
 <body class="container">
 <c:set var="msg" value="${param.message}"></c:set>
 <h1>${msg}</h1>
+
 <div class="container" style="padding-top: 2rem">
 </div>
 <div class="container d-flex justify-content-around" style="padding-top: 1%;">

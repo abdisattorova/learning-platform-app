@@ -43,7 +43,16 @@ public class ModuleDao {
 
 
     public int deleteModuleByIdFromDb(int id) {
-        return template.update(" delete  from modules where id =" + id);
+        try {
+            String query = " delete  from modules where id =" + id + " returning course_id";
+            Integer integer = template.queryForObject(query, (rs, rowNum) -> {
+                return rs.getInt(1);
+            });
+            return integer;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
@@ -60,14 +69,16 @@ public class ModuleDao {
     }
 
 
-    public void editModule(Module module) {
+    public int editModule(Module module) {
         try {
             String query = "update modules set name = '"
                     + module.getName() + "'where id=" + module.getId();
-            template.update(query);
+            int update = template.update(query);
+            return update;
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return 0;
     }
 
 
