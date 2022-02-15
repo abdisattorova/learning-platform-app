@@ -11,7 +11,6 @@ public class ModuleService {
 
     @Autowired
     ModuleDao moduleDao;
-
     public int addModule(Module module) {
         return  moduleDao.addModule(module);
     }
