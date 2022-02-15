@@ -15,7 +15,6 @@ public class ModuleService {
         return  moduleDao.addModule(module);
     }
 
-
     public String deleteModuleById(int id) {
         int i = moduleDao.deleteModuleByIdFromDb(id);
         if (i != 0) {
@@ -28,4 +27,7 @@ public class ModuleService {
         moduleDao.editModule(module);
     }
 
+    public Module getModuleById(int id) {
+       return moduleDao.getModuleById(id);
+    }
 }

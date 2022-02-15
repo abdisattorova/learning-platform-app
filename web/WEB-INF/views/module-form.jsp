@@ -18,13 +18,13 @@
     <title>Add Course</title>
 </head>
 <body>
-
 <div style="padding: 20px">
-    <form id="user-form" method="post" action="/">
+    <form id="user-form" method="post" action="/modules">
         <div class="form-group">
+            <input hidden name="courseId" type="number" class="form-control" value="${param.courseId}">
             <c:choose>
-               <c:when test="${id!=null}">
-                    <input hidden name="id" type="number" class="form-control" value="${id}">
+               <c:when test="${module.id!=null}">
+                    <input hidden name="id" type="number" class="form-control" value="${module.id}">
                 </c:when>
                 <c:otherwise>
                     <input hidden name="id" type="number" class="form-control" value="${0}">
@@ -33,7 +33,7 @@
         </div>
         <div class="form-group">
             <input id="name" required name="name" type="text" class="form-control"
-                   placeholder="Enter full name" value="${name}">
+                   placeholder="Enter module name " value="${module.name}">
         </div>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
