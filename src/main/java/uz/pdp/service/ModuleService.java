@@ -4,6 +4,7 @@ package uz.pdp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.ModuleDao;
+import uz.pdp.model.Module;
 
 @Service
 public class ModuleService {
@@ -11,4 +12,11 @@ public class ModuleService {
     @Autowired
     ModuleDao moduleDao;
 
+    public int addModule(Module module) {
+        return  moduleDao.addModule(module);
+    }
+
+    public void editModule(Module module) {
+        moduleDao.editModule(module);
+    }
 }

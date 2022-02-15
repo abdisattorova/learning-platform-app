@@ -24,8 +24,13 @@ public class ModuleController {
     ModuleService moduleService;
 
     @GetMapping()
-    public String editModule(Module module) {
-        //logic
+    public String editOrAdd(Module module) {
+        if (module.getId()!=0){
+            int res = moduleService.addModule(module);
+        }
+        {
+            moduleService.editModule(module);
+        }
         return "";
     }
 
@@ -37,7 +42,6 @@ public class ModuleController {
 
     @GetMapping(path = "/form")
     public String getModule(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
-
         if (id == 0) return "module-form";
         // TODO: 02/15/2022 jsp file 
 
