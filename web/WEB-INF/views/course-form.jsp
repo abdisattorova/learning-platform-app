@@ -13,7 +13,7 @@
 </head>
 <body>
 <div style="padding: 20px">
-    <form id="course-form" method="post" action="/courses">
+    <form id="course-form" method="post" action="/courses" enctype="multipart/form-data">
         <div class="form-group">
             <c:choose>
                 <c:when test="${selectedCourse.id!=null}">
@@ -39,6 +39,11 @@
             <input name="isActive" checked type="checkbox" class="form-check-input" id="exampleCheck1">
             <label class="form-check-label" for="exampleCheck1">Is Active</label>
         </div>
+
+
+            Select File: <input type="file"  name="file"/>
+<%--            <input type="submit" value="Upload File"/>--%>
+
         <div class="form-group">
             <label for="authors" id="authors"> Choose authors:</label>
             <select multiple name='authorsIds'>

@@ -4,19 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpSession;
+import java.io.*;
 import java.util.List;
 
 @Controller
 @RequestMapping("/courses")
 public class CourseController {
 
+
+    private static final String UPLOAD_DIRECTORY = "/images";
     @Autowired
     CourseService courseService;
 
@@ -33,7 +38,32 @@ public class CourseController {
     }
 
     @PostMapping
-    public RedirectView addCourse(@ModelAttribute("courseDto") CourseDto courseDto) {
+    public RedirectView addCourse(CourseDto courseDto,
+                                  @RequestParam("file") CommonsMultipartFile file,
+                                  HttpSession session) {
+
+        ServletContext context = session.getServletContext();
+//        String path = context.getRealPath(UPLOAD_DIRECTORY);
+        String path = "S:\\IdeaProjects\\Spring\\spring-mvc-example\\spring-mvc-example\\src\\main\\resources";
+        String filename = file.getOriginalFilename();
+
+        System.out.println(path + " " + filename);
+        byte[] bytes = file.getBytes();
+        BufferedOutputStream stream = null;
+        try {
+            String imgPath = path + File.separator + filename;
+            courseDto.setImageUrl(imgPath);
+            stream = new BufferedOutputStream(new FileOutputStream(
+                    new File(imgPath)));
+
+            stream.write(bytes);
+            stream.flush();
+            stream.close();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (courseDto.getId() != 0) {
             courseService.editCourse(courseDto);
         } else {

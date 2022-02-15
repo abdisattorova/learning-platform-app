@@ -16,6 +16,7 @@ public class CourseDto {
     private String description;
     private boolean isActive;
     private int[] authorsIds;
+    private String imageUrl;
     private List<AuthorDto> authorDtoList;
     private List<ModuleDto> moduleDtoList;
 }
