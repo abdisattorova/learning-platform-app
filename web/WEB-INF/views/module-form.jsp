@@ -23,7 +23,8 @@
         <div class="form-group">
             <input hidden name="courseId" type="number" class="form-control" value="${param.courseId}">
             <c:choose>
-                <c:when test="${module.id!=null}">
+               <c:when test="${module.id!=null}">
+
                     <input hidden name="id" type="number" class="form-control" value="${module.id}">
                 </c:when>
                 <c:otherwise>

@@ -69,7 +69,11 @@ public class ModuleDao {
     }
 
 
+<<<<<<< HEAD
     public int editModule(Module module) {
+=======
+    public void editModule(Module module) {
+>>>>>>> be8174d0c318c8afe88382bf2056d44ed4e75194
         try {
             String query = "update modules set name = '"
                     + module.getName() + "'where id=" + module.getId();
