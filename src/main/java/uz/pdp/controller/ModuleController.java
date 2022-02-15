@@ -65,5 +65,14 @@ public class ModuleController {
 //            return "redirect:/courses";
 //        }
         return "";
+//        moduleService.getModuleById(id);
+/*        if (courseDto != null) {
+            model.addAttribute("selectedCourse", courseDto);
+            return "course-form";
+        } else {
+            model.addAttribute("message", "Course not found!!");
+            return "redirect:/courses";
+        }*/
+//        return "redirect:/courses";
     }
 }
