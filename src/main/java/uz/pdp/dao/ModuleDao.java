@@ -39,4 +39,10 @@ public class ModuleDao {
         return list;
 
     }
+
+
+    public int deleteModuleByIdFromDb(int id) {
+        return template.update(" delete  from modules where id =" + id);
+    }
+
 }

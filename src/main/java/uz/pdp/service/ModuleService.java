@@ -11,4 +11,11 @@ public class ModuleService {
     @Autowired
     ModuleDao moduleDao;
 
+    public String deleteModuleById(int id) {
+        int i = moduleDao.deleteModuleByIdFromDb(id);
+        if (i != 0) {
+            return "Successfully deleted!!";
+        } else return "Could not delete!!";
+    }
+
 }

@@ -30,8 +30,12 @@ public class ModuleController {
     }
 
     @GetMapping(path = "/delete/{id}")
-    public String deleteModule(@PathVariable int id) {
+    public String deleteModule(@PathVariable int id , Model model) {
         //logic
+        String res = moduleService.deleteModuleById(id);
+
+        model.addAttribute("result",res);
+
         return "";
     }
 
