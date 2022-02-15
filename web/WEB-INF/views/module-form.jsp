@@ -24,6 +24,7 @@
             <input hidden name="courseId" type="number" class="form-control" value="${param.courseId}">
             <c:choose>
                <c:when test="${module.id!=null}">
+
                     <input hidden name="id" type="number" class="form-control" value="${module.id}">
                 </c:when>
                 <c:otherwise>
@@ -35,10 +36,9 @@
             <input id="name" required name="name" type="text" class="form-control"
                    placeholder="Enter module name " value="${module.name}">
         </div>
+        <br>
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
 </div>
-<%--changed this page--%>
-
 </body>
 </html>
