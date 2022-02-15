@@ -36,7 +36,7 @@
                 <h5 class="left mx-3"><span class="left_h2">
                         </span> ${module.name}</h5>
                 <c:forEach items="${module.lessons}" var="lesson">
-                    <a target="_top" href="default.asp" class="active mx-3">${lesson.name}</a><br>
+                    <a target="_top" href="/lessons/${lesson.id}" class="active mx-3">${lesson.name}</a><br>
                 </c:forEach>
             </c:forEach>
             <br><br>

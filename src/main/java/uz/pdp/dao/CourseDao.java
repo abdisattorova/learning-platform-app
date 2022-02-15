@@ -108,7 +108,6 @@ public class CourseDao {
                 "',image_url = '" + courseDto.getImageUrl() +
                 "' where id = " + courseDto.getId();
         template.update(queryStr);
-
     }
 
     public List<CourseDto> getCoursesOfAuthor(int id) {
