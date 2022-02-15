@@ -41,6 +41,13 @@ public class ModuleDao {
 
     }
 
+
+
+    public int deleteModuleByIdFromDb(int id) {
+        return template.update(" delete  from modules where id =" + id);
+    }
+
+
     public int addModule(Module module) {
         try {
             String query = "insert into modules (name, course_id) " +
@@ -62,4 +69,5 @@ public class ModuleDao {
             e.printStackTrace();
         }
     }
+
 }
