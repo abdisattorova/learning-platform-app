@@ -26,6 +26,7 @@
             <a href="/users/info/${author.id}"> ${author.fullName}</a>
         </c:forEach>
     </ul>
+    <a href="/modules/form?courseId=${course.id}" class="btn btn primary"> + Add module </a>
 </div>
 <div style="top: 44px;">
     <div id="leftmenuinner" style="padding-top: 44px;">
@@ -34,7 +35,10 @@
             large w3-large w3-display-topright' style='right:16px;padding:3px 12px;font-weight:bold;'>&times;</a>-->
             <c:forEach items="${course.moduleDtoList}" var="module">
                 <h5 class="left mx-3"><span class="left_h2">
-                        </span> ${module.name}</h5>
+                        </span> ${module.name} </h5>
+                <a href="/modules/delete/${module.id}">Delete</a>
+                <a href="/modules/form?id=${module.id}&courseId=${course.id}">Edit</a>
+                <br>
                 <c:forEach items="${module.lessons}" var="lesson">
                     <a target="_top" href="/lessons/${lesson.id}" class="active mx-3">${lesson.name}</a><br>
                 </c:forEach>
