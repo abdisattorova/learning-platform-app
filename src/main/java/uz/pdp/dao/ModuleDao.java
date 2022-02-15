@@ -10,6 +10,7 @@ import uz.pdp.dto.AuthorDto;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Lesson;
+import uz.pdp.model.Module;
 
 import java.lang.reflect.Type;
 import java.sql.Array;
@@ -41,8 +42,32 @@ public class ModuleDao {
     }
 
 
+
     public int deleteModuleByIdFromDb(int id) {
         return template.update(" delete  from modules where id =" + id);
+    }
+
+
+    public int addModule(Module module) {
+        try {
+            String query = "insert into modules (name, course_id) " +
+                    "values ('" + module.getName() + "'," + module.getCourseId() + ");";
+            int update = template.update(query);
+            return update;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public void editModule(Module module) {
+        try {
+            String query = "update modules set name = '"
+                    + module.getName() + "'where id=" + module.getId();
+            template.update(query);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 }
