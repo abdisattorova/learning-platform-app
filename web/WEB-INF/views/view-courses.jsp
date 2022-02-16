@@ -20,9 +20,15 @@
     <title>Courses</title>
 </head>
 <body class="container">
-<c:set var="msg" value="${param.message}"></c:set>
-<h1>${msg}</h1>
+<h1>${message}</h1>
 
+<form action="/courses" method="get">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Search course</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="search" placeholder="Enter course name" >
+    </div>
+    <br>
+</form>
 <div class="container" style="padding-top: 2rem">
 </div>
 <div class="container d-flex justify-content-around" style="padding-top: 1%;">
