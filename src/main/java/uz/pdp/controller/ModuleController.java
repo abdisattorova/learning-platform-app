@@ -31,7 +31,6 @@ public class ModuleController {
         return redirectView;
     }
 
-
     @GetMapping(path = "/delete")
     public RedirectView deleteModule(
             @RequestParam(name = "courseId") int courseId,
@@ -41,71 +40,54 @@ public class ModuleController {
         String msg = "Successfully deleted!";
         if (moduleService.deleteModuleById(id) == 0) {
             msg = "Not deleted!";
-            public String editOrAdd (Module module){
-                if (module.getId() != 0) {
-                    moduleService.editModule(module);
-                } else {
-                    int res = moduleService.addModule(module);
-                }
-                model.addAttribute("msg", msg);
-                redirectView.setUrl("/courses/info/" + courseId);
-                return redirectView;
+        }
+        public String editOrAdd (Module module){
+            if (module.getId() != 0) {
+                moduleService.editModule(module);
+            } else {
+                int res = moduleService.addModule(module);
             }
+            model.addAttribute("msg", msg);
+            redirectView.setUrl("/courses/info/" + courseId);
+            return redirectView;
+        }
 
-            public String editModule (Module module){
-                //logic
+        public String editModule (Module module){
+            //logic
 
-                return "";
-            }
-
-            @GetMapping(path = "/delete/{id}")
-            public String deleteModule ( @PathVariable int id, Model model){
-                //logic
-                String res = moduleService.deleteModuleById(id);
-
-                model.addAttribute("result", res);
-
-                return "";
-            }
-
-            @GetMapping(path = "/form")
-            public String getModule (
-            @RequestParam(name = "courseId") int courseId,
-            Model model,
-            @RequestParam(name = "id", required = false,
-            defaultValue = "0")int id){
-                model.addAttribute("courseId", courseId);
-                if (id == 0) return "module-form";
-
-
-                // TODO: 02/15/2022  get module by id =>service=>dao
-
-                // TODO: 02/15/2022 tekshir
-                Module module = moduleService.getModuleById(id);
-                if (module != null) {
-                    model.addAttribute("module", module);
-                    return "module-form";
-
-                } else {
-                    model.addAttribute("message", "Module not found!!");
-                    return "redirect:/courses/info/" + courseId;
-                }
-
-            }
-//        else {
-//            model.addAttribute("message", "Module not found!!");
-//            return "redirect:/courses";
-//        }
             return "";
-//        moduleService.getModuleById(id);
-/*        if (courseDto != null) {
-            model.addAttribute("selectedCourse", courseDto);
-            return "course-form";
-        } else {
-            model.addAttribute("message", "Course not found!!");
-            return "redirect:/courses";
-        }*/
-//        return "redirect:/courses";
+        }
+
+        @GetMapping(path = "/delete/{id}")
+        public String deleteModule ( @PathVariable int id, Model model){
+            //logic
+            String res = moduleService.deleteModuleById(id);
+
+            model.addAttribute("result", res);
+
+            return "";
+        }
+
+        @GetMapping(path = "/form")
+        public String getModule (
+        @RequestParam(name = "courseId") int courseId,
+        Model model,
+        @RequestParam(name = "id", required = false,
+        defaultValue = "0")int id){
+            model.addAttribute("courseId", courseId);
+            if (id == 0) return "module-form";
+
+            Module module = moduleService.getModuleById(id);
+            if (module != null) {
+                model.addAttribute("module", module);
+                return "module-form";
+
+            } else {
+                model.addAttribute("message", "Module not found!!");
+                return "redirect:/courses/info/" + courseId;
+            }
+
         }
     }
 }
+
