@@ -17,8 +17,8 @@ public class UserDao {
 
     public List<User> getUsers(int page) {
         String queryStr = "select id, full_name, username, password from users " +
-                " limit "+ Constants.number_of_elements_in_1_page+ " offset "+
-                (page-1)*Constants.number_of_elements_in_1_page;
+                " limit " + Constants.number_of_elements_in_1_page + " offset " +
+                (page - 1) * Constants.number_of_elements_in_1_page;
         List<User> list = template.query(queryStr, (rs, row) -> {
             User user = new User();
             user.setId(rs.getInt(1));
@@ -34,8 +34,12 @@ public class UserDao {
         String fullName = user.getFullName();
         String username = user.getUsername();
         String password = user.getPassword();
+        String imageUrl = user.getImageUrl();
         try {
-            return template.update("insert into users (full_name, username, password) values ('" + fullName + "', '" + username + "','" + password + "' )");
+            return template.update("insert into users" +
+                    " (full_name, username, password,image_url)" +
+                    " values ('" + fullName + "', '" +
+                    username + "','" + password + "' ,'" + imageUrl + "')");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -72,6 +76,7 @@ public class UserDao {
                 "set full_name = '" + user.getFullName() +
                 "',username ='" + user.getUsername() + "' " +
                 ",password = '" + user.getPassword() +
+                "',image_url ='" + user.getImageUrl() +
                 "' where id = " + user.getId();
         template.update(queryStr);
     }

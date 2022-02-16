@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import uz.pdp.dto.CourseDto;
@@ -12,6 +13,11 @@ import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.util.List;
 
 @Controller
@@ -38,6 +44,26 @@ public class UserController {
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public String getAllUsers(Model model, @RequestParam(defaultValue = "1") Integer page) {
         List<User> allUsers = userService.getAllUsers(page);
+        for (User allUser : allUsers) {
+            BufferedImage image = null;
+            try {
+                image = ImageIO.read(new File(allUser.getImageUrl()));
+
+                ByteArrayOutputStream base = new ByteArrayOutputStream();
+                ImageIO.write(image, "png", base);
+                base.flush();
+                byte[] imageInByteArray = base.toByteArray();
+                base.close();
+
+                String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+                allUser.setImageUrl(b64);
+            } catch (IOException | NullPointerException e) {
+                e.printStackTrace();
+
+            }
+        }
+
         int count = userService.countAllUsers();
         int pages = count / Constants.number_of_elements_in_1_page; //count 10  10/3=3
         int remainder = count % Constants.number_of_elements_in_1_page; //10    10%3=1
@@ -86,7 +112,27 @@ public class UserController {
 
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user, Model model) {
+    public String addUser(@ModelAttribute("user") User user,
+                          @RequestParam("file") CommonsMultipartFile file,
+                          Model model
+                         ) {
+        String path = "S:\\IdeaProjects\\Spring\\spring-mvc-example\\spring-mvc-example\\src\\main\\resources";
+        String filename = file.getOriginalFilename();
+        System.out.println(path + " " + filename);
+        byte[] bytes = file.getBytes();
+        BufferedOutputStream stream = null;
+        try {
+            String imgPath = path + "/" + filename;
+            user.setImageUrl(imgPath);
+            stream = new BufferedOutputStream(new FileOutputStream(
+                    new File(imgPath)));
+
+            stream.write(bytes);
+            stream.flush();
+            stream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         if (user.getId() != 0) {
             userService.editUser(user);
         } else {
