@@ -11,8 +11,11 @@ import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
@@ -43,6 +46,7 @@ public class CourseController {
             }
         }
 
+
         model.addAttribute("courseList", allCourses);
         return "view-courses";
     }
@@ -61,7 +65,7 @@ public class CourseController {
         byte[] bytes = file.getBytes();
         BufferedOutputStream stream = null;
         try {
-            String imgPath = path + File.separator + filename;
+            String imgPath = path + "/" + filename;
             courseDto.setImageUrl(imgPath);
             stream = new BufferedOutputStream(new FileOutputStream(
                     new File(imgPath)));
@@ -74,6 +78,7 @@ public class CourseController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         if (courseDto.getId() != 0) {
             courseService.editCourse(courseDto);
         } else {
@@ -88,6 +93,23 @@ public class CourseController {
     @GetMapping(path = "/info/{id}")
     public String showInfoAboutCourse(@PathVariable int id, Model model) {
         CourseDto courseById = courseService.getCourseById(id);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(courseById.getImageUrl()));
+
+            ByteArrayOutputStream base = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", base);
+            base.flush();
+            byte[] imageInByteArray = base.toByteArray();
+            base.close();
+
+            String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+            courseById.setImageUrl(b64);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+
+        }
         model.addAttribute("course", courseById);
         return "course-info";
     }
