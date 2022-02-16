@@ -18,6 +18,7 @@ public class ModuleController {
     ModuleService moduleService;
 
 
+
     @GetMapping(path = "/delete")
     public RedirectView deleteModule(
             @RequestParam(name = "courseId") int courseId,
@@ -28,6 +29,7 @@ public class ModuleController {
         if (moduleService.deleteModuleById(id) == 0) {
             msg = "Not deleted!";
         }
+
         model.addAttribute("msg", msg);
         redirectView.setUrl("/courses/info/" + courseId);
         return redirectView;
@@ -50,7 +52,6 @@ public class ModuleController {
     }
 
 
-
     @GetMapping(path = "/form")
     public String getModule(
             @RequestParam(name = "courseId") int courseId,
@@ -69,8 +70,8 @@ public class ModuleController {
             model.addAttribute("message", "Module not found!!");
             return "redirect:/courses/info/" + courseId;
         }
-
     }
-}
 
+
+}
 
