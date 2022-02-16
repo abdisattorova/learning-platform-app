@@ -28,7 +28,6 @@
             <a href="/users/info/${author.id}"> ${author.fullName}</a>
         </c:forEach>
     </ul>
-<<<<<<< HEAD
 
     <a href='/modules/form?courseId=${course.id}' class="btn btn-primary" style=
             "margin-left: 3px; float: left;"
@@ -36,7 +35,6 @@
        onMouseOut="this.style.color='#00F'">
         <i class="fas fa-plus"></i> Add new module </a>
 
-    <a href="/modules/form?courseId=${course.id}" class="btn btn primary"> + Add module </a>
 </div>
 <div style="top: 44px;">
     <div id="leftmenuinner" style="padding-top: 44px;">
@@ -59,10 +57,6 @@
                         Edit</a>
                 </td>
                 <br>
-
-                <a href="/modules/delete/${module.id}">Delete</a>
-                <a href="/modules/form?id=${module.id}&courseId=${course.id}">Edit</a>
-
                 <br>
                 <c:forEach items="${module.lessons}" var="lesson">
                     <a target="_top" href="/lessons/${lesson.id}" class="active mx-3">${lesson.name}</a><br>

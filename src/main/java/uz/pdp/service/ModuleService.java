@@ -19,11 +19,6 @@ public class ModuleService {
         return "Not added!";
     }
 
-    public int deleteModuleById(int id) {
-        return moduleDao.deleteModuleByIdFromDb(id);
-    }
-
-<<<<<<< HEAD
 
     public String editModule(Module module) {
         int res = moduleDao.editModule(module);
@@ -31,23 +26,14 @@ public class ModuleService {
             return "Successfully edited!";
         }
         return "Not edited";
-=======
-    public String deleteModuleById(int id) {
+    }
+
+    public int deleteModuleById(int id) {
         int i = moduleDao.deleteModuleByIdFromDb(id);
-        if (i != 0) {
-            return "Successfully deleted!!";
-        } else return "Could not delete!!";
->>>>>>> be8174d0c318c8afe88382bf2056d44ed4e75194
+        return i;
     }
 
     public Module getModuleById(int id) {
         return moduleDao.getModuleById(id);
     }
-<<<<<<< HEAD
-=======
-
-    public Module getModuleById(int id) {
-       return moduleDao.getModuleById(id);
-    }
->>>>>>> be8174d0c318c8afe88382bf2056d44ed4e75194
 }
