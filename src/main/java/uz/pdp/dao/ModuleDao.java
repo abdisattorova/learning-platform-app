@@ -6,8 +6,6 @@ import com.google.gson.reflect.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import uz.pdp.dto.AuthorDto;
-import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Module;
@@ -69,11 +67,7 @@ public class ModuleDao {
     }
 
 
-<<<<<<< HEAD
     public int editModule(Module module) {
-=======
-    public void editModule(Module module) {
->>>>>>> be8174d0c318c8afe88382bf2056d44ed4e75194
         try {
             String query = "update modules set name = '"
                     + module.getName() + "'where id=" + module.getId();

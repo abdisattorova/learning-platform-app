@@ -17,19 +17,7 @@ public class ModuleController {
     @Autowired
     ModuleService moduleService;
 
-    @PostMapping
-    public RedirectView editOrAdd(Module module, Model model) {
-        String msg = "";
-        if (module.getId() != 0) {
-            msg = moduleService.editModule(module);
-        } else {
-            msg = moduleService.addModule(module);
-        }
-        model.addAttribute("msg", msg);
-        RedirectView redirectView = new RedirectView();
-        redirectView.setUrl("/courses/info/" + module.getCourseId());
-        return redirectView;
-    }
+
 
     @GetMapping(path = "/delete")
     public RedirectView deleteModule(
@@ -41,53 +29,49 @@ public class ModuleController {
         if (moduleService.deleteModuleById(id) == 0) {
             msg = "Not deleted!";
         }
-        public String editOrAdd (Module module){
-            if (module.getId() != 0) {
-                moduleService.editModule(module);
-            } else {
-                int res = moduleService.addModule(module);
-            }
-            model.addAttribute("msg", msg);
-            redirectView.setUrl("/courses/info/" + courseId);
-            return redirectView;
+
+        model.addAttribute("msg", msg);
+        redirectView.setUrl("/courses/info/" + courseId);
+        return redirectView;
+    }
+
+    @PostMapping
+    public RedirectView editOrAdd(Module module,
+                                  Model model,
+                                  @RequestParam(name = "courseId") int courseId) {
+        RedirectView redirectView = new RedirectView();
+        String msg = "";
+        if (module.getId() != 0) {
+            msg = moduleService.editModule(module);
+        } else {
+            msg = moduleService.addModule(module);
         }
+        model.addAttribute("msg", msg);
+        redirectView.setUrl("/courses/info/" + courseId);
+        return redirectView;
+    }
 
-        public String editModule (Module module){
-            //logic
 
-            return "";
-        }
+    @GetMapping(path = "/form")
+    public String getModule(
+            @RequestParam(name = "courseId") int courseId,
+            Model model,
+            @RequestParam(name = "id", required = false,
+                    defaultValue = "0") int id) {
+        model.addAttribute("courseId", courseId);
+        if (id == 0) return "module-form";
 
-        @GetMapping(path = "/delete/{id}")
-        public String deleteModule ( @PathVariable int id, Model model){
-            //logic
-            String res = moduleService.deleteModuleById(id);
+        Module module = moduleService.getModuleById(id);
+        if (module != null) {
+            model.addAttribute("module", module);
+            return "module-form";
 
-            model.addAttribute("result", res);
-
-            return "";
-        }
-
-        @GetMapping(path = "/form")
-        public String getModule (
-        @RequestParam(name = "courseId") int courseId,
-        Model model,
-        @RequestParam(name = "id", required = false,
-        defaultValue = "0")int id){
-            model.addAttribute("courseId", courseId);
-            if (id == 0) return "module-form";
-
-            Module module = moduleService.getModuleById(id);
-            if (module != null) {
-                model.addAttribute("module", module);
-                return "module-form";
-
-            } else {
-                model.addAttribute("message", "Module not found!!");
-                return "redirect:/courses/info/" + courseId;
-            }
-
+        } else {
+            model.addAttribute("message", "Module not found!!");
+            return "redirect:/courses/info/" + courseId;
         }
     }
+
+
 }
 
