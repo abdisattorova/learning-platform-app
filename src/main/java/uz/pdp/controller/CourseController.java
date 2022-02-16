@@ -29,9 +29,19 @@ public class CourseController {
     UserService userService;
 
     @GetMapping
-    public String getAllCourses(Model model) {
-
-        List<CourseDto> allCourses = courseService.getAllCourses();
+    public String getAllCourses(Model model,
+                                @RequestParam(name = "search",
+                                        required = false,
+                                        defaultValue = "0") String course) {
+        List<CourseDto> allCourses = null;
+        if (course.equals("0")) {
+            allCourses = courseService.getAllCourses();
+        } else {
+            allCourses = courseService.getCoursesBySearch(course);
+            if (allCourses.size() == 0) {
+                model.addAttribute("message", "Course not found!");
+            }
+        }
 
         model.addAttribute("courseList", allCourses);
         return "view-courses";

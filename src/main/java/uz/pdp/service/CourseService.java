@@ -7,6 +7,8 @@ import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 
 import java.util.List;
+import java.util.Locale;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseService {
@@ -22,9 +24,6 @@ public class CourseService {
     }
 
     public void saveCourse(CourseDto courseDto) {
-        //....
-        //......
-        //cds nfb
         courseDao.saveCourseToDb(courseDto);
     }
 
@@ -54,4 +53,9 @@ public class CourseService {
     }
 
 
+    public List<CourseDto> getCoursesBySearch(String course) {
+        List<CourseDto> allCourses = getAllCourses();
+        return allCourses.stream().filter(courseDto -> courseDto.getName().toLowerCase()
+                .contains(course.toLowerCase())).collect(Collectors.toList());
+    }
 }
