@@ -20,6 +20,7 @@
 <c:set var="authors" value="${course.authorDtoList}"></c:set>
 <div class="card-header text-muted">
 
+
     <img src="data:image/png;base64, ${course.imageUrl}" style="width: 500px" alt="Here should be image">
 
     <h5 class="card-title"> All about ${course.name}</h5>
