@@ -19,7 +19,7 @@
 <h3 style="color: blueviolet">${param.msg}</h3>
 <c:set var="authors" value="${course.authorDtoList}"></c:set>
 <div class="card-header text-muted">
-    <img src="${course.imageUrl}" alt="keldi">
+    <img src="data:image/png;base64, ${course.imageUrl}" alt="Here should be image">
     <h5 class="card-title"> All about ${course.name}</h5>
     <p class="card-text">${course.description}</p>
     <h6>Authors: </h6>
