@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-<<<<<<<< HEAD:.idea/artifacts/learning_platform_app_Web_exploded.xml
+
   <artifact type="exploded-war" name="learning-platform-app:Web exploded">
     <output-path>$PROJECT_DIR$/out/artifacts/learning_platform_app_Web_exploded</output-path>
     <root id="root">
@@ -12,38 +12,17 @@
           <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.9" />
           <element id="library" level="project" name="Maven: commons-io:commons-io:2.6" />
           <element id="library" level="project" name="Maven: commons-fileupload:commons-fileupload:1.4" />
-========
-  <artifact type="exploded-war" name="learning-platform-app-master:Web exploded">
-    <output-path>$PROJECT_DIR$/out/artifacts/learning_platform_app_master_Web_exploded</output-path>
-    <root id="root">
-      <element id="javaee-facet-resources" facet="learning-platform-app-master/web/Web" />
-      <element id="directory" name="WEB-INF">
-        <element id="directory" name="classes">
-          <element id="module-output" name="learning-platform-app-master" />
-        </element>
-        <element id="directory" name="lib">
-          <element id="library" level="project" name="Maven: com.google.code.gson:gson:2.8.9" />
->>>>>>>> 39ae0939035f79a3ff5cddf26f087a156b27ae98:.idea/artifacts/learning_platform_app_master_Web_exploded.xml
-          <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
+ <element id="library" level="project" name="Maven: javax.servlet:servlet-api:2.5" />
           <element id="library" level="project" name="Maven: javax.servlet:jstl:1.2" />
           <element id="library" level="project" name="Maven: org.postgresql:postgresql:42.3.2" />
           <element id="library" level="project" name="Maven: org.checkerframework:checker-qual:3.5.0" />
-<<<<<<<< HEAD:.idea/artifacts/learning_platform_app_Web_exploded.xml
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.22" />
           <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.15" />
-========
-          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.3.15" />
-          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.18.22" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.3.15" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.3.15" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.3.15" />
-          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.3.15" />
->>>>>>>> 39ae0939035f79a3ff5cddf26f087a156b27ae98:.idea/artifacts/learning_platform_app_master_Web_exploded.xml
-          <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.3.15" />
+<element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-web:5.3.15" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.3.15" />
