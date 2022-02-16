@@ -40,9 +40,11 @@
             <label class="form-check-label" for="exampleCheck1">Is Active</label>
         </div>
 
-
-            Select File: <input type="file"  name="file"/>
-<%--            <input type="submit" value="Upload File"/>--%>
+        <div>
+            <label class="form-check-label" for="photo">Upload photo: </label>
+            <input id="photo" type="file" name="file"/>
+        </div>
+        <br>
 
         <div class="form-group">
             <label for="authors" id="authors"> Choose authors:</label>

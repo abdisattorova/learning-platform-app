@@ -53,11 +53,7 @@ public class CourseController {
 
     @PostMapping
     public RedirectView addCourse(CourseDto courseDto,
-                                  @RequestParam("file") CommonsMultipartFile file,
-                                  HttpSession session) {
-
-        ServletContext context = session.getServletContext();
-//        String path = context.getRealPath(UPLOAD_DIRECTORY);
+                                  @RequestParam("file") CommonsMultipartFile file) {
         String path = "S:\\IdeaProjects\\Spring\\spring-mvc-example\\spring-mvc-example\\src\\main\\resources";
         String filename = file.getOriginalFilename();
 
@@ -73,8 +69,6 @@ public class CourseController {
             stream.write(bytes);
             stream.flush();
             stream.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -31,6 +31,7 @@
         <thead class="thead-light">
         <tr>
             <%--        <th scope="col">#</th>--%>
+            <th scope="col">Profile photo</th>
             <th scope="col">Full name</th>
             <th scope="col">Username</th>
             <th scope="col">Password</th>
@@ -39,7 +40,9 @@
         <tbody>
         <c:forEach var="user" items="${userList}">
             <tr>
-                    <%--        <th scope="row">1</th>--%>
+                    <%--           <th scope="row">1</th>--%>
+                <td><img src="data:image/png;base64, ${user.imageUrl}" style="width: 40px;height: 40px;border-radius: 50%"
+                     alt="Here should be image"></td>
                 <td>${user.fullName}</td>
                 <td>${user.username}</td>
                 <td>${user.password}</td>

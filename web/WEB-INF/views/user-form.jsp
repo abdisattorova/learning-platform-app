@@ -25,15 +25,22 @@
                 </c:otherwise>
             </c:choose>
         </div>
+        <div>
+            <label class="form-check-label" for="photo">Upload your photo: </label>
+            <input id="photo" type="file" name="file"/>
+        </div>
+        <br>
         <div class="form-group">
             <input id="fullname" required name="fullName" type="text" class="form-control"
                    placeholder="Enter full name" value="${selectedUser.fullName}">
         </div>
-        <br><div class="form-group">
+        <br>
+        <div class="form-group">
             <input id="username" required name="username" type="text" class="form-control"
                    placeholder="Enter username" value="${selectedUser.username}">
         </div>
-        <br><div class="form-group">
+        <br>
+        <div class="form-group">
             <input id="password" required name="password" type="text" class="form-control"
                    placeholder="Enter password" value="${selectedUser.password}">
         </div>
