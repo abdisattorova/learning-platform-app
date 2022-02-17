@@ -16,7 +16,7 @@ public class UserDao {
     JdbcTemplate template;
 
     public List<User> getUsers(int page) {
-        String queryStr = "select id, full_name, username, password from users " +
+        String queryStr = "select id, full_name, username, password,image_url from users " +
                 " limit " + Constants.number_of_elements_in_1_page + " offset " +
                 (page - 1) * Constants.number_of_elements_in_1_page;
         List<User> list = template.query(queryStr, (rs, row) -> {
@@ -25,6 +25,7 @@ public class UserDao {
             user.setFullName(rs.getString(2));
             user.setUsername(rs.getString(3));
             user.setPassword(rs.getString(4));
+            user.setImageUrl(rs.getString(5));
             return user;
         });
         return list;

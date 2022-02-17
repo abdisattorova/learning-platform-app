@@ -25,7 +25,7 @@
 <form action="/courses" method="get">
     <div class="form-group">
         <label for="exampleInputEmail1">Search course</label>
-        <input type="text" class="form-control" id="exampleInputEmail1" name="search" placeholder="Enter course name" >
+        <input type="text" class="form-control" id="exampleInputEmail1" name="search" placeholder="Enter course name">
     </div>
     <br>
 </form>
@@ -44,7 +44,6 @@
                 <tr style="text-align: center">
                     <th scope="col">#</th>
                     <th scope="col">Course</th>
-                    <th scope="col">Description</th>
                     <th scope="col">Authors</th>
                     <th scope="col">Status</th>
                     <%--                    <c:choose>--%>
@@ -52,15 +51,13 @@
                     <th scope="col" colspan="2">Settings</th>
                     <%--                        </c:when>--%>
                     <%--                    </c:choose>--%>
-
                 </tr>
                 </thead>
                 <tbody>
                 <c:forEach items="${courseList}" var="course" varStatus="loop">
                     <tr scope="row" style="text-align: center">
                         <td>${loop.count}</td>
-                        <td>${course.name}</td>
-                        <td><a href="/courses/info/${course.id}" class="btn btn-success"><i class="fas fa-eye"></i>
+                        <td><a href="/courses/info/${course.id}">${course.name}
                         </a></td>
                         <td>
                             <c:forEach items="${course.authorDtoList}" var="author">
