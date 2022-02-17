@@ -14,11 +14,12 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
+
+import static uz.pdp.util.Constants.path;
 
 @Controller
 public class UserController {
@@ -47,7 +48,7 @@ public class UserController {
         for (User allUser : allUsers) {
             BufferedImage image = null;
             try {
-                image = ImageIO.read(new File(allUser.getImageUrl()));
+                image = ImageIO.read(new File(path + allUser.getImageUrl()));
 
                 ByteArrayOutputStream base = new ByteArrayOutputStream();
                 ImageIO.write(image, "png", base);
@@ -71,6 +72,7 @@ public class UserController {
         if (remainder > 0) {
             pages = pages + 1;
         }
+
         model.addAttribute("pages", pages);
         model.addAttribute("userList", allUsers);
         return "view-users";
@@ -98,6 +100,7 @@ public class UserController {
 
     @RequestMapping("/users/form")
     public String getUserForm(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
+
         if (id == 0) return "user-form";
         User user = userService.getUserById(id);
         if (user != null) {
@@ -114,25 +117,30 @@ public class UserController {
     @RequestMapping(path = "/users", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user,
                           @RequestParam("file") CommonsMultipartFile file,
-                          Model model
-                         ) {
-        String path = "S:\\IdeaProjects\\Spring\\spring-mvc-example\\spring-mvc-example\\src\\main\\resources";
-        String filename = file.getOriginalFilename();
-        System.out.println(path + " " + filename);
-        byte[] bytes = file.getBytes();
-        BufferedOutputStream stream = null;
-        try {
-            String imgPath = path + "/" + filename;
-            user.setImageUrl(imgPath);
-            stream = new BufferedOutputStream(new FileOutputStream(
-                    new File(imgPath)));
+                          Model model) {
 
-            stream.write(bytes);
-            stream.flush();
-            stream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+        String filename = "";
+        if (file.getOriginalFilename().length() != 0) {
+            filename = file.getOriginalFilename();
+
+            byte[] bytes = file.getBytes();
+            BufferedOutputStream stream = null;
+            try {
+                String imgPath = path + filename;
+                stream = new BufferedOutputStream(new FileOutputStream(
+                        new File(imgPath)));
+
+                stream.write(bytes);
+                stream.flush();
+                stream.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        } else {
+            filename = "profile.jpg";
         }
+        user.setImageUrl(filename);
         if (user.getId() != 0) {
             userService.editUser(user);
         } else {

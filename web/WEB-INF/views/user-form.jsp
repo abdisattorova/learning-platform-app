@@ -14,7 +14,7 @@
 <body>
 
 <div style="padding: 20px">
-    <form id="user-form" method="post" action="/users">
+    <form id="user-form" method="post" action="/users" enctype="multipart/form-data">
         <div class="form-group">
             <c:choose>
                 <c:when test="${selectedUser.id!=null}">

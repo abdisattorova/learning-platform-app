@@ -10,14 +10,15 @@ import uz.pdp.dto.CourseDto;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
+import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
+
+import static uz.pdp.util.Constants.path;
 
 @Controller
 @RequestMapping("/courses")
@@ -54,15 +55,14 @@ public class CourseController {
     @PostMapping
     public RedirectView addCourse(CourseDto courseDto,
                                   @RequestParam("file") CommonsMultipartFile file) {
-        String path = "S:\\IdeaProjects\\Spring\\spring-mvc-example\\spring-mvc-example\\src\\main\\resources";
         String filename = file.getOriginalFilename();
 
-        System.out.println(path + " " + filename);
+        System.out.println(Constants.path + " " + filename);
         byte[] bytes = file.getBytes();
         BufferedOutputStream stream = null;
         try {
-            String imgPath = path + "/" + filename;
-            courseDto.setImageUrl(imgPath);
+            String imgPath = Constants.path + filename;
+            courseDto.setImageUrl(filename);
             stream = new BufferedOutputStream(new FileOutputStream(
                     new File(imgPath)));
 
@@ -89,7 +89,7 @@ public class CourseController {
         CourseDto courseById = courseService.getCourseById(id);
         BufferedImage image = null;
         try {
-            image = ImageIO.read(new File(courseById.getImageUrl()));
+            image = ImageIO.read(new File(path + courseById.getImageUrl()));
 
             ByteArrayOutputStream base = new ByteArrayOutputStream();
             ImageIO.write(image, "png", base);
