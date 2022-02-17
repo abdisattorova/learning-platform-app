@@ -117,8 +117,7 @@ public class UserController {
     @RequestMapping(path = "/users", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user,
                           @RequestParam("file") CommonsMultipartFile file,
-                          Model model
-    ) {
+                          Model model) {
 
         String filename = "";
         if (file.getOriginalFilename().length() != 0) {

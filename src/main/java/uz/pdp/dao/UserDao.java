@@ -17,6 +17,7 @@ public class UserDao {
 
     public List<User> getUsers(int page) {
         String queryStr = "select id, full_name, username, password,image_url from users " +
+
                 " limit " + Constants.number_of_elements_in_1_page + " offset " +
                 (page - 1) * Constants.number_of_elements_in_1_page;
         List<User> list = template.query(queryStr, (rs, row) -> {

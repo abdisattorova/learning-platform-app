@@ -13,8 +13,6 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
-import javax.servlet.ServletContext;
-import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
