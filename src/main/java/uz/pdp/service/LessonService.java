@@ -1,5 +1,5 @@
 package uz.pdp.service;
-//Sevinch Abdisattorova 02/13/2022 11:04 PM
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,4 +15,16 @@ public class LessonService {
     public Lesson getLessonById(int id) {
         return lessonDao.getLessonById(id);
     }
+
+   /* public String deleteLessonById(int id) {
+        int i = lessonDao.deleteLessonByIdFromDb(id);
+        if (i != 0) {
+            return "Successfully deleted!!";
+        } else return "Could not delete!!";
+    }*/
+
+    public void deleteLessonById(int theId) {
+        lessonDao.deleteLesson(theId);
+    }
 }
+

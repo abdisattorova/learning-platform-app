@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.view.RedirectView;
 import uz.pdp.dao.ModuleDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Lesson;
@@ -18,7 +19,7 @@ import uz.pdp.service.ModuleService;
 
 import java.util.List;
 
-@Controller
+@Controller("/lessons")
 public class LessonController {
     @Autowired
     LessonService lessonService;
@@ -26,16 +27,33 @@ public class LessonController {
     @Autowired
     ModuleService moduleService;
 
-    @RequestMapping(path = "/lessons/{id}")
+    @GetMapping(path = "/{id}")
     public Lesson getLessonById(@PathVariable int id) {
         return lessonService.getLessonById(id);
 
     }
 
-    @RequestMapping(path = "lessons/form")
+    @GetMapping(path = "/form")
     public String getLessonForm(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
         return "";
     }
+
+
+    /*@GetMapping(path = "/delete/{id}")
+    public String deleteLessonById(Model model, @PathVariable int id) {
+        String res = lessonService.deleteLessonById(id);
+        model.addAttribute("message", res);
+        return "redirect:/lessons";
+
+    }*/
+
+@GetMapping("/delete/{id}")
+public String deleteLesson(@PathVariable int id){
+    lessonService.deleteLessonById(id);
+    return "redirect:/module";
+
+}
+
 }
 
 
