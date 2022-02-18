@@ -1,12 +1,10 @@
 package uz.pdp.dao;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import uz.pdp.model.enums.Role;
 import uz.pdp.model.User;
 import uz.pdp.util.Constants;
-
 import java.util.List;
 
 @Component

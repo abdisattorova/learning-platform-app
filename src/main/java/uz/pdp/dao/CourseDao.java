@@ -112,7 +112,9 @@ public class CourseDao {
                 "',image_url = '" + courseDto.getImageUrl() +
                 "' where id = " + courseDto.getId();
         template.update(queryStr);
+
         template.update("delete from courses_users where course_id=" + courseDto.getId());
+
         for (int authorsId : courseDto.getAuthorsIds()) {
             template.update("insert into courses_users " +
                     " (author_id,course_id) values (" + authorsId + "," + courseDto.getId() + ");");
