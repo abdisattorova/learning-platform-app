@@ -5,33 +5,28 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import uz.pdp.model.Lesson;
 
-@Component
+
+@Repository
 public class LessonDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    SessionFactory sessionFactory;
+
     @Autowired
     JdbcTemplate template;
 
+
     public Lesson getLessonById(int id) {
-        // TODO: 02/13/2022
-        return new Lesson();
+        Session session = sessionFactory.getCurrentSession();
+        Lesson lesson = session.get(Lesson.class, id);
+        return lesson;
     }
-/*    public int addLesson(Lesson lesson) {
-        try {
-            String query = "insert into lessons (name, module_id,body,video_link) " +
-                    "values ('" + lesson.getName() + "'," + lesson.getModule().getId() + ","+lesson.getBody()+","+lesson.getVideo_link()+");";
-            int update = template.update(query);
-            return update;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
-    }*/
-    public void saveCustomer(Lesson lesson) {
+
+
+    public void saveLesson(Lesson lesson) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(lesson);
     }
