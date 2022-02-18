@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.view.RedirectView;
+import uz.pdp.dto.ModuleDto;
+import uz.pdp.model.Course;
 import uz.pdp.model.Module;
 import uz.pdp.service.ModuleService;
 
@@ -40,6 +42,7 @@ public class ModuleController {
                                   Model model,
                                   @RequestParam(name = "courseId") int courseId) {
         RedirectView redirectView = new RedirectView();
+        module.setCourse(new Course(courseId));
         String msg = "";
         if (module.getId() != 0) {
             msg = moduleService.editModule(module);
@@ -61,7 +64,7 @@ public class ModuleController {
         model.addAttribute("courseId", courseId);
         if (id == 0) return "module-form";
 
-        Module module = moduleService.getModuleById(id);
+        ModuleDto module = moduleService.getModuleById(id);
         if (module != null) {
             model.addAttribute("module", module);
             return "module-form";

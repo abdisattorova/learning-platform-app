@@ -64,8 +64,8 @@ public class CourseDao {
         });
 
         for (int authorsId : courseDto.getAuthorsIds()) {
-            template.update("Insert into users_courses " +
-                    " (user_id,course_id) values (" + authorsId + "," + courseId + ");");
+            template.update("Insert into courses_users " +
+                    " (author_id,course_id) values (" + authorsId + "," + courseId + ");");
 
         }
 
@@ -96,7 +96,7 @@ public class CourseDao {
     }
 
     public int deleteCourseByIdFromDb(int id) {
-        template.update(" delete  from users_courses where course_id =" + id);
+        template.update(" delete  from courses_users where course_id =" + id);
         return template.update("delete from courses where id = " + id);
     }
 
@@ -108,11 +108,17 @@ public class CourseDao {
                 "',image_url = '" + courseDto.getImageUrl() +
                 "' where id = " + courseDto.getId();
         template.update(queryStr);
+        template.update("delete from courses_users where course_id="+courseDto.getId());
+        for (int authorsId : courseDto.getAuthorsIds()) {
+            template.update("insert into courses_users " +
+                    " (author_id,course_id) values (" + authorsId + "," + courseDto.getId() + ");");
+
+        }
     }
 
     public List<CourseDto> getCoursesOfAuthor(int id) {
         String queryStr = "select c.id, c.name, c.is_active, c.description from courses c " +
-                " join users_courses uc on uc.course_id = c.id " +
+                " join courses_users uc on uc.course_id = c.id " +
                 " where uc.user_id =" + id;
         List<CourseDto> list = template.query(queryStr, (rs, row) -> {
             CourseDto courseDto = new CourseDto();

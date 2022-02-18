@@ -15,5 +15,6 @@ import java.util.List;
 public class ModuleDto {
     private int id;
     private String name;
+    private Integer courseId;
     private List<Lesson> lessons;
 }
