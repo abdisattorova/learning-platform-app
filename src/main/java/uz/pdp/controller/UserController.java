@@ -100,7 +100,6 @@ public class UserController {
 
     @RequestMapping("/users/form")
     public String getUserForm(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
-
         if (id == 0) return "user-form";
         User user = userService.getUserById(id);
         if (user != null) {

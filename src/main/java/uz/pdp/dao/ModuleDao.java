@@ -57,7 +57,7 @@ public class ModuleDao {
     public int addModule(Module module) {
         try {
             String query = "insert into modules (name, course_id) " +
-                    "values ('" + module.getName() + "'," + module.getCourseId() + ");";
+                    "values ('" + module.getName() + "'," + module.getCourse().getId() + ");";
             int update = template.update(query);
             return update;
         } catch (Exception e) {
@@ -80,13 +80,13 @@ public class ModuleDao {
     }
 
 
-    public Module getModuleById(int id) {
-        Module resModule = null;
+    public ModuleDto getModuleById(int id) {
+        ModuleDto resModule = null;
         try {
 
             String query = "SELECT * FROM modules where id=" + id;
             resModule = template.queryForObject(query, (rs, rowNum) -> {
-                Module module = new Module();
+                ModuleDto module = new ModuleDto();
                 module.setId(rs.getInt(1));
                 module.setName(rs.getString(2));
                 module.setCourseId(rs.getInt(3));
