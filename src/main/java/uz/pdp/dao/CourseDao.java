@@ -130,6 +130,5 @@ public class CourseDao {
         return list;
     }
 
-
 }
 

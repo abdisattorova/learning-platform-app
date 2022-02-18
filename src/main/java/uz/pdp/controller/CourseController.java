@@ -30,7 +30,8 @@ import static uz.pdp.util.Constants.path;
 
 public class CourseController {
 
-    private SessionFactory sessionFactory;
+  @Autowired
+    SessionFactory sessionFactory;
 
     @Autowired
     CourseService courseService;
