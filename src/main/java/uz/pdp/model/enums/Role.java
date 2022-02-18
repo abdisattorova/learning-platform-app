@@ -1,4 +1,4 @@
-package uz.pdp.model;
+package uz.pdp.model.enums;
 
 public enum Role {
     ADMIN,
