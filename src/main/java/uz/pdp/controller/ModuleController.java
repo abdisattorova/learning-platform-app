@@ -74,7 +74,4 @@ public class ModuleController {
             return "redirect:/courses/info/" + courseId;
         }
     }
-
-
 }
-

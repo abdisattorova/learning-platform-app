@@ -2,27 +2,16 @@ package uz.pdp.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
-import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
 import uz.pdp.dto.AuthorDto;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
-import uz.pdp.model.User;
 
 import java.lang.reflect.Type;
-import java.sql.*;
+import java.sql.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -136,5 +125,5 @@ public class CourseDao {
         });
         return list;
     }
-    
+
 }

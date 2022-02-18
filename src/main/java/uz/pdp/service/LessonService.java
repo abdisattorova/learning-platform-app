@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import uz.pdp.dao.LessonDao;
 import uz.pdp.model.Lesson;
 
+import javax.transaction.Transactional;
+
 @Service
 public class LessonService {
 
@@ -16,15 +18,14 @@ public class LessonService {
         return lessonDao.getLessonById(id);
     }
 
-   /* public String deleteLessonById(int id) {
-        int i = lessonDao.deleteLessonByIdFromDb(id);
-        if (i != 0) {
-            return "Successfully deleted!!";
-        } else return "Could not delete!!";
-    }*/
-
     public void deleteLessonById(int theId) {
         lessonDao.deleteLesson(theId);
+    }
+
+    @Transactional
+    public void saveLesson(Lesson lesson) {
+        lessonDao.saveCustomer(lesson);
+
     }
 }
 

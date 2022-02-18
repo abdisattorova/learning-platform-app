@@ -13,9 +13,9 @@ import uz.pdp.model.Lesson;
 public class LessonDao {
 
     @Autowired
-    JdbcTemplate template;
+    private SessionFactory sessionFactory;
     @Autowired
-    SessionFactory sessionFactory;
+    JdbcTemplate template;
 
     public void deleteLesson(int theId) {
         Session session = sessionFactory.getCurrentSession();
@@ -30,24 +30,10 @@ public class LessonDao {
 
 
 
-  /*  public int deleteLessonByIdFromDb(int id) {
-        template.update(" delete  from lessons where id =" + id);
-        return template.update("delete from lessons where id = " + id);
-    }*/
+    public void saveCustomer(Lesson lesson) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.saveOrUpdate(lesson);
 
-//==============  ⏬
-
-    public int deleteLessonByIdFromDb(int id) {
-        try {
-            String query = " delete  from lessons where id =" + id + " returning module_id  d";
-            Integer integer = template.queryForObject(query, (rs, rowNum) -> {
-                return rs.getInt(1);
-            });
-            return integer;
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return 0;
     }
 }
 
