@@ -1,11 +1,15 @@
 package uz.pdp.controller;
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
+import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
@@ -24,8 +28,8 @@ import static uz.pdp.util.Constants.path;
 @RequestMapping("/courses")
 public class CourseController {
 
-
-    private static final String UPLOAD_DIRECTORY = "/images";
+  @Autowired
+    SessionFactory sessionFactory;
     @Autowired
     CourseService courseService;
 
