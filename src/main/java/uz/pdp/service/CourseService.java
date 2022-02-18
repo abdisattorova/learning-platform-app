@@ -1,11 +1,15 @@
 package uz.pdp.service;
 
 
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Course;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -58,4 +62,5 @@ public class CourseService {
         return allCourses.stream().filter(courseDto -> courseDto.getName().toLowerCase()
                 .contains(course.toLowerCase())).collect(Collectors.toList());
     }
+
 }

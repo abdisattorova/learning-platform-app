@@ -8,17 +8,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import uz.pdp.dao.ModuleDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Lesson;
-import uz.pdp.model.Module;
-import uz.pdp.model.User;
+import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.ModuleService;
 
-import java.util.List;
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 
-@Controller
+import static uz.pdp.util.Constants.path;
+
+@Controller()
+@RequestMapping("/lessons")
 public class LessonController {
     @Autowired
     LessonService lessonService;
@@ -26,13 +32,19 @@ public class LessonController {
     @Autowired
     ModuleService moduleService;
 
-    @RequestMapping(path = "/lessons/{id}")
-    public Lesson getLessonById(@PathVariable int id) {
-        return lessonService.getLessonById(id);
+    @Autowired
+    CourseService courseService;
 
+
+    @GetMapping(path = "/{id}")
+    public String getLessonById(@PathVariable int id, Model model) {
+        Lesson lessonById = lessonService.getLessonById(id);
+        model.addAttribute("lesson", lessonById);
+        return "/view-lesson";
     }
 
-    @RequestMapping(path = "lessons/form")
+
+    @GetMapping(path = "/form")
     public String getLessonForm(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
         return "";
     }
