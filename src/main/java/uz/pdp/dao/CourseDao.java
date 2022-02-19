@@ -2,9 +2,11 @@ package uz.pdp.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import uz.pdp.dto.AuthorDto;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
@@ -16,8 +18,10 @@ import java.util.List;
 
 
 @Component
+@Repository
 public class CourseDao {
-
+    @Autowired
+    SessionFactory sessionFactory;
     @Autowired
     JdbcTemplate template;
 
@@ -114,7 +118,7 @@ public class CourseDao {
     public List<CourseDto> getCoursesOfAuthor(int id) {
         String queryStr = "select c.id, c.name, c.is_active, c.description from courses c " +
                 " join courses_users uc on uc.course_id = c.id " +
-                " where uc.user_id =" + id;
+                " where uc.author_id =" + id;
         List<CourseDto> list = template.query(queryStr, (rs, row) -> {
             CourseDto courseDto = new CourseDto();
             courseDto.setId(rs.getInt(1));
@@ -127,3 +131,4 @@ public class CourseDao {
     }
 
 }
+

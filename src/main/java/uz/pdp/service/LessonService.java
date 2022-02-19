@@ -14,6 +14,7 @@ public class LessonService {
     @Autowired
     LessonDao lessonDao;
 
+    @Transactional
     public Lesson getLessonById(int id) {
         return lessonDao.getLessonById(id);
     }
@@ -24,7 +25,8 @@ public class LessonService {
 
     @Transactional
     public void saveLesson(Lesson lesson) {
-        lessonDao.saveCustomer(lesson);
+
+        lessonDao.saveLesson(lesson);
 
     }
 }

@@ -17,6 +17,7 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
+import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -26,10 +27,12 @@ import static uz.pdp.util.Constants.path;
 
 @Controller
 @RequestMapping("/courses")
+
 public class CourseController {
 
   @Autowired
     SessionFactory sessionFactory;
+
     @Autowired
     CourseService courseService;
 
@@ -136,6 +139,5 @@ public class CourseController {
         return "redirect:/courses";
 
     }
-
 
 }

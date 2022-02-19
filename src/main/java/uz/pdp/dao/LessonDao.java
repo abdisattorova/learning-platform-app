@@ -5,15 +5,16 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Lesson;
 
-@Component
+
+@Repository
 public class LessonDao {
 
     @Autowired
-    private SessionFactory sessionFactory;
+    SessionFactory sessionFactory;
+
     @Autowired
     JdbcTemplate template;
 
@@ -24,13 +25,12 @@ public class LessonDao {
     }
 
     public Lesson getLessonById(int id) {
-        // TODO: 02/13/2022
-        return new Lesson();
+        Session session = sessionFactory.getCurrentSession();
+        Lesson lesson = session.get(Lesson.class, id);
+        return lesson;
     }
 
-
-
-    public void saveCustomer(Lesson lesson) {
+    public void saveLesson(Lesson lesson) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(lesson);
 

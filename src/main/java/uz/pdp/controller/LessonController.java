@@ -6,10 +6,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.model.Lesson;
+import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.ModuleService;
 
 @Controller("/lessons")
+@RequestMapping("/lessons")
 public class LessonController {
     @Autowired
     LessonService lessonService;
@@ -17,10 +19,16 @@ public class LessonController {
     @Autowired
     ModuleService moduleService;
 
-    @GetMapping(path = "/{id}")
-    public Lesson getLessonById(@PathVariable int id) {
-        return lessonService.getLessonById(id);
 
+    @Autowired
+    CourseService courseService;
+
+
+    @GetMapping(path = "/{id}")
+    public String getLessonById(@PathVariable int id, Model model) {
+        Lesson lessonById = lessonService.getLessonById(id);
+        model.addAttribute("lesson", lessonById);
+        return "/view-lesson";
     }
 
     @GetMapping(path = "/form")
