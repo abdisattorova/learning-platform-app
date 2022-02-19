@@ -1,5 +1,5 @@
 package uz.pdp.service;
-//Sevinch Abdisattorova 02/13/2022 11:04 PM
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -27,7 +27,6 @@ public class LessonService {
         return lessonDao.getLessonById(id);
     }
 
-
     @Transactional
     public void saveLesson(LessonDto lesson, int moduleId) {
         Module module = moduleDao.getModule(moduleId);
@@ -38,4 +37,10 @@ public class LessonService {
                 lesson.getVideo_link()));
     }
 
+    public void deleteLessonById(int theId) {
+        lessonDao.deleteLesson(theId);
+    }
+
+
 }
+

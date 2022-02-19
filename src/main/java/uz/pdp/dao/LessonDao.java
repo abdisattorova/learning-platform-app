@@ -19,6 +19,11 @@ public class LessonDao {
     @Autowired
     JdbcTemplate template;
 
+    public void deleteLesson(int theId) {
+        Session session = sessionFactory.getCurrentSession();
+        Lesson lesson = session.byId(Lesson.class).load(theId);
+        session.delete(lesson);
+    }
 
     public Lesson getLessonById(int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -29,5 +34,10 @@ public class LessonDao {
     public void saveLesson(Lesson lesson) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(lesson);
+
     }
 }
+
+
+
+

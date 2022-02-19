@@ -11,10 +11,8 @@ import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.ModuleService;
 
-
-@Controller()
+@Controller("/lessons")
 @RequestMapping("/lessons")
-
 public class LessonController {
 
     @Autowired
@@ -53,12 +51,20 @@ public class LessonController {
 
 
 
+    @GetMapping("/delete/{id}")
+    public String deleteLesson(@PathVariable int id) {
+        lessonService.deleteLessonById(id);
+        return "redirect:/module";
+
+    }
+
     @PostMapping
     public String saveLesson(@ModelAttribute("lesson") LessonDto lesson,
                              @RequestParam (name = "moduleId")int moduleId) {
         lessonService.saveLesson(lesson,moduleId);
         return "redirect:/courses";
     }
+
 
 }
 
