@@ -20,7 +20,13 @@ public class Option {
     @Column(name = "right_answer")
     private Boolean rightAnswer;
 
-    @ManyToOne
+    private String answer;
+
+    @ManyToOne(fetch = FetchType.LAZY)
     private Task task;
 
+    public Option(String answer, Task task) {
+        this.answer = answer;
+        this.task = task;
+    }
 }

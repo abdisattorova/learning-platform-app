@@ -30,7 +30,7 @@
 <%--                    <input hidden name="id" type="number" class="form-control" value="${null}">--%>
 <%--                </c:otherwise>--%>
             </c:choose>
-        </div> <input hidden name="module.id" type="number" class="form-control" value="${moduleId}">
+        </div>
         <div class="form-group">
             <input id="name" required name="name" type="text" class="form-control"
                    placeholder="Enter lesson name " value="${lesson.name}">

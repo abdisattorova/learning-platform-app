@@ -56,7 +56,7 @@ public class ModuleController {
 
 
     @GetMapping(path = "/form")
-    public String getModule(
+    public String getModuleForm(
             @RequestParam(name = "courseId") int courseId,
             Model model,
             @RequestParam(name = "id", required = false,

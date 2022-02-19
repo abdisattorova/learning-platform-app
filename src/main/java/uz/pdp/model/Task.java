@@ -17,8 +17,6 @@ public class Task {
     @Id
     @GeneratedValue
     private Integer id;
-    private String title;
-
     @ManyToOne
     private Lesson lesson;
     private String body;
