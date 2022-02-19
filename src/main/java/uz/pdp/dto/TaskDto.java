@@ -21,6 +21,7 @@ public class TaskDto {
     Integer lessonId;
     String lessonName;
     String body;
+    String title;
     String[] answers;
     List<Option> options;
 }

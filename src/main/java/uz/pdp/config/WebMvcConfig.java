@@ -51,9 +51,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public JdbcTemplate jdbcTemplate() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/learning_platform_db");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/platform_db");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
+        dataSource.setPassword("0308");
         return new JdbcTemplate(dataSource);
     }
 
@@ -74,9 +74,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         LocalSessionFactoryBean localSessionFactoryBean = new LocalSessionFactoryBean();
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
-        dataSource.setUrl("jdbc:postgresql://localhost:5432/learning_platform_db");
+        dataSource.setUrl("jdbc:postgresql://localhost:5432/platform_db");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
+        dataSource.setPassword("0308");
         localSessionFactoryBean.setDataSource(dataSource);
         localSessionFactoryBean.setPackagesToScan(new String[]{"uz.pdp.model"});
         localSessionFactoryBean.setHibernateProperties(hibernateProperties());

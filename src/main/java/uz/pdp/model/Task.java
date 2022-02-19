@@ -20,5 +20,6 @@ public class Task {
     @ManyToOne
     private Lesson lesson;
     private String body;
+    private String title;
 
 }

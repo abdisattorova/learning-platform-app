@@ -7,9 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.LessonDto;
 import uz.pdp.model.Lesson;
+import uz.pdp.model.Task;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.ModuleService;
+import uz.pdp.service.TaskService;
+
+import java.util.List;
 
 @Controller("/lessons")
 @RequestMapping("/lessons")
@@ -25,11 +29,16 @@ public class LessonController {
     @Autowired
     CourseService courseService;
 
+    @Autowired
+    TaskService taskService;
+
 
     @GetMapping(path = "/{id}")
     public String getLessonById(@PathVariable int id, Model model) {
         Lesson lessonById = lessonService.getLessonById(id);
+        List<Task> tasks = taskService.getAllTasks(id);
         model.addAttribute("lesson", lessonById);
+        model.addAttribute("tasks", tasks);
         return "/view-lesson";
     }
 
