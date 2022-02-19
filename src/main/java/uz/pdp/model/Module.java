@@ -1,15 +1,15 @@
 package uz.pdp.model;
 //Sevinch Abdisattorova 02/13/2022 9:20 PM
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 @Entity(name = "modules")
 public class Module {
     @Id
@@ -20,6 +20,7 @@ public class Module {
     @ManyToOne
     private Course course;
 
-
-
+    public Module(Integer id) {
+        this.id = id;
+    }
 }

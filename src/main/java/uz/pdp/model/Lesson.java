@@ -3,10 +3,7 @@ package uz.pdp.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,6 +12,7 @@ import javax.persistence.ManyToOne;
 @Entity(name = "lessons")
 public class Lesson {
     @Id
+    @GeneratedValue
     private Integer id;
     private String name;
 

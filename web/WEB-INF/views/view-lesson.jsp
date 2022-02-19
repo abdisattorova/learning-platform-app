@@ -20,11 +20,15 @@
 
 </head>
 <body>
-<td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info" href='/lessons/form?id=${lesson.id}'><i
+<td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
+       href='/lessons/form?id=${lesson.id}&moduleId=${lesson.module.id}'><i
         class="fas fa-edit"> Edit</i>
 </a></td>
 <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger" href="/lessons/delete/${lesson.id}"><i
         class="fas fa-trash"> Delete</i> </a></td>
+<td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger"
+       href="/lessons/form?moduleId=${lesson.module.id}"><i
+        class="fas fa-plus"> Add new lesson</i> </a></td>
 <div style="margin-left: 250px;margin-top: 50px"><h2>${lesson.name}</h2></div>
 <br>
 <iframe style="margin-left: 250px" width="800" height="500"
