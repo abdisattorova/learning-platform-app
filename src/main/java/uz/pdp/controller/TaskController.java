@@ -8,9 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import uz.pdp.dto.ModuleDto;
 import uz.pdp.dto.TaskDto;
-import uz.pdp.model.Task;
 import uz.pdp.service.TaskService;
 
 @Controller
