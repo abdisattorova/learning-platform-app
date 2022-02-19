@@ -33,12 +33,13 @@ public class LessonController {
         return "/view-lesson";
     }
 
+
+
     @GetMapping(path = "/form")
     public String getLessonForm(Model model,
                                 @RequestParam(name = "id", required = false,
                                         defaultValue = "0") int id,
                                 @RequestParam(name = "moduleId") int moduleId) {
-
         if (id != 0) {
             Lesson lessonById = lessonService.getLessonById(id);
             model.addAttribute("lesson", lessonById);
@@ -46,6 +47,7 @@ public class LessonController {
         model.addAttribute("moduleId", moduleId);
             return "lesson-form";
     }
+
 
     @GetMapping("/delete/{id}")
     public String deleteLesson(@PathVariable int id) {
