@@ -40,7 +40,6 @@ public class LessonController {
                                 @RequestParam(name = "id", required = false,
                                         defaultValue = "0") int id,
                                 @RequestParam(name = "moduleId") int moduleId) {
-
         if (id != 0) {
             Lesson lessonById = lessonService.getLessonById(id);
             model.addAttribute("lesson", lessonById);
@@ -50,11 +49,10 @@ public class LessonController {
     }
 
 
-
     @GetMapping("/delete/{id}")
     public String deleteLesson(@PathVariable int id) {
         lessonService.deleteLessonById(id);
-        return "redirect:/module";
+        return "redirect:/courses";
 
     }
 
