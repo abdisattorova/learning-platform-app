@@ -38,4 +38,10 @@ public class OptionDao {
             session.save(option);
         }
     }
+
+    public Option getOptionOfTask(int answer) {
+        Session session = sessionFactory.getCurrentSession();
+        Option option = session.get(Option.class, answer);
+        return option;
+    }
 }
