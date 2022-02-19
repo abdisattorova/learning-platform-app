@@ -24,8 +24,7 @@ public class LessonDao {
         Lesson lesson = session.get(Lesson.class, id);
         return lesson;
     }
-
-
+        
     public void saveLesson(Lesson lesson) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(lesson);
