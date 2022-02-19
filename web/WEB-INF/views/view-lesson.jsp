@@ -29,10 +29,13 @@
 <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger"
        href="/lessons/form?moduleId=${lesson.module.id}"><i
         class="fas fa-plus"> Add new lesson</i> </a></td>
+<td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger"
+       href="/tasks/form?lessonId=${lesson.id}"><i
+        class="fas fa-plus"> Add task</i> </a></td>
 <div style="margin-left: 250px;margin-top: 50px"><h2>${lesson.name}</h2></div>
 <br>
 <iframe style="margin-left: 250px" width="800" height="500"
-        src="${lesson.video_link}"
+        src="https://www.youtube.com/embed/${lesson.video_link}"
         title="YouTube video player"
         allow="accelerometer; autoplay; clipboard-write;
         encrypted-media; gyroscope; picture-in-picture"

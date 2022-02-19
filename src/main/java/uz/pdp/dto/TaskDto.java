@@ -7,6 +7,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.PackagePrivate;
 import uz.pdp.model.Lesson;
+import uz.pdp.model.Option;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,8 +18,9 @@ import uz.pdp.model.Lesson;
 
 public class TaskDto {
     Integer id;
-    String title;
     Integer lessonId;
     String lessonName;
     String body;
+    String[] answers;
+    List<Option> options;
 }
