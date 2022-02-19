@@ -61,6 +61,7 @@ public class LessonController {
                              @RequestParam (name = "moduleId")int moduleId) {
         lessonService.saveLesson(lesson,moduleId);
         return "redirect:/courses";
+
     }
 
 
