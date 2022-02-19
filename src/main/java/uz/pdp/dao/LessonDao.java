@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import uz.pdp.dto.LessonDto;
 import uz.pdp.model.Lesson;
 
 
@@ -24,7 +25,7 @@ public class LessonDao {
         Lesson lesson = session.get(Lesson.class, id);
         return lesson;
     }
-        
+
     public void saveLesson(Lesson lesson) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(lesson);

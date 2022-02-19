@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.dto.LessonDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
@@ -15,6 +16,7 @@ import uz.pdp.service.ModuleService;
 @RequestMapping("/lessons")
 
 public class LessonController {
+
     @Autowired
     LessonService lessonService;
 
@@ -33,14 +35,29 @@ public class LessonController {
         return "/view-lesson";
     }
 
+
+
     @GetMapping(path = "/form")
-    public String getLessonForm(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
-        return "";
+    public String getLessonForm(Model model,
+                                @RequestParam(name = "id", required = false,
+                                        defaultValue = "0") int id,
+                                @RequestParam(name = "moduleId") int moduleId) {
+
+        if (id != 0) {
+            Lesson lessonById = lessonService.getLessonById(id);
+            model.addAttribute("lesson", lessonById);
+        }
+        model.addAttribute("moduleId", moduleId);
+            return "lesson-form";
     }
 
+
+
     @PostMapping
-    public void saveLesson(@ModelAttribute("Lesson") Lesson lesson) {
-        lessonService.saveLesson(lesson);
+    public String saveLesson(@ModelAttribute("lesson") LessonDto lesson,
+                             @RequestParam (name = "moduleId")int moduleId) {
+        lessonService.saveLesson(lesson,moduleId);
+        return "redirect:/courses";
     }
 
 }
