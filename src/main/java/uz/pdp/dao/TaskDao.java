@@ -28,6 +28,7 @@ public class TaskDao {
     }
 
     public void deleteTaskById(Integer id) {
+
         Session session = sessionFactory.getCurrentSession();
         Task task = session.byId(Task.class).load(id);
         session.delete(task);
