@@ -3,10 +3,15 @@ package uz.pdp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.dao.OptionDao;
 import uz.pdp.dao.TaskDao;
 
 @Service
 public class OptionService {
     @Autowired
-    OptionService optionService;
+    OptionDao optionDao;
+
+    public String checkAnswer(int answer) {
+optionDao.getOptionOfTask(answer);
+    }
 }

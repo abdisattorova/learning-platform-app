@@ -48,7 +48,7 @@
 
 <c:forEach  var="task" items="${tasks}"><td>
     <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
-    href='/tasks?id=${task.id}'>  ${task.title}</a></td> <br>
+    href='/tasks/${task.id}'>  ${task.title}</a></td> <br>
 </c:forEach>
 <a href="/courses/info/${lesson.module.course.id}" class="btn btn-primary" style=
         "margin-left: 250px; float: left; margin-bottom: 2rem"

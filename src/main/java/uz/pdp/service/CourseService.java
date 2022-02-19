@@ -9,7 +9,7 @@ import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Course;
 
-import javax.transaction.Transactional;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;

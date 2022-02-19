@@ -4,20 +4,23 @@ package uz.pdp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.ModuleDto;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Task;
+import uz.pdp.service.OptionService;
 import uz.pdp.service.TaskService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    OptionService optionService;
 
     @GetMapping(path = "/form")
     public String getTaskForm(
@@ -40,6 +43,23 @@ public class TaskController {
         taskService.saveTask(taskDto, correct_answer_flag);
         return "";
 
+    }
+
+    @GetMapping
+    public String showTask(Model model,
+                           @RequestParam(name = "id") int id) {
+        TaskDto taskDto = taskService.getTaskById(id);
+        model.addAttribute("task", taskDto);
+
+        return "task-page";
+    }
+
+    @GetMapping("/check/{id}")
+    public String checkAnswer(@RequestParam(name = "answer") int answer,
+                              @PathVariable(name = "id") int id) {
+      String resu =  optionService.checkAnswer(answer);
+
+        return "";
     }
 }
 
