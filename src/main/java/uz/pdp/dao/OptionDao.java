@@ -41,7 +41,7 @@ public class OptionDao {
 
     public Option getOptionOfTask(int answer) {
         Session session = sessionFactory.getCurrentSession();
-
-
+        Option option = session.get(Option.class, answer);
+        return option;
     }
 }

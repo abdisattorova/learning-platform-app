@@ -16,6 +16,7 @@
 </head>
 <body>
 <div style="padding: 20px">
+    <h1>${msg}</h1>
     <form action="/tasks/check/${task.id}" method="get">
         <input hidden name="id" type="number"
                class="form-control" value="${task.id}">
@@ -31,6 +32,7 @@
         </c:forEach>
         <input type="submit" class="btn btn-primary" value="Submit answer"
                name="question_submit"/>
+        <a class="btn btn-primary my-3" href="/lessons/${task.lessonId}">Back to lesson</a>
     </form>
 </div>
 </body>
