@@ -8,7 +8,7 @@ import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Module;
 
 @Service
-public class ModuleService {
+public class  ModuleService {
 
     @Autowired
     ModuleDao moduleDao;

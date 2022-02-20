@@ -14,7 +14,7 @@
     <%--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--%>
 </head>
 <body>
-<h3>${msg}</h3>
+<h3 style="text-align: center;color: red">${param.msg}</h3>
 <div class="container">
     <form action="/users/login" method="post">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
@@ -31,7 +31,8 @@
                     <form id="loginform" class="form-horizontal" role="form">
                         <div style="margin-bottom: 25px" class="input-group">
                             <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                            <input required id="login-username" type="text" class="form-control" name="username" value=""
+                            <input required id="login-username" type="text" class="form-control" name="username"
+                                   value=""
                                    placeholder="username">
                         </div>
                         <div style="margin-bottom: 25px" class="input-group">

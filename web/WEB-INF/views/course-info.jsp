@@ -80,7 +80,7 @@
     </div>
 </div>
 <div class="card-footer text-muted">
-    Learning is fun with us
+    LEARNING IS FUN WITH US
 </div>
 </body>
 </html>
