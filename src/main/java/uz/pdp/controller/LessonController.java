@@ -56,7 +56,6 @@ public class LessonController {
         } else {
             tasks = taskService.getAllTasks(id, 0);
         }
-
         model.addAttribute("lesson", lessonById);
         model.addAttribute("tasks", tasks);
         return "view-lesson";
