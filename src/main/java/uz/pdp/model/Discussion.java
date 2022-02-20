@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import java.time.LocalDateTime;
+
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,7 +27,9 @@ public class Discussion {
 
     private String message;
 
-    @ManyToOne
+    @ManyToOne()
     private Lesson lesson;
+
+    private LocalDateTime created_at;
 }
 

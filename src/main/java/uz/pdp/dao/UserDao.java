@@ -114,6 +114,7 @@ public class UserDao {
                 user.setUsername(rs.getString(3));
                 user.setPassword(rs.getString(4));
                 user.setRole(Role.valueOf(rs.getString(5)));
+                user.setImageUrl(rs.getString(6));
                 return user;
             });
         } catch (Exception e) {
