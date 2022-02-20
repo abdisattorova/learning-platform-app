@@ -14,11 +14,13 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
+import static uz.pdp.util.Constants.getUserWithImageUrl;
 import static uz.pdp.util.Constants.path;
 
 @Controller
@@ -46,25 +48,8 @@ public class UserController {
     public String getAllUsers(Model model, @RequestParam(defaultValue = "1") Integer page) {
         List<User> allUsers = userService.getAllUsers(page);
         for (User allUser : allUsers) {
-            BufferedImage image = null;
-            try {
-                image = ImageIO.read(new File(path + allUser.getImageUrl()));
-
-                ByteArrayOutputStream base = new ByteArrayOutputStream();
-                ImageIO.write(image, "png", base);
-                base.flush();
-                byte[] imageInByteArray = base.toByteArray();
-                base.close();
-
-                String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-
-                allUser.setImageUrl(b64);
-            } catch (IOException | NullPointerException e) {
-                e.printStackTrace();
-
-            }
+            getUserWithImageUrl(allUser);
         }
-
         int count = userService.countAllUsers();
         int pages = count / Constants.number_of_elements_in_1_page; //count 10  10/3=3
         int remainder = count % Constants.number_of_elements_in_1_page; //10    10%3=1
@@ -81,20 +66,28 @@ public class UserController {
 
 
     @RequestMapping(path = "/users/login", method = RequestMethod.POST)
-    public String authUser(User user, Model model) {
+    public String authUser(User user, Model model, HttpSession session) {
         String password = user.getPassword();
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
-            List<CourseDto> allCourses = courseService.getAllCourses();
-            model.addAttribute("user", userFromDb);
-            model.addAttribute("courseList", allCourses);
-            return "view-courses";
-//            return "navbar";
+            session.setAttribute("user", userFromDb);
+//            List<CourseDto> allCourses = courseService.getAllCourses();
+            model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
+//            model.addAttribute("user", userFromDb);
+//            model.addAttribute("courseList", allCourses);
+            return "redirect:/courses";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
         return "/login";
 
+    }
+
+
+    @RequestMapping(path = "/logout")
+    public String logout(HttpSession session) {
+        session.removeAttribute("user");
+        return "redirect:login";
     }
 
 

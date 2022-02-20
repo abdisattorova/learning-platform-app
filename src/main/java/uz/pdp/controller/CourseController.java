@@ -17,6 +17,7 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
@@ -27,7 +28,6 @@ import static uz.pdp.util.Constants.path;
 
 @Controller
 @RequestMapping("/courses")
-
 public class CourseController {
 
   @Autowired

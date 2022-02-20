@@ -47,8 +47,15 @@
     <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
     href='/tasks?id=${task.id}'>  ${task.title}</a></td> <br>
 </c:forEach>
-<a href="/courses/info/${lesson.module.course.id}" class="btn btn-primary" style=
+<a href="/discussions/${lesson.id}" class="btn btn-primary" style=
         "margin-left: 250px; float: left; margin-bottom: 2rem"
+   onMouseOver="this.style.color='#0F0'"
+   onMouseOut="this.style.color='#00F'">
+    <ion-icon class="far fa-comment-dots"></ion-icon>
+    Discussion</a>
+
+<a href="/courses/info/${lesson.module.course.id}" class="btn btn-danger" style=
+        "margin-left: 30px; float: left; margin-bottom: 2rem"
    onMouseOver="this.style.color='#0F0'"
    onMouseOut="this.style.color='#00F'">
     <ion-icon class="bi bi-youtube"></ion-icon>

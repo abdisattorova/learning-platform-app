@@ -4,10 +4,29 @@ package uz.pdp.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.DiscussionDao;
-import uz.pdp.dao.TaskDao;
+import uz.pdp.model.Discussion;
+
+import javax.transaction.Transactional;
+import java.util.List;
+
+import static uz.pdp.util.Constants.getUserWithImageUrl;
 
 @Service
 public class DiscussionService {
     @Autowired
     DiscussionDao discussionDao;
+
+    @Transactional
+    public List<Discussion> getDiscussionsOfLesson(int lessonId) {
+        List<Discussion> discussionsOfLesson = discussionDao.getDiscussionsOfLesson(lessonId);
+        for (Discussion discussion : discussionsOfLesson) {
+            getUserWithImageUrl(discussion.getUser());
+        }
+        return discussionsOfLesson;
+    }
+
+    @Transactional
+    public void addDiscussion(Discussion discussion) {
+        discussionDao.addDiscussion(discussion);
+    }
 }
