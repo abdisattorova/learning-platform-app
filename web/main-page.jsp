@@ -23,12 +23,27 @@
        onMouseOut="this.style.color='#00F'">
         <ion-icon name="people-outline"></ion-icon>
         Login</a>
+
+
     <a href="/register" class="btn btn-primary" style=
             "margin-left: 16px; float: left; margin-bottom: 2rem"
        onMouseOver="this.style.color='#0F0'"
        onMouseOut="this.style.color='#00F'">
         <ion-icon name="book-outline"></ion-icon>
         Register</a>
+    <a href="/courses" class="btn btn-primary" style=
+            "margin-left: 16px; float: left; margin-bottom: 2rem"
+       onMouseOver="this.style.color='#0F0'"
+       onMouseOut="this.style.color='#00F'">
+        <ion-icon name="people-outline"></ion-icon>
+        Courses</a>
+
+    <a href="/users" class="btn btn-primary" style=
+            "margin-left: 16px; float: left; margin-bottom: 2rem"
+       onMouseOver="this.style.color='#0F0'"
+       onMouseOut="this.style.color='#00F'">
+        <ion-icon name="people-outline"></ion-icon>
+        Users</a>
 </div>
 </body>
 </html>

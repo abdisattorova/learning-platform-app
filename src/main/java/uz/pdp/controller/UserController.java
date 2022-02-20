@@ -133,7 +133,7 @@ public class UserController {
             filename = "profile.jpg";
         }
         user.setImageUrl(filename);
-        if (user.getId() != 0) {
+        if (user.getId() != null) {
             userService.editUser(user);
         } else {
             if (userService.saveUser(user) == 0) {
@@ -162,6 +162,7 @@ public class UserController {
     @RequestMapping(path = "users/info/{id}")
     public String showUserInfo(Model model, @PathVariable int id) {
         User userById = userService.getUserById(id);
+        getUserWithImageUrl(userById);
         List<CourseDto> courseDtoList = courseService.getCoursesOfAuthor(id);
         model.addAttribute("courses", courseDtoList);
         model.addAttribute("user", userById);

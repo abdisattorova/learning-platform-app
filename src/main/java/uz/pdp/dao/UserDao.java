@@ -56,6 +56,7 @@ public class UserDao {
                 user1.setFullName(rs.getString(2));
                 user1.setUsername(rs.getString(3));
                 user1.setPassword(rs.getString(4));
+                user1.setImageUrl(rs.getString(6));
                 return user1;
             });
         } catch (Exception e) {

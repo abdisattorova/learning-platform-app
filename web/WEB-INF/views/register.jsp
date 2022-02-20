@@ -15,7 +15,7 @@
 <body>
 <h1>${msg}</h1>
 <div class="container">
-    <form action="/users" method="post">
+    <form action="/users" method="post" enctype="multipart/form-data">
         <div style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info">
                 <div class="panel-heading">
@@ -24,7 +24,10 @@
                     </div>
                 </div>
                 <div style="padding-top:30px" class="panel-body">
-
+                    <div style="margin-bottom: 25px" class="input-group my-3">
+                        <label class="form-check-label" for="photo">Upload your photo: </label>
+                        <input id="photo" type="file" name="file"/>
+                    </div>
                     <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
 
                     <%--                    <form id="loginform" class="form-horizontal" role="form">--%>
