@@ -80,28 +80,41 @@ public class TaskService {
 
     @Transactional
     public List<TaskDto> getAllTasks(int lessonId, int userId) {
-        List<Integer> completedTasksOfUser = taskDao.getCompletedTasksOfUser(userId);
         List<Task> allTasksOfLesson = taskDao.getAllTasksOfLesson(lessonId);
         List<TaskDto> taskDtoList = new ArrayList<>();
-        for (Task task : allTasksOfLesson) {
-            TaskDto taskDto = new TaskDto(task.getId(),
-                    task.getLesson().getId(),
-                    task.getLesson().getModule().getId(),
-                    task.getLesson().getName(),
-                    task.getBody(),
-                    task.getTitle(),
-                    null,
-                    false,
-                    optionDao.getOptionsOfTask(task.getId()));
-            if (completedTasksOfUser.stream().anyMatch(integer -> {
-                return task.getId().equals(integer);
-            })) {
-                taskDto.setIsCompleted(true);
+        if (userId != 0) {
+            List<Integer> completedTasksOfUser = taskDao.getCompletedTasksOfUser(userId);
+            for (Task task : allTasksOfLesson) {
+                TaskDto taskDto = new TaskDto(task.getId(),
+                        task.getLesson().getId(),
+                        task.getLesson().getModule().getId(),
+                        task.getLesson().getName(),
+                        task.getBody(),
+                        task.getTitle(),
+                        null,
+                        false,
+                        optionDao.getOptionsOfTask(task.getId()));
+                if (completedTasksOfUser.stream().anyMatch(integer -> {
+                    return task.getId().equals(integer);
+                })) {
+                    taskDto.setIsCompleted(true);
+                }
+                taskDtoList.add(taskDto);
             }
-
-            taskDtoList.add(taskDto);
+        } else {
+            for (Task task : allTasksOfLesson) {
+                TaskDto taskDto = new TaskDto(task.getId(),
+                        task.getLesson().getId(),
+                        task.getLesson().getModule().getId(),
+                        task.getLesson().getName(),
+                        task.getBody(),
+                        task.getTitle(),
+                        null,
+                        false,
+                        optionDao.getOptionsOfTask(task.getId()));
+                taskDtoList.add(taskDto);
+            }
         }
-
         return taskDtoList;
     }
 

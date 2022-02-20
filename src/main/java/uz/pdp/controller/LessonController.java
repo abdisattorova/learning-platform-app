@@ -23,6 +23,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import static uz.pdp.util.Constants.path;
@@ -49,7 +50,12 @@ public class LessonController {
     public String getLessonById(@PathVariable int id, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         Lesson lessonById = lessonService.getLessonById(id);
-        List<TaskDto> tasks = taskService.getAllTasks(id, user.getId());
+        List<TaskDto> tasks = new ArrayList<>();
+        if (user != null) {
+            tasks = taskService.getAllTasks(id, user.getId());
+        } else {
+            tasks = taskService.getAllTasks(id, 0);
+        }
         model.addAttribute("lesson", lessonById);
         model.addAttribute("tasks", tasks);
         return "view-lesson";
