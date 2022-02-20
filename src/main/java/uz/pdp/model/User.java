@@ -3,11 +3,9 @@ package uz.pdp.model;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.Type;
 import uz.pdp.model.enums.Role;
 
 import javax.persistence.*;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +26,5 @@ public class User {
 
     @Column(name = "image_url")
     private String imageUrl;
-
 
 }
