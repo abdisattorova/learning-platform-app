@@ -43,7 +43,7 @@
     <div id="leftmenuinner" style="padding-top: 44px;">
         <div id="leftmenuinnerinner">
             <c:forEach items="${course.moduleDtoList}" var="module">
-
+                <br>
                 <h5 class="left mx-3"><span class="left_h2">
                         </span> ${module.name} </h5>
 
@@ -59,6 +59,11 @@
                         <i class="fas fa-edit"></i>
                         Edit</a>
                 </td>
+               <br>
+               <br>
+                <td><a class="btn btn-primary mx-3"
+                       href="/lessons/form?moduleId=${module.id}"><i
+                        class="fas fa-plus"> Add new lesson</i> </a></td>
                 <br>
                 <br>
                 <c:forEach items="${module.lessons}" var="lesson">
@@ -75,7 +80,7 @@
     </div>
 </div>
 <div class="card-footer text-muted">
-    Learning is fun with us
+    LEARNING IS FUN WITH US
 </div>
 </body>
 </html>
