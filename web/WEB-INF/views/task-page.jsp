@@ -32,6 +32,12 @@
         </c:forEach>
         <input type="submit" class="btn btn-primary" value="Submit answer"
                name="question_submit"/>
+        <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
+               href='/tasks/form?id=${task.id}&lessonId=${task.lessonId}'><i
+                class="fas fa-edit"> Edit</i>
+        </a></td>
+        <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger" href="/tasks/delete/${task.id}/${task.lessonId}"><i
+                class="fas fa-trash"> Delete</i> </a></td>
         <a class="btn btn-primary my-3" href="/lessons/${task.lessonId}">Back to lesson</a>
     </form>
 </div>

@@ -92,7 +92,7 @@ public class CourseController {
 
 
     @GetMapping(path = "/info/{id}")
-    public String showInfoAboutCourse(@PathVariable int id, Model model) {
+    public String showInfoAboutCourse(@PathVariable int id, Model model ) {
         CourseDto courseById = courseService.getCourseById(id);
         BufferedImage image = null;
         try {

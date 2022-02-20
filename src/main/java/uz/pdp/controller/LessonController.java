@@ -5,7 +5,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.LessonDto;
+import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Task;
 import uz.pdp.service.CourseService;
@@ -13,7 +15,15 @@ import uz.pdp.service.LessonService;
 import uz.pdp.service.ModuleService;
 import uz.pdp.service.TaskService;
 
+import javax.imageio.ImageIO;
+import javax.xml.bind.DatatypeConverter;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+
+import static uz.pdp.util.Constants.path;
 
 @Controller("/lessons")
 @RequestMapping("/lessons")
@@ -39,9 +49,8 @@ public class LessonController {
         List<Task> tasks = taskService.getAllTasks(id);
         model.addAttribute("lesson", lessonById);
         model.addAttribute("tasks", tasks);
-        return "/view-lesson";
+        return "view-lesson";
     }
-
 
 
     @GetMapping(path = "/form")
@@ -54,22 +63,67 @@ public class LessonController {
             model.addAttribute("lesson", lessonById);
         }
         model.addAttribute("moduleId", moduleId);
-            return "lesson-form";
+        return "lesson-form";
     }
 
 
-    @GetMapping("/delete/{id}")
-    public String deleteLesson(@PathVariable int id) {
+    @GetMapping("/delete/{id}/{courseId}")
+    public String deleteLesson(@PathVariable(name = "id") int id,
+                               @PathVariable("courseId") int courseId,
+                               Model model) {
         lessonService.deleteLessonById(id);
-        return "redirect:/courses";
+
+        CourseDto courseById = courseService.getCourseById(courseId);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path + courseById.getImageUrl()));
+
+            ByteArrayOutputStream base = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", base);
+            base.flush();
+            byte[] imageInByteArray = base.toByteArray();
+            base.close();
+
+            String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+            courseById.setImageUrl(b64);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+
+        }
+        model.addAttribute("course", courseById);
+        return "course-info";
+
 
     }
 
     @PostMapping
     public String saveLesson(@ModelAttribute("lesson") LessonDto lesson,
-                             @RequestParam (name = "moduleId")int moduleId) {
-        lessonService.saveLesson(lesson,moduleId);
-        return "redirect:/courses";
+                             @RequestParam(name = "moduleId") int moduleId,
+                             Model model) {
+        lessonService.saveLesson(lesson, moduleId);
+        ModuleDto moduleById = moduleService.getModuleById(moduleId);
+        Integer courseId = moduleById.getCourseId();
+        CourseDto courseById = courseService.getCourseById(courseId);
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path + courseById.getImageUrl()));
+
+            ByteArrayOutputStream base = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", base);
+            base.flush();
+            byte[] imageInByteArray = base.toByteArray();
+            base.close();
+
+            String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+            courseById.setImageUrl(b64);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+
+        }
+        model.addAttribute("course", courseById);
+        return "course-info";
 
     }
 

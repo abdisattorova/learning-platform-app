@@ -53,7 +53,7 @@ public class TaskService {
             optionDao.deleteOptionsOfTask(taskDto.getId());
         }
         Lesson lessonById = lessonDao.getLessonById(taskDto.getLessonId());
-        Task task = new Task(taskDto.getId(), lessonById, taskDto.getBody(),taskDto.getTitle());
+        Task task = new Task(taskDto.getId(), lessonById, taskDto.getBody(), taskDto.getTitle());
 
         Task taskById = taskDao.getTaskById(taskDao.saveTask(task));
         List<String> answers = Arrays.asList(taskDto.getAnswers());
@@ -75,5 +75,11 @@ public class TaskService {
     @Transactional
     public List<Task> getAllTasks(int lessonId) {
         return taskDao.getAllTasksOfLessson(lessonId);
+    }
+
+
+    @Transactional
+    public void deleteTaskById(int id) {
+        taskDao.deleteTaskById(id);
     }
 }
