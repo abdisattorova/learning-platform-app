@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import uz.pdp.dao.LessonDao;
 import uz.pdp.dao.OptionDao;
 import uz.pdp.dao.TaskDao;
+import uz.pdp.dao.UsersTasksDao;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Option;
@@ -31,24 +32,29 @@ public class TaskService {
     @Autowired
     LessonDao lessonDao;
 
+    @Autowired
+    UsersTasksDao usersTasksDao;
+
     @Transactional
     public TaskDto getTaskById(int id) {
         List<Option> options = optionDao.getOptionsOfTask(id);
         Task taskById = taskDao.getTaskById(id);
         return new TaskDto(taskById.getId(),
                 taskById.getLesson().getId(),
+                taskById.getLesson().getModule().getId(),
                 taskById.getLesson().getName(),
                 taskById.getBody(),
                 taskById.getTitle(),
                 null,
+                false,
                 options
         );
     }
 
     @Transactional
     public void saveTask(TaskDto taskDto, int correct_answer_flag) {
-
         if (taskDto.getId() != null) {
+            usersTasksDao.deleteTaskFromUsersTask(taskDto.getId());
             taskDao.deleteTaskById(taskDto.getId());
             optionDao.deleteOptionsOfTask(taskDto.getId());
         }
@@ -73,8 +79,30 @@ public class TaskService {
     }
 
     @Transactional
-    public List<Task> getAllTasks(int lessonId) {
-        return taskDao.getAllTasksOfLessson(lessonId);
+    public List<TaskDto> getAllTasks(int lessonId, int userId) {
+        List<Integer> completedTasksOfUser = taskDao.getCompletedTasksOfUser(userId);
+        List<Task> allTasksOfLesson = taskDao.getAllTasksOfLesson(lessonId);
+        List<TaskDto> taskDtoList = new ArrayList<>();
+        for (Task task : allTasksOfLesson) {
+            TaskDto taskDto = new TaskDto(task.getId(),
+                    task.getLesson().getId(),
+                    task.getLesson().getModule().getId(),
+                    task.getLesson().getName(),
+                    task.getBody(),
+                    task.getTitle(),
+                    null,
+                    false,
+                    optionDao.getOptionsOfTask(task.getId()));
+            if (completedTasksOfUser.stream().anyMatch(integer -> {
+                return task.getId().equals(integer);
+            })) {
+                taskDto.setIsCompleted(true);
+            }
+
+            taskDtoList.add(taskDto);
+        }
+
+        return taskDtoList;
     }
 
 
@@ -82,4 +110,5 @@ public class TaskService {
     public void deleteTaskById(int id) {
         taskDao.deleteTaskById(id);
     }
+
 }

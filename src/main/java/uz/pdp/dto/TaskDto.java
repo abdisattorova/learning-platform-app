@@ -19,9 +19,11 @@ import java.util.List;
 public class TaskDto {
     Integer id;
     Integer lessonId;
+    Integer moduleId;
     String lessonName;
     String body;
     String title;
     String[] answers;
+    Boolean isCompleted;
     List<Option> options;
 }

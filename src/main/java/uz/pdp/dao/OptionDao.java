@@ -7,8 +7,7 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
-import uz.pdp.model.Lesson;
-import uz.pdp.model.Option;
+import uz.pdp.model.*;
 
 import java.util.List;
 
@@ -16,6 +15,9 @@ import java.util.List;
 public class OptionDao {
     @Autowired
     SessionFactory sessionFactory;
+
+    @Autowired
+    TaskDao taskDao;
 
     public List<Option> getOptionsOfTask(int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -43,5 +45,10 @@ public class OptionDao {
         Session session = sessionFactory.getCurrentSession();
         Option option = session.get(Option.class, answer);
         return option;
+    }
+
+    public void writeCompletedTaskOfUser(Task taskById, User user) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.save(new UsersTasks(user,taskById,true));
     }
 }

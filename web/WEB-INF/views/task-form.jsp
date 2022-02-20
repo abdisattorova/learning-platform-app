@@ -21,7 +21,7 @@
                   placeholder="Enter question here"
                   name="body" required>${task.body}</textarea>
         <input hidden name="lessonId" type="number"
-               class="form-control" value="${task.lessonId}">
+               class="form-control" value="${lessonId}">
         <input  name="title" type="text"
                class="form-control my-3" placeholder="Enter task title here" value="${task.title}">
         <input hidden name="id" type="number"

@@ -25,7 +25,8 @@
        href='/lessons/form?id=${lesson.id}&moduleId=${lesson.module.id}'><i
         class="fas fa-edit"> Edit</i>
 </a></td>
-<td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger" href="/lessons/delete/${lesson.id}/${lesson.module.course.id}"><i
+<td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger"
+       href="/lessons/delete/${lesson.id}/${lesson.module.course.id}"><i
         class="fas fa-trash"> Delete</i> </a></td>
 <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-primary"
        href="/tasks/form?lessonId=${lesson.id}"><i
@@ -43,11 +44,25 @@
 <div style="margin-left: 250px;margin-top: 50px; margin-right:
 100px;font-family:sans-serif"><p>${lesson.body}</p></div>
 
-<c:forEach  var="task" items="${tasks}"><td>
-    <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
-    href='/tasks?id=${task.id}'>  ${task.title}</a></td> <br>
+<c:forEach var="task" items="${tasks}">
+    <c:choose>
+        <c:when test="${task.isCompleted==true}">
+            <td>
+                <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-success"
+                   href='/tasks?id=${task.id}'> ${task.title}</a>
+            </td>
+        </c:when>
+        <c:when test="${task.isCompleted==false}">
+            <td>
+                <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
+                   href='/tasks?id=${task.id}'> ${task.title}</a>
+            </td>
+            <br>
+        </c:when>
+    </c:choose>
+
 </c:forEach>
-<a href="/discussions/${lesson.id}" class="btn btn-primary" style=
+<a href="/discussions/${task.lessonId}" class="btn btn-primary" style=
         "margin-left: 250px; float: left; margin-bottom: 2rem"
    onMouseOver="this.style.color='#0F0'"
    onMouseOut="this.style.color='#00F'">

@@ -8,14 +8,16 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.LessonDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
-import uz.pdp.model.Task;
+import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.ModuleService;
 import uz.pdp.service.TaskService;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
@@ -44,9 +46,10 @@ public class LessonController {
 
 
     @GetMapping(path = "/{id}")
-    public String getLessonById(@PathVariable int id, Model model) {
+    public String getLessonById(@PathVariable int id, HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
         Lesson lessonById = lessonService.getLessonById(id);
-        List<Task> tasks = taskService.getAllTasks(id);
+        List<TaskDto> tasks = taskService.getAllTasks(id, user.getId());
         model.addAttribute("lesson", lessonById);
         model.addAttribute("tasks", tasks);
         return "view-lesson";

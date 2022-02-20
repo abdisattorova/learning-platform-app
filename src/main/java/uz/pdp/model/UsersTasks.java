@@ -27,4 +27,9 @@ public class UsersTasks {
     @Column(name = "is_completed")
     Boolean isCompleted ;
 
+    public UsersTasks(User user, Task task, Boolean isCompleted) {
+        this.user = user;
+        this.task = task;
+        this.isCompleted = isCompleted;
+    }
 }

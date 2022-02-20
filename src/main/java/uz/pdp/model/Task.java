@@ -20,6 +20,11 @@ public class Task {
     @ManyToOne
     private Lesson lesson;
     private String body;
+
+    public Task(Integer id) {
+        this.id = id;
+    }
+
     private String title;
 
 
