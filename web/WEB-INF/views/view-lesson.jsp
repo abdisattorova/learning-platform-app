@@ -62,7 +62,7 @@
     </c:choose>
 
 </c:forEach>
-<a href="/discussions/${task.lessonId}" class="btn btn-primary" style=
+<a href="/discussions/${lesson.id}" class="btn btn-primary" style=
         "margin-left: 250px; float: left; margin-bottom: 2rem"
    onMouseOver="this.style.color='#0F0'"
    onMouseOut="this.style.color='#00F'">
