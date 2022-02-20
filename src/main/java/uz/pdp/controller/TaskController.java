@@ -8,10 +8,12 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Task;
+import uz.pdp.model.User;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.OptionService;
 import uz.pdp.service.TaskService;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -43,11 +45,12 @@ public class TaskController {
     @PostMapping
     public String saveTask(TaskDto taskDto,
                            @RequestParam int correct_answer_flag,
-                           Model model
+                           Model model,HttpSession session
     ) {
+        User user = (User) session.getAttribute("user");
         taskService.saveTask(taskDto, correct_answer_flag);
         Lesson lessonById = lessonService.getLessonById(taskDto.getLessonId());
-        List<Task> tasks = taskService.getAllTasks(taskDto.getLessonId());
+        List<TaskDto> tasks = taskService.getAllTasks(taskDto.getLessonId(),user.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
         return "view-lesson";
@@ -63,12 +66,22 @@ public class TaskController {
         return "task-page";
     }
 
-    @GetMapping("/check/{id}")
-    public String checkAnswer(@RequestParam(name = "answer") int answer,
-                              @PathVariable(name = "id") int id,
-                              Model model) {
-        String result = optionService.checkAnswer(answer);
-        model.addAttribute("msg", result);
+    @GetMapping("/check/{id}/{lessonId}")
+    public String checkAnswer(@PathVariable(name = "id") int id,
+                              @PathVariable(name = "lessonId") int lessonId,
+                              @RequestParam(name = "answer") int answer,
+                              Model model,
+                              HttpSession session) {
+
+        User user = (User) session.getAttribute("user");
+        if (optionService.checkAnswer(answer,id,user)){
+            Lesson lessonById = lessonService.getLessonById(lessonId);
+            List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
+            model.addAttribute("tasks", tasks);
+            model.addAttribute("lesson", lessonById);
+            return "view-lesson";
+        }
+        model.addAttribute("msg", "Incorrect");
         TaskDto taskDto = taskService.getTaskById(id);
         model.addAttribute("task", taskDto);
         return "task-page";
@@ -79,10 +92,12 @@ public class TaskController {
     public String deleteTask(
             @PathVariable(name = "id") int id,
             @PathVariable(name = "lessonId") int lessonId,
-            Model model) {
+            Model model,
+            HttpSession session) {
+        User user = (User) session.getAttribute("user");
         taskService.deleteTaskById(id);
         Lesson lessonById = lessonService.getLessonById(lessonId);
-        List<Task> tasks = taskService.getAllTasks(lessonId);
+        List<TaskDto> tasks = taskService.getAllTasks(lessonId,user.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
         return "view-lesson";

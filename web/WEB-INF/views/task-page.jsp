@@ -16,8 +16,8 @@
 </head>
 <body>
 <div style="padding: 20px">
-    <h1>${msg}</h1>
-    <form action="/tasks/check/${task.id}" method="get">
+    <h1 style="align-content: center;color: red">${msg}</h1>
+    <form action="/tasks/check/${task.id}/${task.lessonId}" method="get">
         <input hidden name="id" type="number"
                class="form-control" value="${task.id}">
         <h4>${task.title}</h4>
@@ -31,7 +31,7 @@
             <br/>
         </c:forEach>
         <input type="submit" class="btn btn-primary" value="Submit answer"
-               name="question_submit"/>
+               name="submit"/>
 
         <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
                href='/tasks/form?id=${task.id}&lessonId=${task.lessonId}'><i

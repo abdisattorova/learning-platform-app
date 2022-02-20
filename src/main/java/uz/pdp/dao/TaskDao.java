@@ -7,6 +7,7 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Task;
+import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -36,15 +37,8 @@ public class TaskDao {
         session.delete(task);
     }
 
-    public List<Task> getAllTasks() {
-        Session session = sessionFactory.getCurrentSession();
-        List<Task> tasks = (List<Task>) session.createQuery("from Task").list();
 
-        return tasks;
-
-    }
-
-    public List<Task> getAllTasksOfLessson(int lessonId) {
+    public List<Task> getAllTasksOfLesson(int lessonId) {
         Session session = sessionFactory.getCurrentSession();
         NativeQuery query = session.createNativeQuery("select * from tasks where lesson_id =" + lessonId);
         query.addEntity(Task.class);
@@ -52,4 +46,13 @@ public class TaskDao {
         return tasks;
 
     }
+
+    public List<Integer> getCompletedTasksOfUser(int userId){
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery query = currentSession.createNativeQuery("select distinct task_id from users_tasks where user_id =" + userId);
+
+        return query.list();
+
+    }
+
 }

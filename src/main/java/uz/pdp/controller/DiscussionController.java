@@ -12,7 +12,6 @@ import uz.pdp.service.DiscussionService;
 import uz.pdp.service.LessonService;
 
 import javax.servlet.http.HttpSession;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static uz.pdp.util.Constants.getUserWithImageUrl;

@@ -1,15 +1,12 @@
 package uz.pdp.controller;
 
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
-import uz.pdp.dao.CourseDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
@@ -17,8 +14,6 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
-import javax.servlet.http.HttpSession;
-import javax.transaction.Transactional;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -30,7 +25,7 @@ import static uz.pdp.util.Constants.path;
 @RequestMapping("/courses")
 public class CourseController {
 
-  @Autowired
+    @Autowired
     SessionFactory sessionFactory;
 
     @Autowired
@@ -92,7 +87,7 @@ public class CourseController {
 
 
     @GetMapping(path = "/info/{id}")
-    public String showInfoAboutCourse(@PathVariable int id, Model model ) {
+    public String showInfoAboutCourse(@PathVariable int id, Model model) {
         CourseDto courseById = courseService.getCourseById(id);
         BufferedImage image = null;
         try {
@@ -140,5 +135,4 @@ public class CourseController {
 
     }
 
-    
 }
