@@ -1,7 +1,6 @@
 package uz.pdp.controller;
 //Sevinch Abdisattorova 02/18/2022 1:34 PM
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -33,7 +32,7 @@ public class TaskController {
             @RequestParam(name = "lessonId") int lessonId,
             @RequestParam(name = "id", required = false,
                     defaultValue = "0") int id) {
-        model.addAttribute("lessonId",lessonId);
+        model.addAttribute("lessonId", lessonId);
         if (id != 0) {
             TaskDto task = taskService.getTaskById(id);
             model.addAttribute("task", task);
@@ -87,7 +86,6 @@ public class TaskController {
         model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
         return "view-lesson";
-
     }
 }
 
