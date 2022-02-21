@@ -108,20 +108,18 @@ public class UserController {
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user,
-                          @RequestParam("file") CommonsMultipartFile file,
+                          @RequestParam(value = "file" ,required = false) CommonsMultipartFile file,
                           Model model) {
 
         String filename = "";
-        if (file.getOriginalFilename().length() != 0) {
+        if (file!= null) {
             filename = file.getOriginalFilename();
-
             byte[] bytes = file.getBytes();
             BufferedOutputStream stream = null;
             try {
                 String imgPath = path + filename;
                 stream = new BufferedOutputStream(new FileOutputStream(
                         new File(imgPath)));
-
                 stream.write(bytes);
                 stream.flush();
                 stream.close();

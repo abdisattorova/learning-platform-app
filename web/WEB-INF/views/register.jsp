@@ -15,7 +15,7 @@
 <body>
 <h1>${msg}</h1>
 <div class="container">
-    <form action="/users" method="post" enctype="multipart/form-data">
+    <form action="/users" method="post" >
         <div style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
             <div class="panel panel-info">
                 <div class="panel-heading">

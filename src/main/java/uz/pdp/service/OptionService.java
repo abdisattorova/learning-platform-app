@@ -30,4 +30,11 @@ public class OptionService {
         return optionOfTask.getRightAnswer();
 
     }
+
+    @Transactional
+    public Boolean checkAnswer(int answer, int id) {
+        Option optionOfTask = optionDao.getOptionOfTask(answer);
+        return optionOfTask.getRightAnswer();
+
+    }
 }
