@@ -29,7 +29,6 @@
         <h5 class="my-3">Enter options here </h5>
 
         <c:forEach var="num" begin="1" end="4">
-
             <input type="radio" name="correct_answer_flag"
                    value="${num}">
             <input type="number" hidden
