@@ -63,4 +63,11 @@ public class CourseService {
                 .contains(course.toLowerCase())).collect(Collectors.toList());
     }
 
+    public int getCourseCount(int id) {
+      return   courseDao.getTaskCount(id);
+    }
+
+    public int getSolvedTask(int userId) {
+        return   courseDao.getSolvedTask(userId);
+    }
 }

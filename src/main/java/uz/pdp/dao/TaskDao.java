@@ -7,7 +7,6 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Task;
-import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -24,10 +23,9 @@ public class TaskDao {
         return task;
     }
 
-    public Integer saveTask(Task task) {
+    public void saveTask(Task task) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Integer id = (Integer) currentSession.save(task);
-        return id;
+        currentSession.saveOrUpdate(task);
     }
 
     public void deleteTaskById(Integer id) {
@@ -47,7 +45,7 @@ public class TaskDao {
 
     }
 
-    public List<Integer> getCompletedTasksOfUser(int userId){
+    public List<Integer> getCompletedTasksOfUser(int userId) {
         Session currentSession = sessionFactory.getCurrentSession();
         NativeQuery query = currentSession.createNativeQuery("select distinct task_id from users_tasks where user_id =" + userId);
 

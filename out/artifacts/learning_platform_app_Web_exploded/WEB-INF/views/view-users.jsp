@@ -45,7 +45,9 @@
                 <td><img src="data:image/png;base64, ${user.imageUrl}"
                          style="width: 40px;height: 40px;border-radius: 50%"
                          alt="Profile photo"></td>
-                <td>${user.fullName}</td>
+                <td>
+                    <a href="/users/info/${user.id}">${user.fullName}</a>
+                </td>
                 <td>${user.username}</td>
                 <td>${user.password}</td>
                 <td>

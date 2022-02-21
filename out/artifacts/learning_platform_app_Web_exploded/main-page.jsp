@@ -16,19 +16,31 @@
 
 </head>
 <body>
-<div class="m-20">
-    <a href="/login" class="btn btn-primary" style=
-            "margin-left: 16px; float: left; margin-bottom: 2rem"
-       onMouseOver="this.style.color='#0F0'"
-       onMouseOut="this.style.color='#00F'">
-        <ion-icon name="people-outline"></ion-icon>
-        Login</a>
-    <a href="/register" class="btn btn-primary" style=
-            "margin-left: 16px; float: left; margin-bottom: 2rem"
-       onMouseOver="this.style.color='#0F0'"
-       onMouseOut="this.style.color='#00F'">
-        <ion-icon name="book-outline"></ion-icon>
-        Register</a>
+<div style="justify-content: center">
+    <div style="margin-left: 700px ; margin-top: 50px">
+        <a href="/login" class="btn btn-primary"
+           style="padding: 20px 40px"
+           onMouseOver="this.style.color='#0F0'"
+           onMouseOut="this.style.color='#00F'">
+            <ion-icon name="people-outline"></ion-icon>
+            Login</a>
+        <a href="/register" class="btn btn-primary"
+           style="padding: 20px 40px"
+           onMouseOver="this.style.color='#0F0'"
+           onMouseOut="this.style.color='#00F'">
+            <ion-icon name="book-outline"></ion-icon>
+            Register</a>
+
+
+
+    </div>
+    <div>
+        <img style=" display: block;
+         margin-top: 50px;
+         margin-left: 400px;
+        margin-right: auto;
+  width: 50%;" src="https://remakelearning.org/wp-content/uploads/2020/01/122.gif">
+    </div>
 </div>
 </body>
 </html>

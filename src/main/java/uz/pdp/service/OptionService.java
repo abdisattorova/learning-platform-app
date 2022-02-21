@@ -1,7 +1,6 @@
 package uz.pdp.service;
 //Sevinch Abdisattorova 02/18/2022 1:35 PM
 
-import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.OptionDao;
@@ -29,5 +28,11 @@ public class OptionService {
         }
         return optionOfTask.getRightAnswer();
 
+    }
+
+    @Transactional
+    public Boolean checkAnswer(int id) {
+        Option optionOfTask = optionDao.getOptionOfTask(id);
+        return optionOfTask.getRightAnswer();
     }
 }

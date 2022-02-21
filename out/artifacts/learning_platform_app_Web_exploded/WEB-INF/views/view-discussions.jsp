@@ -24,6 +24,7 @@
 
 </head>
 <body>
+
 <div class="container mt-5 mb-5">
     <div class="row height d-flex justify-content-center align-items-center">
         <div class="col-md-7">
@@ -68,6 +69,7 @@
                         </form>
                     </div>
                 </div>
+                <a class="btn btn-primary my-3" href="/lessons/${discussions.get(0).lesson.id}">Back to lesson</a>
             </div>
         </div>
     </div>
