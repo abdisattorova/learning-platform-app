@@ -45,12 +45,12 @@ public class TaskController {
     @PostMapping
     public String saveTask(TaskDto taskDto,
                            @RequestParam int correct_answer_flag,
-                           Model model,HttpSession session
+                           Model model, HttpSession session
     ) {
         User user = (User) session.getAttribute("user");
         taskService.saveTask(taskDto, correct_answer_flag);
         Lesson lessonById = lessonService.getLessonById(taskDto.getLessonId());
-        List<TaskDto> tasks = taskService.getAllTasks(taskDto.getLessonId(),user.getId());
+        List<TaskDto> tasks = taskService.getAllTasks(taskDto.getLessonId(), user.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
         return "view-lesson";
@@ -74,13 +74,25 @@ public class TaskController {
                               HttpSession session) {
 
         User user = (User) session.getAttribute("user");
-        if (optionService.checkAnswer(answer,id,user)){
-            Lesson lessonById = lessonService.getLessonById(lessonId);
-            List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
-            model.addAttribute("tasks", tasks);
-            model.addAttribute("lesson", lessonById);
-            return "view-lesson";
+
+        if (user != null) {
+            if (optionService.checkAnswer(answer, id, user)) {
+                Lesson lessonById = lessonService.getLessonById(lessonId);
+                List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
+                model.addAttribute("tasks", tasks);
+                model.addAttribute("lesson", lessonById);
+                return "view-lesson";
+            }
+        } else {
+            if (optionService.checkAnswer(answer, id)) {
+                List<TaskDto> tasks = taskService.getAllTasks(lessonId,0);
+                model.addAttribute("tasks", tasks);
+                Lesson lessonById = lessonService.getLessonById(lessonId);
+                model.addAttribute("lesson", lessonById);
+                return "view-lesson";
+            }
         }
+
         model.addAttribute("msg", "Incorrect");
         TaskDto taskDto = taskService.getTaskById(id);
         model.addAttribute("task", taskDto);
@@ -97,7 +109,7 @@ public class TaskController {
         User user = (User) session.getAttribute("user");
         taskService.deleteTaskById(id);
         Lesson lessonById = lessonService.getLessonById(lessonId);
-        List<TaskDto> tasks = taskService.getAllTasks(lessonId,user.getId());
+        List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
         return "view-lesson";
