@@ -37,13 +37,13 @@ public class OptionDao {
     public void saveOptions(List<Option> options) {
         Session session = sessionFactory.getCurrentSession();
         for (Option option : options) {
-            session.save(option);
+            session.saveOrUpdate(option);
         }
     }
 
-    public Option getOptionOfTask(int answer) {
+    public Option getOptionOfTask(int id) {
         Session session = sessionFactory.getCurrentSession();
-        Option option = session.get(Option.class, answer);
+        Option option = session.get(Option.class, id);
         return option;
     }
 
