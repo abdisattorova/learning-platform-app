@@ -120,6 +120,7 @@ public class TaskService {
 
     @Transactional
     public void deleteTaskById(int id) {
+        usersTasksDao.deleteTaskFromUsersTask(id);
         optionDao.deleteOptionsOfTask(id);
         taskDao.deleteTaskById(id);
     }

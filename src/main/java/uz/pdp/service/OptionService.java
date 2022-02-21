@@ -23,7 +23,7 @@ public class OptionService {
     @Transactional
     public Boolean checkAnswer(int answer, int id, User user) {
         Option optionOfTask = optionDao.getOptionOfTask(answer);
-        if (optionOfTask.getRightAnswer()) {
+        if (optionOfTask.getRightAnswer() && user != null) {
             optionDao.writeCompletedTaskOfUser(new Task(id), user);
         }
         return optionOfTask.getRightAnswer();
