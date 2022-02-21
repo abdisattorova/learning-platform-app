@@ -5,6 +5,7 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Task;
 
@@ -16,6 +17,8 @@ public class TaskDao {
     @Autowired
     SessionFactory sessionFactory;
 
+    @Autowired
+    JdbcTemplate template;
 
     public Task getTaskById(int id) {
         Session session = sessionFactory.getCurrentSession();
@@ -34,7 +37,6 @@ public class TaskDao {
         session.delete(task);
     }
 
-
     public List<Task> getAllTasksOfLesson(int lessonId) {
         Session session = sessionFactory.getCurrentSession();
         NativeQuery query = session.createNativeQuery("select * from tasks where lesson_id =" + lessonId);
@@ -52,4 +54,20 @@ public class TaskDao {
 
     }
 
+    public int getTaskCount(int id) {
+        String query = "select * from countAllTasksOfCourse(" + id + ")";
+        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return integer1;
+    }
+
+    public int getSolvedTask(int userId, int courseId) {
+        String query = "select * from countsolvedtasksofuserbycourse" +
+                "(" + userId + "," + courseId + ")";
+        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return integer1;
+    }
 }

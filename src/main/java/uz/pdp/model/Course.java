@@ -36,6 +36,14 @@ public class Course {
 
     private List<User> authorList;
 
+    public Course(Integer id, String name, String description, Boolean isActive, String imageUrl) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.isActive = isActive;
+        this.imageUrl = imageUrl;
+    }
+
     public Course(Integer id) {
         this.id = id;
     }

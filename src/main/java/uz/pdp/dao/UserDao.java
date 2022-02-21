@@ -92,7 +92,7 @@ public class UserDao {
     }
 
     public List<User> getAuthors() {
-        String queryStr = "select id, full_name, username, password from users where role ='AUTHOR'";
+        String queryStr = "select id, full_name, username, password from users where role ='MENTOR'";
         List<User> list = template.query(queryStr, (rs, row) -> {
             User user = new User();
             user.setId(rs.getInt(1));

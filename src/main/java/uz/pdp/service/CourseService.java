@@ -6,10 +6,12 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.CourseDao;
+import uz.pdp.dao.TaskDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Course;
 
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -20,6 +22,9 @@ public class CourseService {
 
     @Autowired
     CourseDao courseDao;
+
+    @Autowired
+    TaskDao taskDao;
 
     public List<CourseDto> getAllCourses() {
 
@@ -63,11 +68,11 @@ public class CourseService {
                 .contains(course.toLowerCase())).collect(Collectors.toList());
     }
 
-    public int getCourseCount(int id) {
-      return   courseDao.getTaskCount(id);
+    public int countTasksOfCourse(int id) {
+        return taskDao.getTaskCount(id);
     }
 
-    public int getSolvedTask(int userId) {
-        return   courseDao.getSolvedTask(userId);
+    public int countSolvedTasksOfCourseByUseer(int userId, int courseId) {
+        return taskDao.getSolvedTask(userId, courseId);
     }
 }

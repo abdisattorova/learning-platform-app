@@ -20,7 +20,7 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
-import static uz.pdp.util.Constants.path;
+import static uz.pdp.util.Constants.*;
 
 @Controller
 @RequestMapping("/courses")
@@ -39,7 +39,9 @@ public class CourseController {
     public String getAllCourses(Model model,
                                 @RequestParam(name = "search",
                                         required = false,
-                                        defaultValue = "0") String course) {
+                                        defaultValue = "0") String course,
+                                HttpSession session) {
+        User user = (User) session.getAttribute("user");
         List<CourseDto> allCourses = null;
         if (course.equals("0")) {
             allCourses = courseService.getAllCourses();
@@ -49,17 +51,21 @@ public class CourseController {
                 model.addAttribute("message", "Course not found!");
             }
         }
-
-
+        for (CourseDto courseDto : allCourses) {
+            courseDto.setAllTasksNum(courseService.countTasksOfCourse(courseDto.getId()));
+            courseDto.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), courseDto.getId()));
+            getCourseWithImageUrl(courseDto);
+        }
         model.addAttribute("courseList", allCourses);
         return "view-courses";
     }
 
     @PostMapping
     public RedirectView addCourse(CourseDto courseDto,
-                                  @RequestParam("file") CommonsMultipartFile file) {
+                                  @RequestParam(name = "file", required = false) CommonsMultipartFile file) {
         String filename = file.getOriginalFilename();
-        if (filename.endsWith(".jpg") || filename.endsWith(".png")) {
+        if (file != null && file.getOriginalFilename().endsWith(".jpg")
+                || file.getOriginalFilename().endsWith(".png")) {
             byte[] bytes = file.getBytes();
             BufferedOutputStream stream = null;
             try {
@@ -75,11 +81,13 @@ public class CourseController {
                 e.printStackTrace();
             }
         }
+
         if (courseDto.getId() != 0) {
             courseService.editCourse(courseDto);
         } else {
             courseService.saveCourse(courseDto);
         }
+
         RedirectView redirectView = new RedirectView();
         redirectView.setUrl("/courses");
         return redirectView;
@@ -106,13 +114,9 @@ public class CourseController {
             e.printStackTrace();
 
         }
-
-        User user =(User) session.getAttribute("user");
-
-        int task_count = courseService.getCourseCount(id);
-        int solved_task=courseService.getSolvedTask(user.getId());
-        model.addAttribute("task_count", task_count);
-        model.addAttribute("solved_task",solved_task);
+        User user = (User) session.getAttribute("user");
+        courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
+        courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
         model.addAttribute("course", courseById);
         return "course-info";
     }
