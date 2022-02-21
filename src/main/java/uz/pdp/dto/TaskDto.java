@@ -24,6 +24,7 @@ public class TaskDto {
     String body;
     String title;
     String[] answers;
+    Integer[] answerIds;
     Boolean isCompleted;
     List<Option> options;
 }

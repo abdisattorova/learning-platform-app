@@ -29,14 +29,16 @@
         <h5 class="my-3">Enter options here </h5>
 
         <c:forEach var="num" begin="1" end="4">
-            <c:set var="optionId" value="${num}"></c:set>
-            <c:choose>
-                <c:when test="${task.id!=0}">
-                    <c:set var="optionId" value="${task.options.get(num-1).id}"></c:set>
-                </c:when>
-            </c:choose>
+<%--            <c:set var="optionId" value="${num}"></c:set>--%>
+<%--            <c:choose>--%>
+<%--                <c:when test="${task.id!=0}">--%>
+<%--                    <c:set var="optionId" value="${task.options.get(num-1).id}"></c:set>--%>
+<%--                </c:when>--%>
+<%--            </c:choose>--%>
             <input type="radio" name="correct_answer_flag"
-                   value="${optionId}">
+                   value="${num}">
+            <input type="number" hidden
+                   name="answerIds" value="${task.options.get(num-1).id}" />
             <input type="text" placeholder="Enter option here "
                    name="answers" value="${task.options.get(num-1).answer}" required/>
             <br/>

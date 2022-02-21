@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
-import uz.pdp.model.Task;
 import uz.pdp.model.User;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.OptionService;
@@ -50,11 +49,15 @@ public class TaskController {
         User user = (User) session.getAttribute("user");
         taskService.saveTask(taskDto, correct_answer_flag);
         Lesson lessonById = lessonService.getLessonById(taskDto.getLessonId());
-        List<TaskDto> tasks = taskService.getAllTasks(taskDto.getLessonId(), user.getId());
-        model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
+        List<TaskDto> tasks;
+        if (user != null) {
+            tasks = taskService.getAllTasks(taskDto.getLessonId(), user.getId());
+        } else {
+            tasks = taskService.getAllTasks(taskDto.getLessonId(), 0);
+        }
+        model.addAttribute("tasks", tasks);
         return "view-lesson";
-
     }
 
     @GetMapping
@@ -62,7 +65,6 @@ public class TaskController {
                            @RequestParam(name = "id") int id) {
         TaskDto taskDto = taskService.getTaskById(id);
         model.addAttribute("task", taskDto);
-
         return "task-page";
     }
 
@@ -74,25 +76,24 @@ public class TaskController {
                               HttpSession session) {
 
         User user = (User) session.getAttribute("user");
+        Lesson lessonById = lessonService.getLessonById(lessonId);
+        model.addAttribute("lesson", lessonById);
 
         if (user != null) {
             if (optionService.checkAnswer(answer, id, user)) {
-                Lesson lessonById = lessonService.getLessonById(lessonId);
+                model.addAttribute("msg", "Correct");
                 List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
                 model.addAttribute("tasks", tasks);
-                model.addAttribute("lesson", lessonById);
                 return "view-lesson";
             }
         } else {
-            if (optionService.checkAnswer(answer, id)) {
-                List<TaskDto> tasks = taskService.getAllTasks(lessonId,0);
+            if (optionService.checkAnswer(answer)) {
+                model.addAttribute("msg", "Correct");
+                List<TaskDto> tasks = taskService.getAllTasks(lessonId, 0);
                 model.addAttribute("tasks", tasks);
-                Lesson lessonById = lessonService.getLessonById(lessonId);
-                model.addAttribute("lesson", lessonById);
                 return "view-lesson";
             }
         }
-
         model.addAttribute("msg", "Incorrect");
         TaskDto taskDto = taskService.getTaskById(id);
         model.addAttribute("task", taskDto);

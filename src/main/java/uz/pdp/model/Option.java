@@ -25,8 +25,4 @@ public class Option {
     @ManyToOne(fetch = FetchType.LAZY)
     private Task task;
 
-    public Option(String answer, Task task) {
-        this.answer = answer;
-        this.task = task;
-    }
 }

@@ -46,6 +46,7 @@ public class TaskService {
                 taskById.getBody(),
                 taskById.getTitle(),
                 null,
+                null,
                 false,
                 options
         );
@@ -53,25 +54,21 @@ public class TaskService {
 
     @Transactional
     public void saveTask(TaskDto taskDto, int correct_answer_flag) {
-        if (taskDto.getId() != null) {
-            usersTasksDao.deleteTaskFromUsersTask(taskDto.getId());
-            taskDao.deleteTaskById(taskDto.getId());
-            optionDao.deleteOptionsOfTask(taskDto.getId());
-        }
         Lesson lessonById = lessonDao.getLessonById(taskDto.getLessonId());
         Task task = new Task(taskDto.getId(), lessonById, taskDto.getBody(), taskDto.getTitle());
 
-        Task taskById = taskDao.getTaskById(taskDao.saveTask(task));
+        taskDao.saveTask(task);
         List<String> answers = Arrays.asList(taskDto.getAnswers());
-
         List<Option> options = new ArrayList<>();
         for (int i = 1; i <= answers.size(); i++) {
-            String answer = answers.get(i - 1);
-            Option option = new Option(answer, taskById);
+            Option option = new Option(
+                    taskDto.getAnswerIds()[i - 1],
+                    false,
+                    answers.get(i - 1),
+                    task);
+
             if (i == correct_answer_flag) {
                 option.setRightAnswer(true);
-            } else {
-                option.setRightAnswer(false);
             }
             options.add(option);
         }
@@ -92,6 +89,7 @@ public class TaskService {
                         task.getBody(),
                         task.getTitle(),
                         null,
+                        null,
                         false,
                         optionDao.getOptionsOfTask(task.getId()));
                 if (completedTasksOfUser.stream().anyMatch(integer -> {
@@ -110,6 +108,7 @@ public class TaskService {
                         task.getBody(),
                         task.getTitle(),
                         null,
+                        null,
                         false,
                         optionDao.getOptionsOfTask(task.getId()));
                 taskDtoList.add(taskDto);
@@ -121,6 +120,7 @@ public class TaskService {
 
     @Transactional
     public void deleteTaskById(int id) {
+        optionDao.deleteOptionsOfTask(id);
         taskDao.deleteTaskById(id);
     }
 

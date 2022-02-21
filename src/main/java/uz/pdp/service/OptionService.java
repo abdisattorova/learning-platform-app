@@ -32,8 +32,8 @@ public class OptionService {
     }
 
     @Transactional
-    public Boolean checkAnswer(int answer, int id) {
-        Option optionOfTask = optionDao.getOptionOfTask(answer);
+    public Boolean checkAnswer(int id) {
+        Option optionOfTask = optionDao.getOptionOfTask(id);
         return optionOfTask.getRightAnswer();
 
     }
