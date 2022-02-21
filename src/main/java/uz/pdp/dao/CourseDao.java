@@ -2,6 +2,7 @@ package uz.pdp.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import uz.pdp.dto.AuthorDto;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.model.Course;
 
 import java.lang.reflect.Type;
 import java.sql.Array;
@@ -38,6 +40,7 @@ public class CourseDao {
             courseDto1.setName(rs.getString(2));
             courseDto1.setDescription(rs.getString(3));
             courseDto1.setActive(rs.getBoolean(4));
+            courseDto1.setImageUrl(rs.getString("image_url"));
             Array authors = rs.getArray("authors");
             Type type = new TypeToken<ArrayList<AuthorDto>>() {
             }.getType();
@@ -51,6 +54,7 @@ public class CourseDao {
     }
 
     public int saveCourseToDb(CourseDto courseDto) {
+
         String name = courseDto.getName();
         String description = courseDto.getDescription();
         String sqlQuery = "insert into courses (name, description,image_url) values ('" + name + "', '" + description + "' ,'" + courseDto.getImageUrl() + "')";
@@ -59,11 +63,9 @@ public class CourseDao {
             int result = rs.getInt(1);
             return result;
         });
-
         for (int authorsId : courseDto.getAuthorsIds()) {
             template.update("Insert into courses_users " +
                     " (author_id,course_id) values (" + authorsId + "," + courseId + ");");
-
         }
 
         return res;
@@ -130,29 +132,6 @@ public class CourseDao {
         return list;
     }
 
-    public int getTaskCount(int id) {
-        String query = "select count(*)\n" +
-                "from tasks\n" +
-                "join lessons l on l.id = tasks.lesson_id\n" +
-                "join modules m on m.id = l.module_id\n" +
-                "join courses c on c.id = m.course_id\n" +
-                "where c.id="+id;
-        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
-            return rs.getInt(1);
-        });
-        return integer1;
-    }
 
-    public int getSolvedTask(int userId) {
-        String query ="select count(*)\n" +
-                "from tasks\n" +
-                "join users_tasks ut on tasks.id = ut.task_id\n" +
-                "join users u on ut.user_id = u.id\n" +
-                "where u.id="+userId+" and ut.is_completed=true";
-        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
-            return rs.getInt(1);
-        });
-        return integer1;
-    }
 }
 

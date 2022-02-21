@@ -37,7 +37,9 @@
        onMouseOver="this.style.color='#0F0'"
        onMouseOut="this.style.color='#00F'">
         <i class="fas fa-plus"></i> Add new module </a>
-
+    <progress value="${course.solvedTasksNum}" max="${course.allTasksNum}"></progress>
+    <c:set var="pr" scope="session" value="${(course.allTasksNum/course.solvedTasksNum)*100}"/>
+    <p>${pr}%</p>
 </div>
 <div style="top: 44px;">
     <div id="leftmenuinner" style="padding-top: 44px;">
@@ -59,8 +61,8 @@
                         <i class="fas fa-edit"></i>
                         Edit</a>
                 </td>
-               <br>
-               <br>
+                <br>
+                <br>
                 <td><a class="btn btn-primary mx-3"
                        href="/lessons/form?moduleId=${module.id}"><i
                         class="fas fa-plus"> Add new lesson</i> </a></td>
@@ -75,10 +77,6 @@
         <a href="/courses" class="btn btn-primary mx-3">
             <i class="bi bi-back"></i>
             Back</a><br>
-
-        <progress value="${solved_task}" max="${task_count}"></progress>
-        <c:set var="pr" scope="session" value="${(task_count/solved_task)*100}"/>
-       <p>${pr}%</p>
         <br>
         <br>
     </div>

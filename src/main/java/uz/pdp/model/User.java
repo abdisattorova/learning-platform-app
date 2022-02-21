@@ -27,4 +27,7 @@ public class User {
     @Column(name = "image_url")
     private String imageUrl;
 
+    public User(Integer id) {
+        this.id = id;
+    }
 }

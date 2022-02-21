@@ -72,10 +72,7 @@ public class UserController {
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
             session.setAttribute("user", userFromDb);
-//            List<CourseDto> allCourses = courseService.getAllCourses();
             model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
-//            model.addAttribute("user", userFromDb);
-//            model.addAttribute("courseList", allCourses);
             return "redirect:/courses";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
