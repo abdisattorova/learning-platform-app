@@ -20,7 +20,8 @@ import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 
-import static uz.pdp.util.Constants.*;
+import static uz.pdp.util.Constants.getCourseWithImageUrl;
+import static uz.pdp.util.Constants.path;
 
 @Controller
 @RequestMapping("/courses")
@@ -66,6 +67,7 @@ public class CourseController {
         String filename = file.getOriginalFilename();
         if (file != null && file.getOriginalFilename().endsWith(".jpg")
                 || file.getOriginalFilename().endsWith(".png")) {
+
             byte[] bytes = file.getBytes();
             BufferedOutputStream stream = null;
             try {
@@ -81,7 +83,6 @@ public class CourseController {
                 e.printStackTrace();
             }
         }
-
         if (courseDto.getId() != 0) {
             courseService.editCourse(courseDto);
         } else {
