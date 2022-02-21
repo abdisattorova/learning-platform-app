@@ -76,6 +76,7 @@ public class TaskController {
                               HttpSession session) {
 
         User user = (User) session.getAttribute("user");
+
         Lesson lessonById = lessonService.getLessonById(lessonId);
         model.addAttribute("lesson", lessonById);
 
@@ -94,6 +95,7 @@ public class TaskController {
                 return "view-lesson";
             }
         }
+
         model.addAttribute("msg", "Incorrect");
         TaskDto taskDto = taskService.getTaskById(id);
         model.addAttribute("task", taskDto);

@@ -29,6 +29,7 @@
         <h5 class="my-3">Enter options here </h5>
 
         <c:forEach var="num" begin="1" end="4">
+<<<<<<< HEAD
 <%--            <c:set var="optionId" value="${num}"></c:set>--%>
 <%--            <c:choose>--%>
 <%--                <c:when test="${task.id!=0}">--%>
@@ -39,6 +40,16 @@
                    value="${num}">
             <input type="number" hidden
                    name="answerIds" value="${task.options.get(num-1).id}" />
+=======
+            <c:set var="optionId" value="${num}"></c:set>
+            <c:choose>
+                <c:when test="${task.id!=0}">
+                    <c:set var="optionId" value="${task.options.get(num-1).id}"></c:set>
+                </c:when>
+            </c:choose>
+            <input type="radio" name="correct_answer_flag"
+                   value="${optionId}">
+>>>>>>> 17f4e189329a69edea28f4261a61f11021310734
             <input type="text" placeholder="Enter option here "
                    name="answers" value="${task.options.get(num-1).answer}" required/>
             <br/>

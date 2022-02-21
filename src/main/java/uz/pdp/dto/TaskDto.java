@@ -6,7 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.PackagePrivate;
-import uz.pdp.model.Lesson;
 import uz.pdp.model.Option;
 
 import java.util.List;
