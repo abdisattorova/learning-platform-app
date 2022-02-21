@@ -74,7 +74,11 @@
         </div>
         <a href="/courses" class="btn btn-primary mx-3">
             <i class="bi bi-back"></i>
-            Back</a>
+            Back</a><br>
+
+        <progress value="${solved_task}" max="${task_count}"></progress>
+        <c:set var="pr" scope="session" value="${(task_count/solved_task)*100}"/>
+       <p>${pr}%</p>
         <br>
         <br>
     </div>

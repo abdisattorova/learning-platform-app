@@ -14,6 +14,7 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpSession;
 import javax.xml.bind.DatatypeConverter;
 import java.awt.image.BufferedImage;
 import java.io.*;
@@ -87,7 +88,7 @@ public class CourseController {
 
 
     @GetMapping(path = "/info/{id}")
-    public String showInfoAboutCourse(@PathVariable int id, Model model) {
+    public String showInfoAboutCourse(@PathVariable int id, Model model, HttpSession session) {
         CourseDto courseById = courseService.getCourseById(id);
         BufferedImage image = null;
         try {
@@ -106,6 +107,13 @@ public class CourseController {
             e.printStackTrace();
 
         }
+
+        User user =(User) session.getAttribute("user");
+
+        int task_count = courseService.getCourseCount(id);
+        int solved_task=courseService.getSolvedTask(user.getId());
+        model.addAttribute("task_count", task_count);
+        model.addAttribute("solved_task",solved_task);
         model.addAttribute("course", courseById);
         return "course-info";
     }

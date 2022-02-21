@@ -130,5 +130,29 @@ public class CourseDao {
         return list;
     }
 
+    public int getTaskCount(int id) {
+        String query = "select count(*)\n" +
+                "from tasks\n" +
+                "join lessons l on l.id = tasks.lesson_id\n" +
+                "join modules m on m.id = l.module_id\n" +
+                "join courses c on c.id = m.course_id\n" +
+                "where c.id="+id;
+        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return integer1;
+    }
+
+    public int getSolvedTask(int userId) {
+        String query ="select count(*)\n" +
+                "from tasks\n" +
+                "join users_tasks ut on tasks.id = ut.task_id\n" +
+                "join users u on ut.user_id = u.id\n" +
+                "where u.id="+userId+" and ut.is_completed=true";
+        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return integer1;
+    }
 }
 
