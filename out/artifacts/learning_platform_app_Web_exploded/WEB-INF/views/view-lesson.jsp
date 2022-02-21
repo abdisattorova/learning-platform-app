@@ -18,9 +18,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <style type="text/css">
-        <%@include file="like.css" %>
-    </style>
+
 </head>
 <body>
 <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
@@ -64,7 +62,7 @@
     </c:choose>
 
 </c:forEach>
-<a href="/discussions/${task.lessonId}" class="btn btn-primary" style=
+<a href="/discussions/${lesson.id}" class="btn btn-primary" style=
         "margin-left: 250px; float: left; margin-bottom: 2rem"
    onMouseOver="this.style.color='#0F0'"
    onMouseOut="this.style.color='#00F'">
@@ -77,11 +75,5 @@
    onMouseOut="this.style.color='#00F'">
     <ion-icon class="bi bi-youtube"></ion-icon>
     Back</a>
-
-<td>
-    <button   name="like" value="like" class="like mx-3">
-        <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-    </button>
-</td>
 </body>
 </html>

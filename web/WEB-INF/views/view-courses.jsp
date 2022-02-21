@@ -14,10 +14,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Courses</title>
+  <%--  <style><%@include file="/WEB-INF/views/bar.css"%></style>--%>
 </head>
 <body class="container">
 <h1>${message}</h1>
-
 <form action="/courses" method="get">
     <div class="form-group">
         <label for="exampleInputEmail1">Search course</label>
@@ -45,8 +45,6 @@
                     <%--                    <c:choose>--%>
                     <%--                        <c:when test="${user.role.equals('ADMIN') or user.role.equals('SUPER_ADMIN')}">--%>
                     <th scope="col" colspan="2">Settings</th>
-                    <%--                        </c:when>--%>
-                    <%--                    </c:choose>--%>
                 </tr>
                 </thead>
                 <tbody>
