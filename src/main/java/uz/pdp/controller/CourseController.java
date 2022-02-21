@@ -59,23 +59,22 @@ public class CourseController {
     public RedirectView addCourse(CourseDto courseDto,
                                   @RequestParam("file") CommonsMultipartFile file) {
         String filename = file.getOriginalFilename();
+        if (filename.endsWith(".jpg") || filename.endsWith(".png")) {
+            byte[] bytes = file.getBytes();
+            BufferedOutputStream stream = null;
+            try {
+                String imgPath = Constants.path + filename;
+                courseDto.setImageUrl(filename);
+                stream = new BufferedOutputStream(new FileOutputStream(
+                        new File(imgPath)));
 
-        System.out.println(Constants.path + " " + filename);
-        byte[] bytes = file.getBytes();
-        BufferedOutputStream stream = null;
-        try {
-            String imgPath = Constants.path + filename;
-            courseDto.setImageUrl(filename);
-            stream = new BufferedOutputStream(new FileOutputStream(
-                    new File(imgPath)));
-
-            stream.write(bytes);
-            stream.flush();
-            stream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
+                stream.write(bytes);
+                stream.flush();
+                stream.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-
         if (courseDto.getId() != 0) {
             courseService.editCourse(courseDto);
         } else {
