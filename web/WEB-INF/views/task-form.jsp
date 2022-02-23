@@ -17,14 +17,15 @@
 <body>
 <div style="padding: 20px">
     <form action="/tasks" method="post">
+        <input name="title" type="text"
+               class="form-control my-3" placeholder="Enter task title here" value="${task.title}">
+
         <textarea rows="7" class="form-control"
                   placeholder="Enter question here"
                   name="body" required>${task.body}</textarea>
         <input hidden name="lessonId" type="number"
                class="form-control" value="${lessonId}">
-        <input name="title" type="text"
-               class="form-control my-3" placeholder="Enter task title here" value="${task.title}">
-        <input hidden name="id" type="number"
+           <input hidden name="id" type="number"
                class="form-control" value="${task.id}">
         <h5 class="my-3">Enter options here </h5>
 
@@ -32,7 +33,7 @@
             <input type="radio" name="correct_answer_flag"
                    value="${num}">
             <input type="number" hidden
-                   name="answerIds" value="${task.options.get(num-1).id}" />
+                   name="answerIds" value="${task.options.get(num-1).id}"/>
             <input type="text" placeholder="Enter option here "
                    name="answers" value="${task.options.get(num-1).answer}" required/>
             <br/>

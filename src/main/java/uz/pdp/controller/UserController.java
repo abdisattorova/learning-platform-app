@@ -108,24 +108,25 @@ public class UserController {
                           @RequestParam(value = "file", required = false) CommonsMultipartFile file,
                           Model model) {
         String filename = "";
-        if (file != null && file.getOriginalFilename().endsWith(".jpg")
-                || file.getOriginalFilename().endsWith(".png")) {
-            filename = file.getOriginalFilename();
-            byte[] bytes = file.getBytes();
-            BufferedOutputStream stream = null;
-            try {
-                String imgPath = path + filename;
-                stream = new BufferedOutputStream(new FileOutputStream(
-                        new File(imgPath)));
-                stream.write(bytes);
-                stream.flush();
-                stream.close();
-                user.setImageUrl(filename);
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (file != null) {
+            if (file.getOriginalFilename().endsWith(".jpg")
+                    || file.getOriginalFilename().endsWith(".png")) {
+                filename = file.getOriginalFilename();
+                byte[] bytes = file.getBytes();
+                BufferedOutputStream stream = null;
+                try {
+                    String imgPath = path + filename;
+                    stream = new BufferedOutputStream(new FileOutputStream(
+                            new File(imgPath)));
+                    stream.write(bytes);
+                    stream.flush();
+                    stream.close();
+                    user.setImageUrl(filename);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         } else if (file == null && user.getImageUrl() != null) {
-
         } else {
             filename = "profile.jpg";
             user.setImageUrl(filename);
