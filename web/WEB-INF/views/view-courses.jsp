@@ -35,54 +35,7 @@
            onMouseOut="this.style.color='#00F'">
             <i class="fas fa-plus"></i> Add new course </a>
         <div class="col-md-12">
-            <table class="table table-bordered">
-                <thead>
-                <tr style="text-align: center">
-                    <th scope="col">#</th>
-                    <th scope="col">Course</th>
-                    <th scope="col">Authors</th>
-                    <th scope="col">Status</th>
-                    <%--                    <c:choose>--%>
-                    <%--                        <c:when test="${user.role.equals('ADMIN') or user.role.equals('SUPER_ADMIN')}">--%>
-                    <th scope="col" colspan="2">Settings</th>
-                </tr>
-                </thead>
-                <tbody>
-                <c:forEach items="${courseList}" var="course" varStatus="loop">
-                    <tr scope="row" style="text-align: center">
-                        <td>${loop.count}</td>
-                        <td><a href="/courses/info/${course.id}">${course.name}
-                        </a></td>
-                        <td>
-                            <c:forEach items="${course.authorDtoList}" var="author">
-                                <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
-                            </c:forEach>
-                        </td>
-                        <td>${course.active}</td>
-                            <%--  <c:forEach items="${course.authorDtoList}" var="author">
-                                  <c:if test="${author.id==user.id}">
-                                      <c:set var="result" value="true"></c:set>
-                                  </c:if>
-                              </c:forEach>--%>
-                            <%--                        <c:choose>--%>
-                            <%--                            <c:when test="${user.role.equals('ADMIN') or user.role.equals('SUPER_ADMIN')}">--%>
-                        <td><a class="btn btn-info" href='/courses/form?id=${course.id}'><i
-                                class="fas fa-edit"></i>
-                        </a></td>
-                        <td><a class="btn btn-danger" href="/courses/delete/${course.id}"><i
-                                class="fas fa-trash"></i> </a></td>
-                            <%--                            </c:when>--%>
-                            <%--                        </c:choose>--%>
-                    </tr>
-                </c:forEach>
-                </tbody>
-                <tbody></tbody>
-                <tbody></tbody>
-            </table>
-
             <%--            ---------------------------------------------------------------------------------------------------------%>
-
-
                 <div class="row">
                     <c:forEach items="${courseList}" var="course" varStatus="loop">
 
@@ -90,38 +43,31 @@
 
                             <div class="card">
                                 <div class="card-body" style="text-align: center">
-                                    <img src="data:image/png;base64, ${course.imageUrl}" style="width: 72px; height: 72px" alt="Here should be image">
+                                    <img src="data:image/png;base64, ${course.imageUrl}"
+                                         style="width: 72px; height: 72px" alt="Here should be image">
+                                    <br>
                                     <a href="/courses/info/${course.id}">
                                         <h5 class="card-title">${course.name}</h5>
                                     </a>
-
-                                        <%--                                    <c:forEach items="${course.authorDtoList}" var="author">--%>
-                                        <%--                                        <a href="/users/info/${author.id}"> ${author.fullName}</a><br>--%>
-                                        <%--                                    </c:forEach>--%>
-
-                                        <%--                            <h5 class="card-title">${course.name}</h5>--%>
-                                    <a class="btn btn-info" href='/courses/form?id=${course.id}'><i
-                                            class="fas fa-edit"></i>
-                                    </a>
-                                    <a class="btn btn-danger" href="/courses/delete/${course.id}"><i
-                                            class="fas fa-trash"></i> </a>
-
-                                        <%-- <a href="<c:url value="/editTask?id=${course.id}"/>" class="btn btn-primary">Edit</a>--%>
-                                        <%-- <a href="<c:url value="/deleteTask?id=${course.id}"/>" class="btn btn-danger">Delete</a>--%>
+                                    <c:forEach items="${course.authorDtoList}" var="author">
+                                        <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
+                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${user.role.name().equals('ADMIN')||user.role.name().equals('MENTOR')}">
+                                            <a class="btn btn-info" href='/courses/form?id=${course.id}'><i
+                                                    class="fas fa-edit"></i>
+                                            </a>
+                                            <a class="btn btn-danger" href="/courses/delete/${course.id}"><i
+                                                    class="fas fa-trash"></i> </a>
+                                        </c:when>
+                                    </c:choose>
                                 </div>
                             </div>
 
                         </div>
                         <%--            <c:set var="id" value="${task.userId}"/>--%>
                     </c:forEach>
-
                 </div>
-
-
-
-
-            <%--            ---------------------------------------------------------------------------------------------------------%>
-
             <div style="padding-left:40%;padding-right:40%;padding-top:1rem">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
