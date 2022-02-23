@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -133,5 +134,11 @@ public class CourseDao {
     }
 
 
+    public int countAllCourses() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = currentSession.createNativeQuery("select count(*) from courses");
+        return (int) nativeQuery.uniqueResult();
+
+    }
 }
 

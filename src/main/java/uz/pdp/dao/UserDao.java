@@ -131,4 +131,24 @@ public class UserDao {
         });
         return integer;
     }
+
+    public int countStudents() {
+        String query = " Select count(*) from users where role = 'USER'";
+        Integer integer = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+
+        return integer;
+    }
+
+    public int countMentors() {
+        String query = " Select count(*) from users where role = 'MENTOR'";
+        Integer integer = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+
+        return integer;
+    }
+
+
 }

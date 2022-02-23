@@ -68,4 +68,8 @@ public class CourseService {
     public int countSolvedTasksOfCourseByUseer(int userId, int courseId) {
         return taskDao.getSolvedTask(userId, courseId);
     }
+
+ public int countAllCourses(int count){
+        return courseDao.countAllCourses();
+ }
 }
