@@ -8,6 +8,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Role;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
@@ -65,6 +66,26 @@ public class UserController {
         }
 
         model.addAttribute("pages", pages);
+        model.addAttribute("userList", allUsers);
+        return "view-users";
+
+    }
+
+    @RequestMapping(path = "/students", method = RequestMethod.GET)
+    public String getAllStudents(Model model) {
+        List<User> allUsers = userService.getAllStudents();
+        for (User allUser : allUsers) {
+            getUserWithImageUrl(allUser);
+        }
+        model.addAttribute("userList", allUsers);
+        return "view-users";
+
+    }@RequestMapping(path = "/mentors", method = RequestMethod.GET)
+    public String getAllMentors(Model model) {
+        List<User> allUsers = userService.getAllAuthors();
+        for (User allUser : allUsers) {
+            getUserWithImageUrl(allUser);
+        }
         model.addAttribute("userList", allUsers);
         return "view-users";
 
