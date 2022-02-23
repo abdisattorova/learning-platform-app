@@ -57,12 +57,8 @@ public class UserService {
         return userDao.countUsers();
     }
 
-    public int countAllStudents(){
-        return userDao.countStudents();
 
-    }
-    public int countAllMentors(){
-        return userDao.countMentors();
-
+    public List<User> getAllStudents() {
+        return userDao.getStudents();
     }
 }

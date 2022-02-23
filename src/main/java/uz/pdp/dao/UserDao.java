@@ -92,13 +92,14 @@ public class UserDao {
     }
 
     public List<User> getAuthors() {
-        String queryStr = "select id, full_name, username, password from users where role ='MENTOR'";
+        String queryStr = "select id, full_name, username, password,image_url from users where role ='MENTOR'";
         List<User> list = template.query(queryStr, (rs, row) -> {
             User user = new User();
             user.setId(rs.getInt(1));
             user.setFullName(rs.getString(2));
             user.setUsername(rs.getString(3));
             user.setPassword(rs.getString(4));
+            user.setImageUrl(rs.getString(5));
             return user;
         });
         return list;
@@ -132,23 +133,17 @@ public class UserDao {
         return integer;
     }
 
-    public int countStudents() {
-        String query = " Select count(*) from users where role = 'USER'";
-        Integer integer = template.queryForObject(query, (rs, rowNum) -> {
-            return rs.getInt(1);
+    public List<User> getStudents() {
+        String queryStr = "select id, full_name, username, password,image_url from users where role ='USER'";
+        List<User> list = template.query(queryStr, (rs, row) -> {
+            User user = new User();
+            user.setId(rs.getInt(1));
+            user.setFullName(rs.getString(2));
+            user.setUsername(rs.getString(3));
+            user.setPassword(rs.getString(4));
+            user.setImageUrl(rs.getString(5));
+            return user;
         });
-
-        return integer;
+        return list;
     }
-
-    public int countMentors() {
-        String query = " Select count(*) from users where role = 'MENTOR'";
-        Integer integer = template.queryForObject(query, (rs, rowNum) -> {
-            return rs.getInt(1);
-        });
-
-        return integer;
-    }
-
-
 }
