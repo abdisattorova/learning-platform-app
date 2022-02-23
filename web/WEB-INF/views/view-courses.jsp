@@ -83,10 +83,9 @@
             <%--            ---------------------------------------------------------------------------------------------------------%>
 
 
-
-            <div class="d-flex justify-content-around">
                 <div class="row">
                     <c:forEach items="${courseList}" var="course" varStatus="loop">
+
                         <div class="col-md-3 mt-3">
 
                             <div class="card">
@@ -117,7 +116,7 @@
                     </c:forEach>
 
                 </div>
-            </div>
+
 
 
 
