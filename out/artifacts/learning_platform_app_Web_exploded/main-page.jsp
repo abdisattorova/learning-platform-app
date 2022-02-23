@@ -17,29 +17,26 @@
 </head>
 <body>
 <div style="justify-content: center">
-    <div style="margin-left: 700px ; margin-top: 50px">
+    <div style="margin-left: 600px ; margin-top: 50px">
         <a href="/login" class="btn btn-primary"
-           style="padding: 20px 40px"
+           style="padding: 20px 60px"
            onMouseOver="this.style.color='#0F0'"
            onMouseOut="this.style.color='#00F'">
             <ion-icon name="people-outline"></ion-icon>
             Login</a>
-        <a href="/register" class="btn btn-primary"
-           style="padding: 20px 40px"
+        <a href="/register" class="btn btn-primary mx-100"
+           style="padding: 20px 60px"
            onMouseOver="this.style.color='#0F0'"
            onMouseOut="this.style.color='#00F'">
             <ion-icon name="book-outline"></ion-icon>
             Register</a>
-
-
-
     </div>
     <div>
         <img style=" display: block;
-         margin-top: 50px;
+         margin-top: 20px;
          margin-left: 400px;
         margin-right: auto;
-  width: 50%;" src="https://remakelearning.org/wp-content/uploads/2020/01/122.gif">
+        width: 50%;" src="https://remakelearning.org/wp-content/uploads/2020/01/122.gif">
     </div>
 </div>
 </body>
