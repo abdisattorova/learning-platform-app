@@ -21,6 +21,7 @@ import java.io.*;
 import java.util.List;
 
 import static uz.pdp.util.Constants.getCourseWithImageUrl;
+
 import static uz.pdp.util.Constants.path;
 
 @Controller
@@ -152,7 +153,6 @@ public class CourseController {
         if (user != null) {
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
         }
-
         model.addAttribute("user", user);
 
         model.addAttribute("course", courseById);
@@ -173,6 +173,7 @@ public class CourseController {
             model.addAttribute("message", "Course not found!!");
             return "redirect:/courses";
         }
+
     }
 
 

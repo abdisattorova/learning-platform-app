@@ -35,6 +35,9 @@ public class UserController {
     @Autowired
     CourseController controller;
 
+    @Autowired
+    UserController userController;
+
     @RequestMapping(path = "/login")
     public String showLoginForm() {
         return "login";
@@ -79,6 +82,14 @@ public class UserController {
             controller.getAllCourses(model, "0", session);
             switch (userFromDb.getRole()) {
                 case ADMIN:
+                    int authors_count = courseService.getAllAuthors();
+                    int students_count = courseService.getAllStudents();
+                    int course_count = courseService.getAllCourseCount();
+                    int task_count = courseService.getAllTasks();
+                    model.addAttribute("authors_count", authors_count);
+                    model.addAttribute("students_count", students_count);
+                    model.addAttribute("courses_count", course_count);
+                    model.addAttribute("tasks_count", task_count);
                     return "admin-page";
                 case MENTOR:
                     return "mentor-page";

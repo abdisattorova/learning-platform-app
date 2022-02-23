@@ -26,39 +26,47 @@
 
 </head>
 <body>
+<div class="row">
+    <a href='/courses/statistic' class="btn btn-primary" style=
+            "margin-left: 16px; float: left; margin-bottom: 2rem"
+       onMouseOver="this.style.color='#0F0'"
+       onMouseOut="this.style.color='#00F'">
+        </i> Statistics </a>
+    <div class="col-md-12">
+        <div class="container">
 
-<div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Mentors</h5>
+                            <p class="card-text">${authors_count}</p>
+                            <a href="/mentors" class="btn btn-primary">Show mentors</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Students</h5>
+                            <p class="card-text">${students_count}</p>
+                            <a href="/students" class="btn btn-primary">Show students</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Courses</h5>
+                            <p class="card-text">${courses_count}</p>
+                            <a href="/courses" class="btn btn-primary">Show courses</a>
+                        </div>
+                    </div>
+                </div>
 
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Mentors</h5>
-                    <p class="card-text">count of mentors: ${"mentorsCount"}</p>
-                    <a href="/mentors" class="btn btn-primary">Show mentors</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Students</h5>
-                    <p class="card-text">count of students: ${"studentsCount"}</p>
-                    <a href="/users" class="btn btn-primary">Show students</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-sm-4">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Courses</h5>
-                    <p class="card-text">count of courses: ${"coursesCount"}</p>
-                    <a href="/courses" class="btn btn-primary">Show courses</a>
-                </div>
             </div>
         </div>
     </div>
-
 </div>
 </body>
 </html>
