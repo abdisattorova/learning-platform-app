@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: User
@@ -9,13 +10,39 @@
 <html>
 <head>
     <title>Login</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css"
+          rel="stylesheet" id="bootstrap-css">
     <%--    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>--%>
     <%--    <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>--%>
+
 </head>
 <body>
-<h3 style="text-align: center;color: red">${param.msg}</h3>
-<h3 style="text-align: center;color: red">${msg}</h3>
+<c:choose>
+    <c:when test="${msg!=null}">
+        <div class="alert" style=" padding: 20px;
+  background-color: #f44336;
+  color: white;
+ margin-top: 100px;
+ margin-left: 450px;
+ width: 40%;
+justify-content: center;
+
+ ">
+    <span style="
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;"
+          class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                ${msg}
+        </div>
+    </c:when>
+</c:choose>
+
 <div class="container">
     <form action="/users/login" method="post">
         <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Courses</title>
+</head>
+<body class="container">
+<!--<h1>${message}</h1>-->
+<form action="/courses" method="get">
+    <div class="form-group">
+        <label for="exampleInputEmail1">Search course</label>
+        <input type="text" class="form-control" id="exampleInputEmail1" name="search" placeholder="Enter course name">
+    </div>
+    <br>
+</form>
+<div class="container" style="padding-top: 2rem">
+</div>
+<div class="container d-flex justify-content-around" style="padding-top: 1%;">
+    <div class="row">
+        <a href='/courses/form' class="btn btn-primary" style=
+                "margin-left: 16px; float: left; margin-bottom: 2rem"
+           onMouseOver="this.style.color='#0F0'"
+           onMouseOut="this.style.color='#00F'">
+            <i class="fas fa-plus"></i> Add new course </a>
+        <div class="col-md-12">
+            <table class="table table-bordered">
+                <thead>
+                <tr style="text-align: center">
+                    <!--   <th scope="col">#</th>-->
+                    <th scope="col">Course</th>
+                    <th scope="col">Authors</th>
+                    <th scope="col">Status</th>
+                    <th scope="col" colspan="2">Settings</th>
+                </tr>
+                </thead>
+                <tbody>
+                <table>
+                    <tbody th:each="course : ${courseList}" th:remove="tag">
+                    <tr>
+                        <!--  <td>${loop.count}</td>-->
+                        <td><a th:href="@{'courses/info/'+${course.id}}" th:text="${course.name}"/>
+                        </td>
+                        <td th:text="${course.name}"></td>
+                        <div>
+                            <ul>
+                                <td th:each="author :${course.authorDtoList}">
+                                    <li><a th:href="@{'users/info/'+${author.id}}" th:text="${author.fullName}"/></li>
+                                </td>
+                            </ul>
+                        </div>
+                        <td th:text="${course.active}"></td>
+                        <td><a class="btn btn-info" th:href="@{'/courses/form?id='+${course.id}}"><i
+                                class="fas fa-edit"></i>
+                        </a></td>
+                        <td><a class="btn btn-danger" th:href="'/courses/delete/'+${course.id}"><i
+                                class="fas fa-trash"></i> </a></td>
+                    </tr>
+                    </tbody>
+                </table>
+                <!--   <c:forEach items="${courseList}" var="course" varStatus="loop">
+                       <tr scope="row" th:text=style="text-align: center
+                       ">
+                       <td>${loop.count}</td>
+                       <td><a href="/courses/info/${course.id}">${course.name}
+                       </a></td>
+                       <td>
+                           <c:forEach items="${course.authorDtoList}" var="author">
+                               <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
+                           </c:forEach>
+                       </td>
+                       <td>${course.active}</td>
+                       <td><a class="btn btn-info" href='/courses/form?id=${course.id}'><i
+                               class="fas fa-edit"></i>
+                       </a></td>
+                       <td><a class="btn btn-danger" href="/courses/delete/${course.id}"><i
+                               class="fas fa-trash"></i> </a></td>
+                       </tr>
+                   </c:forEach>-->
+                </tbody>
+                <tbody></tbody>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>
