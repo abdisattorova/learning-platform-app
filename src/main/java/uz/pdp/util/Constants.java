@@ -2,6 +2,8 @@ package uz.pdp.util;
 //Sevinch Abdisattorova 02/14/2022 12:07 AM
 
 
+import uz.pdp.dto.CourseDto;
+import uz.pdp.model.Course;
 import uz.pdp.model.User;
 
 import javax.imageio.ImageIO;
@@ -30,6 +32,24 @@ public class Constants {
             String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
 
             user.setImageUrl(b64);
+        } catch (IOException | NullPointerException e) {
+            e.printStackTrace();
+        }
+    }
+    public static void getCourseWithImageUrl(CourseDto course) {
+        BufferedImage image = null;
+        try {
+            image = ImageIO.read(new File(path + course.getImageUrl()));
+
+            ByteArrayOutputStream base = new ByteArrayOutputStream();
+            ImageIO.write(image, "png", base);
+            base.flush();
+            byte[] imageInByteArray = base.toByteArray();
+            base.close();
+
+            String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
+
+            course.setImageUrl(b64);
         } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }

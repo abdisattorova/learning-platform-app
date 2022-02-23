@@ -72,10 +72,7 @@ public class UserController {
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
             session.setAttribute("user", userFromDb);
-//            List<CourseDto> allCourses = courseService.getAllCourses();
             model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
-//            model.addAttribute("user", userFromDb);
-//            model.addAttribute("courseList", allCourses);
             return "redirect:/courses";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
@@ -108,29 +105,32 @@ public class UserController {
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
     public String addUser(@ModelAttribute("user") User user,
-                          @RequestParam(value = "file" ,required = false) CommonsMultipartFile file,
+                          @RequestParam(value = "file", required = false) CommonsMultipartFile file,
                           Model model) {
-
         String filename = "";
-        if (file!= null) {
-            filename = file.getOriginalFilename();
-            byte[] bytes = file.getBytes();
-            BufferedOutputStream stream = null;
-            try {
-                String imgPath = path + filename;
-                stream = new BufferedOutputStream(new FileOutputStream(
-                        new File(imgPath)));
-                stream.write(bytes);
-                stream.flush();
-                stream.close();
-
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (file != null) {
+            if (file.getOriginalFilename().endsWith(".jpg")
+                    || file.getOriginalFilename().endsWith(".png")) {
+                filename = file.getOriginalFilename();
+                byte[] bytes = file.getBytes();
+                BufferedOutputStream stream = null;
+                try {
+                    String imgPath = path + filename;
+                    stream = new BufferedOutputStream(new FileOutputStream(
+                            new File(imgPath)));
+                    stream.write(bytes);
+                    stream.flush();
+                    stream.close();
+                    user.setImageUrl(filename);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
+        } else if (file == null && user.getImageUrl() != null) {
         } else {
             filename = "profile.jpg";
+            user.setImageUrl(filename);
         }
-        user.setImageUrl(filename);
         if (user.getId() != null) {
             userService.editUser(user);
         } else {

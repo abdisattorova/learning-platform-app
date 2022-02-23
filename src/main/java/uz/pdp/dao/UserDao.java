@@ -92,7 +92,7 @@ public class UserDao {
     }
 
     public List<User> getAuthors() {
-        String queryStr = "select id, full_name, username, password from users where role ='AUTHOR'";
+        String queryStr = "select id, full_name, username, password from users where role ='MENTOR'";
         List<User> list = template.query(queryStr, (rs, row) -> {
             User user = new User();
             user.setId(rs.getInt(1));
@@ -131,4 +131,24 @@ public class UserDao {
         });
         return integer;
     }
+
+    public int countStudents() {
+        String query = " Select count(*) from users where role = 'USER'";
+        Integer integer = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+
+        return integer;
+    }
+
+    public int countMentors() {
+        String query = " Select count(*) from users where role = 'MENTOR'";
+        Integer integer = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+
+        return integer;
+    }
+
+
 }

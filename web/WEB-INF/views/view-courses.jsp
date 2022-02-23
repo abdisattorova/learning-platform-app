@@ -85,6 +85,49 @@
                 <tbody></tbody>
                 <tbody></tbody>
             </table>
+
+            <%--            ---------------------------------------------------------------------------------------------------------%>
+
+
+                <div class="row">
+                    <c:forEach items="${courseList}" var="course" varStatus="loop">
+
+                        <div class="col-md-3 mt-3">
+
+                            <div class="card">
+                                <div class="card-body" style="text-align: center">
+                                    <img src="data:image/png;base64, ${course.imageUrl}" style="width: 72px; height: 72px" alt="Here should be image">
+                                    <a href="/courses/info/${course.id}">
+                                        <h5 class="card-title">${course.name}</h5>
+                                    </a>
+
+                                        <%--                                    <c:forEach items="${course.authorDtoList}" var="author">--%>
+                                        <%--                                        <a href="/users/info/${author.id}"> ${author.fullName}</a><br>--%>
+                                        <%--                                    </c:forEach>--%>
+
+                                        <%--                            <h5 class="card-title">${course.name}</h5>--%>
+                                    <a class="btn btn-info" href='/courses/form?id=${course.id}'><i
+                                            class="fas fa-edit"></i>
+                                    </a>
+                                    <a class="btn btn-danger" href="/courses/delete/${course.id}"><i
+                                            class="fas fa-trash"></i> </a>
+
+                                        <%-- <a href="<c:url value="/editTask?id=${course.id}"/>" class="btn btn-primary">Edit</a>--%>
+                                        <%-- <a href="<c:url value="/deleteTask?id=${course.id}"/>" class="btn btn-danger">Delete</a>--%>
+                                </div>
+                            </div>
+
+                        </div>
+                        <%--            <c:set var="id" value="${task.userId}"/>--%>
+                    </c:forEach>
+
+                </div>
+
+
+
+
+            <%--            ---------------------------------------------------------------------------------------------------------%>
+
             <div style="padding-left:40%;padding-right:40%;padding-top:1rem">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">

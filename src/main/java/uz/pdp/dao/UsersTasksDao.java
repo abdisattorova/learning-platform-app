@@ -13,8 +13,12 @@ public class UsersTasksDao {
     SessionFactory sessionFactory;
 
     public void deleteTaskFromUsersTask(int taskId) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        NativeQuery nativeQuery = currentSession.createNativeQuery("delete from users_tasks where task_id=" + taskId);
-        nativeQuery.executeUpdate();
+        try {
+            Session currentSession = sessionFactory.getCurrentSession();
+            NativeQuery nativeQuery = currentSession.createNativeQuery("delete from users_tasks where task_id=" + taskId);
+            nativeQuery.executeUpdate();
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 }

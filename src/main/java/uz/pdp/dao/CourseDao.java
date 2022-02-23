@@ -2,7 +2,9 @@ package uz.pdp.dao;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import uz.pdp.dto.AuthorDto;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.model.Course;
 
 import java.lang.reflect.Type;
 import java.sql.Array;
@@ -38,6 +41,7 @@ public class CourseDao {
             courseDto1.setName(rs.getString(2));
             courseDto1.setDescription(rs.getString(3));
             courseDto1.setActive(rs.getBoolean(4));
+            courseDto1.setImageUrl(rs.getString("image_url"));
             Array authors = rs.getArray("authors");
             Type type = new TypeToken<ArrayList<AuthorDto>>() {
             }.getType();
@@ -51,6 +55,7 @@ public class CourseDao {
     }
 
     public int saveCourseToDb(CourseDto courseDto) {
+
         String name = courseDto.getName();
         String description = courseDto.getDescription();
         String sqlQuery = "insert into courses (name, description,image_url) values ('" + name + "', '" + description + "' ,'" + courseDto.getImageUrl() + "')";
@@ -59,11 +64,9 @@ public class CourseDao {
             int result = rs.getInt(1);
             return result;
         });
-
         for (int authorsId : courseDto.getAuthorsIds()) {
             template.update("Insert into courses_users " +
                     " (author_id,course_id) values (" + authorsId + "," + courseId + ");");
-
         }
 
         return res;
@@ -130,31 +133,6 @@ public class CourseDao {
         return list;
     }
 
-    public int getTaskCount(int id) {
-        String query = "select count(*)\n" +
-                "from tasks\n" +
-                "join lessons l on l.id = tasks.lesson_id\n" +
-                "join modules m on m.id = l.module_id\n" +
-                "join courses c on c.id = m.course_id\n" +
-                "where c.id="+id;
-        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
-            return rs.getInt(1);
-        });
-        return integer1;
-    }
-
-    public int getSolvedTask(int userId) {
-        String query ="select count(*)\n" +
-                "from tasks\n" +
-                "join users_tasks ut on tasks.id = ut.task_id\n" +
-                "join users u on ut.user_id = u.id\n" +
-                "where u.id="+userId+" and ut.is_completed=true";
-        Integer integer1 = template.queryForObject(query, (rs, rowNum) -> {
-            return rs.getInt(1);
-        });
-        return integer1;
-    }
-
     public int getAllAuthors() {
         String query ="select count(*)\n" +
                 "from users\n" +
@@ -213,7 +191,7 @@ public class CourseDao {
             return courseDto1;
         });
         return list;*/
-        String query="select c.name, count(t.id)\n" +
+        String query = "select c.name, count(t.id)\n" +
                 "from users_tasks\n" +
                 "         join tasks t on t.id = users_tasks.task_id\n" +
                 "         join lessons l on l.id = t.lesson_id\n" +
@@ -221,14 +199,21 @@ public class CourseDao {
                 "         join courses c on c.id = m.course_id\n" +
                 "where users_tasks.is_completed = true\n" +
                 "group by c.name;";
-        List<CourseDto> list=template.query(query, (rs, row) -> {
-            CourseDto courseDto=new CourseDto();
+        List<CourseDto> list = template.query(query, (rs, row) -> {
+            CourseDto courseDto = new CourseDto();
             courseDto.setName(rs.getString(1));
             courseDto.setCount(rs.getInt(2));
             return courseDto;
 
         });
         return list;
+
+    }
+
+    public int countAllCourses() {
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = currentSession.createNativeQuery("select count(*) from courses");
+        return (int) nativeQuery.uniqueResult();
 
 
     }

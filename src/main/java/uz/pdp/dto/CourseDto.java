@@ -17,6 +17,8 @@ public class CourseDto {
     private boolean isActive;
     private int[] authorsIds;
     private String imageUrl;
+    private int allTasksNum;
+    private int solvedTasksNum;
     private List<AuthorDto> authorDtoList;
     private List<ModuleDto> moduleDtoList;
     private int count=0;

@@ -1,19 +1,13 @@
 package uz.pdp.service;
 
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.CourseDao;
+import uz.pdp.dao.TaskDao;
 import uz.pdp.dto.CourseDto;
-import uz.pdp.model.Course;
 
-
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,10 +17,12 @@ public class CourseService {
     @Autowired
     CourseDao courseDao;
 
+    @Autowired
+    TaskDao taskDao;
+
     public List<CourseDto> getAllCourses() {
 
         return courseDao.getCourses();
-
     }
 
     public void saveCourse(CourseDto courseDto) {
@@ -65,14 +61,6 @@ public class CourseService {
                 .contains(course.toLowerCase())).collect(Collectors.toList());
     }
 
-    public int getCourseCount(int id) {
-        return courseDao.getTaskCount(id);
-    }
-
-    public int getSolvedTask(int userId) {
-        return courseDao.getSolvedTask(userId);
-    }
-
     public int getAllAuthors() {
         return courseDao.getAllAuthors();
     }
@@ -90,10 +78,23 @@ public class CourseService {
         return courseDao.getAllTask();
     }
 
-     public List<CourseDto> getStatisticsCourses() {
+    public List<CourseDto> getStatisticsCourses() {
 
 
         return courseDao.getStatisticsCourses();
 
     }
+
+    public int countTasksOfCourse(int id) {
+        return taskDao.getTaskCount(id);
+    }
+
+    public int countSolvedTasksOfCourseByUseer(int userId, int courseId) {
+        return taskDao.getSolvedTask(userId, courseId);
+    }
+
+    public int countAllCourses(int count) {
+        return courseDao.countAllCourses();
+    }
+
 }
