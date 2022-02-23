@@ -68,7 +68,7 @@ public class UserDao {
     public int deleteUserByIdFromDb(int id) {
         try {
             try {
-                template.update(" delete from courses_users where auhtor_id=" + id);
+                template.update(" delete from courses_users where author_id=" + id);
             } catch (Exception e) {
                 e.printStackTrace();
             }

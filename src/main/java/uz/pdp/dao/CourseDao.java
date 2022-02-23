@@ -154,5 +154,83 @@ public class CourseDao {
         });
         return integer1;
     }
+
+    public int getAllAuthors() {
+        String query ="select count(*)\n" +
+                "from users\n" +
+                "where role='MENTOR';";
+        Integer authors = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return authors;
+    }
+
+    public int getAllStudent() {
+        String query ="select count(*)\n" +
+                "from users\n" +
+                "where role='USER';";
+        Integer students = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return students;
+    }
+
+    public int getAllCourseCount() {
+        String query ="select count(*)\n" +
+                "from courses";
+        Integer course_count = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return course_count;
+
+    }
+
+    public int getAllTask() {
+        String query ="select count(*)\n" +
+                "from tasks;";
+        Integer course_count = template.queryForObject(query, (rs, rowNum) -> {
+            return rs.getInt(1);
+        });
+        return course_count;
+    }
+
+    public List<CourseDto> getStatisticsCourses() {
+/*        String query = "select *\n" +
+                "from courses_infos()";
+        List<CourseDto> list = template.query(query, (rs, row) -> {
+            CourseDto courseDto1 = new CourseDto();
+            courseDto1.setId(rs.getInt(1));
+            courseDto1.setName(rs.getString(2));
+            courseDto1.setDescription(rs.getString(3));
+            courseDto1.setActive(rs.getBoolean(4));
+            Array authors = rs.getArray("authors");
+            Type type = new TypeToken<ArrayList<AuthorDto>>() {
+            }.getType();
+            List<AuthorDto> authorList = new Gson().fromJson(authors.toString(), type);
+            courseDto1.setAuthorDtoList(authorList);
+            List<ModuleDto> modulesOfCourses = moduleDao.getModulesOfCourses(courseDto1.getId());
+            courseDto1.setModuleDtoList(modulesOfCourses);
+            return courseDto1;
+        });
+        return list;*/
+        String query="select c.name, count(t.id)\n" +
+                "from users_tasks\n" +
+                "         join tasks t on t.id = users_tasks.task_id\n" +
+                "         join lessons l on l.id = t.lesson_id\n" +
+                "         join modules m on m.id = l.module_id\n" +
+                "         join courses c on c.id = m.course_id\n" +
+                "where users_tasks.is_completed = true\n" +
+                "group by c.name;";
+        List<CourseDto> list=template.query(query, (rs, row) -> {
+            CourseDto courseDto=new CourseDto();
+            courseDto.setName(rs.getString(1));
+            courseDto.setCount(rs.getInt(2));
+            return courseDto;
+
+        });
+        return list;
+
+
+    }
 }
 

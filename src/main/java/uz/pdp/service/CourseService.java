@@ -10,8 +10,10 @@ import uz.pdp.dto.CourseDto;
 import uz.pdp.model.Course;
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,10 +66,34 @@ public class CourseService {
     }
 
     public int getCourseCount(int id) {
-      return   courseDao.getTaskCount(id);
+        return courseDao.getTaskCount(id);
     }
 
     public int getSolvedTask(int userId) {
-        return   courseDao.getSolvedTask(userId);
+        return courseDao.getSolvedTask(userId);
+    }
+
+    public int getAllAuthors() {
+        return courseDao.getAllAuthors();
+    }
+
+    public int getAllStudents() {
+        return courseDao.getAllStudent();
+    }
+
+    public int getAllCourseCount() {
+        return courseDao.getAllCourseCount();
+
+    }
+
+    public int getAllTasks() {
+        return courseDao.getAllTask();
+    }
+
+     public List<CourseDto> getStatisticsCourses() {
+
+
+        return courseDao.getStatisticsCourses();
+
     }
 }
