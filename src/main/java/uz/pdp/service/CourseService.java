@@ -3,9 +3,9 @@ package uz.pdp.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.dao.CourseDao;
 import uz.pdp.dao.TaskDao;
 import uz.pdp.dto.CourseDto;
-import uz.pdp.dao.CourseDao;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -61,6 +61,30 @@ public class CourseService {
                 .contains(course.toLowerCase())).collect(Collectors.toList());
     }
 
+    public int getAllAuthors() {
+        return courseDao.getAllAuthors();
+    }
+
+    public int getAllStudents() {
+        return courseDao.getAllStudent();
+    }
+
+    public int getAllCourseCount() {
+        return courseDao.getAllCourseCount();
+
+    }
+
+    public int getAllTasks() {
+        return courseDao.getAllTask();
+    }
+
+    public List<CourseDto> getStatisticsCourses() {
+
+
+        return courseDao.getStatisticsCourses();
+
+    }
+
     public int countTasksOfCourse(int id) {
         return taskDao.getTaskCount(id);
     }
@@ -69,7 +93,8 @@ public class CourseService {
         return taskDao.getSolvedTask(userId, courseId);
     }
 
- public int countAllCourses(int count){
+    public int countAllCourses(int count) {
         return courseDao.countAllCourses();
- }
+    }
+
 }
