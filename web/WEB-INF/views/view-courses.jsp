@@ -34,6 +34,12 @@
            onMouseOver="this.style.color='#0F0'"
            onMouseOut="this.style.color='#00F'">
             <i class="fas fa-plus"></i> Add new course </a>
+        <br>
+        <a href='/courses/statistic' class="btn btn-primary" style=
+                "margin-left: 16px; float: left; margin-bottom: 2rem"
+           onMouseOver="this.style.color='#0F0'"
+           onMouseOut="this.style.color='#00F'">
+           </i> Statistics </a>
         <div class="col-md-12">
             <%--            ---------------------------------------------------------------------------------------------------------%>
                 <div class="row">

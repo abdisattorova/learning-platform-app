@@ -46,6 +46,7 @@ public class CourseController {
         List<CourseDto> allCourses = null;
         if (course.equals("0")) {
             allCourses = courseService.getAllCourses();
+
         } else {
             allCourses = courseService.getCoursesBySearch(course);
             if (allCourses.size() == 0) {
@@ -62,7 +63,31 @@ public class CourseController {
 
         model.addAttribute("user",user);
         model.addAttribute("courseList", allCourses);
+
         return "view-courses";
+    }
+
+    @GetMapping("/statistic")
+    public String getAllStatistic(Model model){
+     int authors_count=   courseService.getAllAuthors();
+     int students_count=courseService.getAllStudents();
+     int course_count=courseService.getAllCourseCount();
+     int task_count=courseService.getAllTasks();
+
+     List<CourseDto> courseStatistics = courseService.getStatisticsCourses();
+
+        int sum=0;
+        for (CourseDto courseStatistic : courseStatistics) {
+            sum+= courseStatistic.getCount();
+        }
+     model.addAttribute("authors_count",authors_count);
+     model.addAttribute("students_count",students_count);
+     model.addAttribute("course_count",course_count);
+     model.addAttribute("task_count",task_count);
+     model.addAttribute("courseStatistics",courseStatistics);
+     model.addAttribute("sum",sum);
+
+     return "statistic-form";
     }
 
     @PostMapping
@@ -120,12 +145,16 @@ public class CourseController {
             e.printStackTrace();
 
         }
-        User user = (User) session.getAttribute("user");
+
+        User user =(User) session.getAttribute("user");
+
         courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
         if (user != null) {
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
         }
+
         model.addAttribute("user", user);
+
         model.addAttribute("course", courseById);
         return "course-info";
     }
