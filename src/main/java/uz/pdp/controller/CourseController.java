@@ -54,9 +54,17 @@ public class CourseController {
         }
         for (CourseDto courseDto : allCourses) {
             courseDto.setAllTasksNum(courseService.countTasksOfCourse(courseDto.getId()));
-            courseDto.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), courseDto.getId()));
+            if (user != null) {
+                courseDto.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), courseDto.getId()));
+            }
             getCourseWithImageUrl(courseDto);
         }
+       /* switch (user.getRole()) {
+            case MENTOR:
+
+        }*/
+
+//        model.addAttribute("user",user);
         model.addAttribute("courseList", allCourses);
         return "view-courses";
     }
@@ -97,6 +105,7 @@ public class CourseController {
 
     @GetMapping(path = "/info/{id}")
     public String showInfoAboutCourse(@PathVariable int id, Model model, HttpSession session) {
+
         CourseDto courseById = courseService.getCourseById(id);
         BufferedImage image = null;
         try {
@@ -117,7 +126,9 @@ public class CourseController {
         }
         User user = (User) session.getAttribute("user");
         courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
-        courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
+        if (user!=null) {
+            courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
+        }
         model.addAttribute("course", courseById);
         return "course-info";
     }

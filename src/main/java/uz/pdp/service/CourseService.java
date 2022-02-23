@@ -1,19 +1,13 @@
 package uz.pdp.service;
 
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.dao.CourseDao;
 import uz.pdp.dao.TaskDao;
 import uz.pdp.dto.CourseDto;
-import uz.pdp.model.Course;
+import uz.pdp.dao.CourseDao;
 
-
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 @Service
@@ -29,7 +23,6 @@ public class CourseService {
     public List<CourseDto> getAllCourses() {
 
         return courseDao.getCourses();
-
     }
 
     public void saveCourse(CourseDto courseDto) {
