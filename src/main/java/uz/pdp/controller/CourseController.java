@@ -59,12 +59,8 @@ public class CourseController {
             }
             getCourseWithImageUrl(courseDto);
         }
-       /* switch (user.getRole()) {
-            case MENTOR:
 
-        }*/
-
-//        model.addAttribute("user",user);
+        model.addAttribute("user",user);
         model.addAttribute("courseList", allCourses);
         return "view-courses";
     }
@@ -129,6 +125,7 @@ public class CourseController {
         if (user != null) {
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
         }
+        model.addAttribute("user", user);
         model.addAttribute("course", courseById);
         return "course-info";
     }
@@ -155,7 +152,6 @@ public class CourseController {
         String res = courseService.deleteCourseById(id);
         model.addAttribute("message", res);
         return "redirect:/courses";
-
     }
 
 

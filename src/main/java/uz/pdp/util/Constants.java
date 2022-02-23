@@ -15,7 +15,7 @@ import java.io.IOException;
 
 public class Constants {
     public static int number_of_elements_in_1_page = 3;
-    public static String path = "S:\\IdeaProjects\\Spring\\spring-mvc-example\\spring-mvc-example\\src\\main\\resources/";
+    public static String path = "C:\\Users\\User\\Desktop\\learning-platform-app\\src\\main\\resources/";
 
 
     public static void getUserWithImageUrl(User user) {
@@ -24,7 +24,7 @@ public class Constants {
             image = ImageIO.read(new File(path + user.getImageUrl()));
 
             ByteArrayOutputStream base = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", base);
+            ImageIO.write(image, "jpg", base);
             base.flush();
             byte[] imageInByteArray = base.toByteArray();
             base.close();
@@ -42,7 +42,7 @@ public class Constants {
             image = ImageIO.read(new File(path + course.getImageUrl()));
 
             ByteArrayOutputStream base = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", base);
+            ImageIO.write(image, "jpg", base);
             base.flush();
             byte[] imageInByteArray = base.toByteArray();
             base.close();

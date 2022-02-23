@@ -32,6 +32,9 @@ public class UserController {
     @Autowired
     CourseService courseService;
 
+    @Autowired
+    CourseController controller;
+
     @RequestMapping(path = "/login")
     public String showLoginForm() {
         return "login";
@@ -73,7 +76,16 @@ public class UserController {
         if (userFromDb != null) {
             session.setAttribute("user", userFromDb);
             model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
-            return "redirect:/courses";
+            controller.getAllCourses(model, "0", session);
+            switch (userFromDb.getRole()) {
+                case ADMIN:
+                    return "admin-page";
+                case MENTOR:
+                    return "mentor-page";
+                case USER:
+                    return "view-courses";
+            }
+//            return "redirect:/courses";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
         return "/login";
