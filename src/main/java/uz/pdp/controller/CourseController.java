@@ -144,6 +144,7 @@ public class CourseController {
             model.addAttribute("message", "Course not found!!");
             return "redirect:/courses";
         }
+
     }
 
 
