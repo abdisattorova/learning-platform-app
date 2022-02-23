@@ -126,7 +126,7 @@ public class CourseController {
         }
         User user = (User) session.getAttribute("user");
         courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
-        if (user!=null) {
+        if (user != null) {
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
         }
         model.addAttribute("course", courseById);
@@ -157,5 +157,9 @@ public class CourseController {
         return "redirect:/courses";
 
     }
+
+
+
+
 
 }
