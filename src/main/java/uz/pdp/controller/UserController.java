@@ -94,6 +94,7 @@ public class UserController {
 
     @RequestMapping(path = "/users/login", method = RequestMethod.POST)
     public String authUser(User user, Model model, HttpSession session) {
+
         String password = user.getPassword();
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
@@ -188,7 +189,6 @@ public class UserController {
         }
         return "/login";
     }
-
 
     @RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
     public RedirectView deleteUserById(Model model, @PathVariable int id) {
