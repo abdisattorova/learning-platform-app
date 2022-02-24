@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dao.TaskDao;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.model.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -97,4 +98,7 @@ public class CourseService {
         return courseDao.countAllCourses();
     }
 
+    public boolean checkIfUserIsMentorOfCourse(CourseDto courseById, User user) {
+        return courseById.getAuthorDtoList().stream().anyMatch(authorDto -> authorDto.getId() == user.getId());
+    }
 }

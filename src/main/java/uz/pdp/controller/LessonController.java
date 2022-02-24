@@ -53,6 +53,10 @@ public class LessonController {
         List<TaskDto> tasks = new ArrayList<>();
         if (user != null) {
             tasks = taskService.getAllTasks(id, user.getId());
+            Integer courseId = lessonById.getModule().getCourse().getId();
+            CourseDto courseById = courseService.getCourseById(courseId);
+            boolean b = courseService.checkIfUserIsMentorOfCourse(courseById, user);
+            model.addAttribute("isAuthor", b);
         } else {
             tasks = taskService.getAllTasks(id, 0);
         }

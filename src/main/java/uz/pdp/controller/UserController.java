@@ -94,31 +94,13 @@ public class UserController {
 
     @RequestMapping(path = "/users/login", method = RequestMethod.POST)
     public String authUser(User user, Model model, HttpSession session) {
-
         String password = user.getPassword();
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
             session.setAttribute("user", userFromDb);
             model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
-            controller.getAllCourses(model, "0", session);
-            switch (userFromDb.getRole()) {
-                case ADMIN:
-                    int authors_count = courseService.getAllAuthors();
-                    int students_count = courseService.getAllStudents();
-                    int course_count = courseService.getAllCourseCount();
-                    int task_count = courseService.getAllTasks();
-                    model.addAttribute("authors_count", authors_count);
-                    model.addAttribute("students_count", students_count);
-                    model.addAttribute("courses_count", course_count);
-                    model.addAttribute("tasks_count", task_count);
-                    return "admin-page";
-                case MENTOR:
-                    return "mentor-page";
-                case USER:
-                    return "view-courses";
-            }
-//            return "redirect:/courses";
+            return "redirect:/courses";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
         return "/login";
