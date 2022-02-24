@@ -48,11 +48,16 @@ public class LessonController {
 
     @GetMapping(path = "/{id}")
     public String getLessonById(@PathVariable int id, HttpSession session, Model model) {
+
         User user = (User) session.getAttribute("user");
         Lesson lessonById = lessonService.getLessonById(id);
         List<TaskDto> tasks = new ArrayList<>();
         if (user != null) {
             tasks = taskService.getAllTasks(id, user.getId());
+            Integer courseId = lessonById.getModule().getCourse().getId();
+            CourseDto courseById = courseService.getCourseById(courseId);
+            boolean b = courseService.checkIfUserIsMentorOfCourse(courseById, user);
+            model.addAttribute("isAuthor", b);
         } else {
             tasks = taskService.getAllTasks(id, 0);
         }
@@ -101,7 +106,7 @@ public class LessonController {
 
         }
         model.addAttribute("course", courseById);
-        return "course-info";
+        return "redirect:/courses/info/"+courseId;
 
 
     }
@@ -132,7 +137,7 @@ public class LessonController {
 
         }
         model.addAttribute("course", courseById);
-        return "course-info";
+        return "redirect:/courses/info/"+courseId;
 
     }
 

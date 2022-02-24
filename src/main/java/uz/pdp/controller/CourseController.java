@@ -58,37 +58,39 @@ public class CourseController {
             courseDto.setAllTasksNum(courseService.countTasksOfCourse(courseDto.getId()));
             if (user != null) {
                 courseDto.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), courseDto.getId()));
+                boolean b = courseService.checkIfUserIsMentorOfCourse(courseDto, user);
+                courseDto.setIsUserAuthor(b);
             }
             getCourseWithImageUrl(courseDto);
         }
 
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         model.addAttribute("courseList", allCourses);
 
         return "view-courses";
     }
 
     @GetMapping("/statistic")
-    public String getAllStatistic(Model model){
-     int authors_count=   courseService.getAllAuthors();
-     int students_count=courseService.getAllStudents();
-     int course_count=courseService.getAllCourseCount();
-     int task_count=courseService.getAllTasks();
+    public String getAllStatistic(Model model) {
+        int authors_count = courseService.getAllAuthors();
+        int students_count = courseService.getAllStudents();
+        int course_count = courseService.getAllCourseCount();
+        int task_count = courseService.getAllTasks();
 
-     List<CourseDto> courseStatistics = courseService.getStatisticsCourses();
+        List<CourseDto> courseStatistics = courseService.getStatisticsCourses();
 
-        int sum=0;
+        int sum = 0;
         for (CourseDto courseStatistic : courseStatistics) {
-            sum+= courseStatistic.getCount();
+            sum += courseStatistic.getCount();
         }
-     model.addAttribute("authors_count",authors_count);
-     model.addAttribute("students_count",students_count);
-     model.addAttribute("course_count",course_count);
-     model.addAttribute("task_count",task_count);
-     model.addAttribute("courseStatistics",courseStatistics);
-     model.addAttribute("sum",sum);
+        model.addAttribute("authors_count", authors_count);
+        model.addAttribute("students_count", students_count);
+        model.addAttribute("course_count", course_count);
+        model.addAttribute("task_count", task_count);
+        model.addAttribute("courseStatistics", courseStatistics);
+        model.addAttribute("sum", sum);
 
-     return "statistic-form";
+        return "statistic-form";
     }
 
     @PostMapping
@@ -127,31 +129,14 @@ public class CourseController {
 
     @GetMapping(path = "/info/{id}")
     public String showInfoAboutCourse(@PathVariable int id, Model model, HttpSession session) {
-
         CourseDto courseById = courseService.getCourseById(id);
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File(path + courseById.getImageUrl()));
-
-            ByteArrayOutputStream base = new ByteArrayOutputStream();
-            ImageIO.write(image, "png", base);
-            base.flush();
-            byte[] imageInByteArray = base.toByteArray();
-            base.close();
-
-            String b64 = DatatypeConverter.printBase64Binary(imageInByteArray);
-
-            courseById.setImageUrl(b64);
-        } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
-
-        }
-
-        User user =(User) session.getAttribute("user");
-
+        getCourseWithImageUrl(courseById);
+        User user = (User) session.getAttribute("user");
         courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
         if (user != null) {
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
+            boolean result = courseService.checkIfUserIsMentorOfCourse(courseById, user);
+            model.addAttribute("isAuthor", result);
         }
         model.addAttribute("user", user);
 
@@ -183,9 +168,6 @@ public class CourseController {
         model.addAttribute("message", res);
         return "redirect:/courses";
     }
-
-
-
 
 
 }
