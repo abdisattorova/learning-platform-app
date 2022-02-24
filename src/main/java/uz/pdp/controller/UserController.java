@@ -190,7 +190,6 @@ public class UserController {
         return "/login";
     }
 
-
     @RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
     public RedirectView deleteUserById(Model model, @PathVariable int id) {
         String res = userService.deleteUserById(id);
