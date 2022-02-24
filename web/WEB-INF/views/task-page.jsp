@@ -16,17 +16,26 @@
 </head>
 <body>
 <div style="padding: 20px">
-    <h1 style="align-content: center;color: red">${msg}</h1>
+    <c:choose>
+        <c:when test="${msg!=null}">
+            <h1 style="align-content: center;color: red">${msg}</h1>
+            <audio controls autoplay >
+                <source src="https://s31.aconvert.com/convert/p3r68-cdx67/may3v-qy9zh.mp3" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
+              </c:when>
+    </c:choose>
+
     <form action="/tasks/check/${task.id}/${task.lessonId}" method="get">
         <input hidden name="id" type="number"
                class="form-control" value="${task.id}">
         <h4>${task.title}</h4>
         <p>${task.body}</p>
         <h5 class="my-3">Select correct option </h5>
-        <c:forEach var="num" begin="1" end="4" >
+        <c:forEach var="num" begin="1" end="4">
             <input type="radio" name="answer"
                    value="${task.options.get(num-1).id}">
-            <input readonly type="text" value="${task.options.get(num-1).answer}" />
+            <input readonly type="text" value="${task.options.get(num-1).answer}"/>
             <br/>
             <br/>
         </c:forEach>
@@ -37,7 +46,8 @@
                href='/tasks/form?id=${task.id}&lessonId=${task.lessonId}'><i
                 class="fas fa-edit"> Edit</i>
         </a></td>
-        <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger" href="/tasks/delete/${task.id}/${task.lessonId}"><i
+        <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger"
+               href="/tasks/delete/${task.id}/${task.lessonId}"><i
                 class="fas fa-trash"> Delete</i> </a></td>
         <a class="btn btn-primary my-3" href="/lessons/${task.lessonId}">Back to lesson</a>
     </form>
