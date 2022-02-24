@@ -27,37 +27,41 @@
 </form>
 <div class="container" style="padding-top: 2rem">
 
-    <%--<div class="container d-flex justify-content-around" style="padding-top: 1%;">--%>
     <div class="row">
         <div class="col-md-12">
             <div class="row">
-                <c:forEach items="${courseList}" var="course" varStatus="loop">
-
-                    <div class="col-md-3 mt-3">
-                        <div class="card">
-                            <div class="card-body" style="text-align: center">
-                                <img src="data:image/png;base64, ${course.imageUrl}"
-                                     style="width: 72px; height: 72px" alt="Here should be image">
-                                <br>
-                                <a href="/courses/info/${course.id}">
-                                    <h5 class="card-title">${course.name}</h5>
-                                </a>
-                                <c:forEach items="${course.authorDtoList}" var="author">
-                                    <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
-                                </c:forEach>
-                                <c:choose>
-                                    <c:when test="${user.role.name().equals('ADMIN')||course.isUserAuthor==true}">
-                                        <a class="btn btn-info" href='/courses/form?id=${course.id}'><i
-                                                class="fas fa-edit"></i>
+                <div class="col-md-12">
+                    <%--            ---------------------------------------------------------------------------------------------------------%>
+                    <div class="row">
+                        <c:forEach items="${courseList}" var="course" varStatus="loop">
+                            <div class="col-md-3 mt-3">
+                                <div class="card">
+                                    <div class="card-body" style="text-align: center">
+                                        <img src="data:image/png;base64, ${course.imageUrl}"
+                                             style="width: 72px; height: 72px" alt="Here should be image">
+                                        <br>
+                                        <a href="/courses/info/${course.id}">
+                                            <h5 class="card-title">${course.name}</h5>
                                         </a>
-                                        <a class="btn btn-danger" href="/courses/delete/${course.id}"><i
-                                                class="fas fa-trash"></i> </a>
-                                    </c:when>
-                                </c:choose>
+                                        <c:forEach items="${course.authorDtoList}" var="author">
+                                            <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
+                                        </c:forEach>
+                                        <c:choose>
+                                            <c:when test="${user.role.name().equals('ADMIN')||course.isUserAuthor==true}">
+                                                <a class="btn btn-info" href='/courses/form?id=${course.id}'><i
+                                                        class="fas fa-edit"></i>
+                                                </a>
+                                                <a class="btn btn-danger" href="/courses/delete/${course.id}"><i
+                                                        class="fas fa-trash"></i> </a>
+                                            </c:when>
+                                        </c:choose>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </c:forEach>
+
                     </div>
-                </c:forEach>
+                </div>
             </div>
         </div>
     </div>
