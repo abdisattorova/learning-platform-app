@@ -16,19 +16,23 @@
         body {
             background: #eeeeee;
         }
+
         .form-inline {
             display: inline-block;
         }
+
         .navbar-header.col {
             padding: 0 !important;
         }
+
         .navbar {
             background: #fff;
             padding-left: 16px;
             padding-right: 16px;
             border-bottom: 1px solid #d6d6d6;
-            box-shadow: 0 0 4px rgba(0,0,0,.1);
+            box-shadow: 0 0 4px rgba(0, 0, 0, .1);
         }
+
         .nav-link img {
             border-radius: 50%;
             width: 36px;
@@ -37,26 +41,31 @@
             float: left;
             margin-right: 10px;
         }
+
         .navbar .navbar-brand {
             color: #555;
             padding-left: 0;
             padding-right: 50px;
             font-family: 'Merienda One', sans-serif;
         }
+
         .navbar .navbar-brand i {
             font-size: 20px;
             margin-right: 5px;
         }
+
         .search-box {
             position: relative;
         }
+
         .search-box input {
             box-shadow: none;
-            padding-right: 35px;
+            padding-right: 30px;
             border-radius: 3px !important;
         }
+
         .search-box .input-group-addon {
-            min-width: 35px;
+            min-width: 30px;
             border: none;
             background: transparent;
             position: absolute;
@@ -65,39 +74,48 @@
             padding: 7px;
             height: 100%;
         }
+
         .search-box i {
             color: #a0a5b1;
             font-size: 19px;
         }
+
         .navbar .nav-item i {
             font-size: 18px;
         }
+
         .navbar .dropdown-item i {
             font-size: 16px;
             min-width: 22px;
         }
+
         .navbar .nav-item.open > a {
             background: none !important;
         }
+
         .navbar .dropdown-menu {
             border-radius: 1px;
             border-color: #e5e5e5;
-            box-shadow: 0 2px 8px rgba(0,0,0,.05);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
         }
+
         .navbar .dropdown-menu a {
             color: #777;
             padding: 8px 20px;
             line-height: normal;
         }
+
         .navbar .dropdown-menu a:hover, .navbar .dropdown-menu a:active {
             color: #333;
         }
+
         .navbar .dropdown-item .material-icons {
             font-size: 21px;
             line-height: 16px;
             vertical-align: middle;
             margin-top: -2px;
         }
+
         .navbar .badge {
             color: #fff;
             background: #f44336;
@@ -109,33 +127,41 @@
             min-height: 18px;
             top: 5px;
         }
+
         .navbar a.notifications, .navbar a.messages {
             position: relative;
             margin-right: 10px;
         }
+
         .navbar a.messages {
             margin-right: 20px;
         }
+
         .navbar a.notifications .badge {
             margin-left: -8px;
         }
+
         .navbar a.messages .badge {
             margin-left: -4px;
         }
+
         .navbar .active a, .navbar .active a:hover, .navbar .active a:focus {
             background: transparent !important;
         }
-        @media (min-width: 1200px){
+
+        @media (min-width: 1200px) {
             .form-inline .input-group {
                 width: 300px;
                 margin-left: 30px;
             }
         }
-        @media (max-width: 1199px){
+
+        @media (max-width: 1199px) {
             .form-inline {
                 display: block;
                 margin-bottom: 10px;
             }
+
             .input-group {
                 width: 100%;
             }
@@ -144,36 +170,33 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-xl navbar-light bg-light">
-    <a href="#" class="navbar-brand"><i class="fa fa-cube"></i>Learning<b> Platform</b></a>
-    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <!-- Collection of nav links, forms, and other content for toggling -->
+    <a class="navbar-brand"><i class="fa fa-cube"></i>Learning<b> Platform</b></a>
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
-            <a href="/courses"  class="nav-item nav-link active">Home</a>
+            <a href="/courses" class="nav-item nav-link active">Home</a>
             <a href="#" class="nav-item nav-link">About</a>
-            <div class="nav-item dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Services</a>
-                <div class="dropdown-menu">
-                    <a href="#" class="dropdown-item">Web Design</a>
-                    <a href="#" class="dropdown-item">Web Development</a>
-                    <a href="#" class="dropdown-item">Graphic Design</a>
-                    <a href="#" class="dropdown-item">Digital Marketing</a>
-                </div>
-            </div>
-            <a href="#" class="nav-item nav-link">Blog</a>
-            <a href="#" class="nav-item nav-link">Contact</a>
         </div>
-        <form class="navbar-form form-inline">
-            <div class="input-group search-box">
-                <input type="text" id="search" class="form-control" placeholder="Search by Name">
-                <span class="input-group-addon"><i class="material-icons">&#xE8B6;</i></span>
-            </div>
-        </form>
         <div class="navbar-nav ml-auto">
-            <a href="#" class="nav-item nav-link notifications"><i class="fa fa-bell-o"></i><span class="badge">1</span></a>
             <a href="#" class="nav-item nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></a>
+            <c:choose>
+                <c:when test="${user.role.name().equals('ADMIN')
+                ||isAuthor}">
+                    <div class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle user-action">
+                            <i class="fa fa-sliders"></i>
+                            <b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <a href="/lessons/form?id=${lesson.id}&moduleId=${lesson.module.id}"
+                               class="dropdown-item"><i class="fa fa-edit"></i> Edit lesson</a></a>
+                            <a href="/lessons/delete/${lesson.id}/${lesson.module.course.id}"
+                               class="dropdown-item"><i class="fa fa-trash"></i> Delete lesson</a></a>
+                            <a href="/tasks/form?lessonId=${lesson.id}"
+                               class="dropdown-item"><i class="fa fa-plus"></i> Add task</a></a>
+                        </div>
+                    </div>
+                </c:when>
+            </c:choose>
             <c:choose>
                 <c:when test="${user!=null}">
                     <div class="nav-item dropdown">
@@ -184,8 +207,8 @@
                             <b class="caret"></b></a>
                         <div class="dropdown-menu">
                             <a href="/users/info/${user.id}" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a></a>
-<%--                            <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a></a>--%>
-<%--                            <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a></a>--%>
+                                <%--                            <a href="#" class="dropdown-item"><i class="fa fa-calendar-o"></i> Calendar</a></a>--%>
+                                <%--                            <a href="#" class="dropdown-item"><i class="fa fa-sliders"></i> Settings</a></a>--%>
                             <a class="dropdown-item" href='/users/form?id=${user.id}'><i
                                     class="fas fa-edit"></i> Edit profile
                             </a>
@@ -197,8 +220,10 @@
                         </div>
                     </div>
                 </c:when>
+                <c:otherwise>
+                    <a href="/login" class="nav-item nav-link"><i class="fa fa-sign-in"></i> <b>Login</b></a>
+                </c:otherwise>
             </c:choose>
-
         </div>
     </div>
 </nav>

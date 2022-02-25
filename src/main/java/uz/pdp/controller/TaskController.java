@@ -92,7 +92,7 @@ public class TaskController {
                 model.addAttribute("msg", "Correct");
                 List<TaskDto> tasks = taskService.getAllTasks(lessonId, 0);
                 model.addAttribute("tasks", tasks);
-                return "view-lesson";
+                return "redirect:/lessons/"+lessonId;
             }
         }
 
