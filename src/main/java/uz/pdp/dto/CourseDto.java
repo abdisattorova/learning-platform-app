@@ -3,7 +3,6 @@ package uz.pdp.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -21,14 +20,13 @@ public class CourseDto {
     private int solvedTasksNum;
     private List<AuthorDto> authorDtoList;
     private List<ModuleDto> moduleDtoList;
-    private int count=0;
+    private int count = 0;
     private boolean isUserAuthor;
 
-    public CourseDto( String name, int count) {
+    public CourseDto(String name, int count) {
         this.name = name;
         this.count = count;
     }
-
 
     public boolean getIsUserAuthor() {
         return isUserAuthor;

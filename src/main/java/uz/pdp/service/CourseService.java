@@ -46,6 +46,7 @@ public class CourseService {
     }
 
     public void editCourse(CourseDto courseDto) {
+
         courseDao.editCourse(courseDto);
 
     }
@@ -80,8 +81,6 @@ public class CourseService {
     }
 
     public List<CourseDto> getStatisticsCourses() {
-
-
         return courseDao.getStatisticsCourses();
 
     }

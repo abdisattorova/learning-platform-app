@@ -18,6 +18,7 @@
             <c:choose>
                 <c:when test="${selectedCourse.id!=null}">
                     <input hidden name="id" type="number" class="form-control" value="${selectedCourse.id}">
+                    <input hidden name="imageUrl" type="text" class="form-control" value="${selectedCourse.imageUrl}">
                 </c:when>
                 <c:otherwise>
                     <input hidden name="id" type="number" class="form-control" value="${0}">
