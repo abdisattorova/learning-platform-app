@@ -53,7 +53,11 @@ public class DiscussionController {
             @RequestParam(name = "lessonId") int lessonId,
             Model model
     ) {
+        int i = discussionService.checkDiscussion(discussion);
+
         User user = (User) session.getAttribute("user");
+        if (i==0){
+
         Lesson lessonById = lessonService.getLessonById(lessonId);
         discussion.setLesson(lessonById);
         discussion.setUser(user);
@@ -62,6 +66,10 @@ public class DiscussionController {
         getUserWithImageUrl(user);
         model.addAttribute("user", user);
         model.addAttribute("discussions", discussions);
-        return "view-discussions";
+        return "view-discussions";}
+
+        else{
+            discussionService.blockedUser(user.getId());
+            return "block-page";}
     }
 }

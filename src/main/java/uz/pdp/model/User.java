@@ -26,6 +26,7 @@ public class User {
 
     @Column(name = "image_url")
     private String imageUrl;
+    private Boolean is_blocked;
 
     public User(Integer id) {
         this.id = id;

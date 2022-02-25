@@ -9,7 +9,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%--<%@include file="header.jsp" %>--%>
 
-
 <html>
 <head>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -24,7 +23,7 @@
 <body class="container">
 <c:set var="msg" value="${param.message}"></c:set>
 <h1>${msg}</h1>
-<a class="m-4 btn btn-primary" href="/users/form">+ Add new user</a>
+<%--<a class="m-4 btn btn-primary" href="/users/form">+ Add new user</a>--%>
 <div>
 
     <table class="table">

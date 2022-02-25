@@ -29,4 +29,14 @@ public class DiscussionService {
     public void addDiscussion(Discussion discussion) {
         discussionDao.addDiscussion(discussion);
     }
+
+    @Transactional
+    public int checkDiscussion(Discussion discussion){
+       return discussionDao.checkDiscuss(discussion);
+    }
+
+    @Transactional
+    public void blockedUser(int user_id){
+        discussionDao.changeBlockUser(user_id);
+    }
 }
