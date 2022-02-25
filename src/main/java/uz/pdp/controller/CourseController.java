@@ -114,6 +114,11 @@ public class CourseController {
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (courseDto.getImageUrl() != null && courseDto.getImageUrl().length() > 1) {
+            String imageUrl = courseService.getCourseById(courseDto.getId()).getImageUrl();
+            courseDto.setImageUrl(imageUrl);
+        } else {
+            courseDto.setImageUrl(null);
         }
         if (courseDto.getId() != 0) {
             courseService.editCourse(courseDto);

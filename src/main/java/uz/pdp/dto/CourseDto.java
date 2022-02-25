@@ -29,7 +29,6 @@ public class CourseDto {
         this.count = count;
     }
 
-
     public boolean getIsUserAuthor() {
         return isUserAuthor;
     }

@@ -14,7 +14,6 @@
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Courses</title>
     <jsp:include page="header.jsp"/>
-    <%--  <style><%@include file="/WEB-INF/views/bar.css"%></style>--%>
 </head>
 <body class="container">
 <h1>${message}</h1>
@@ -25,7 +24,7 @@
     </div>
     <br>
 </form>
-<div class="container" style="padding-top: 2rem">
+<div style="padding-top: 2rem">
 
     <div class="row">
         <div class="col-md-12">
