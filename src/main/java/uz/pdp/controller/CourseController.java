@@ -66,6 +66,8 @@ public class CourseController {
         model.addAttribute("courseList", allCourses);
 
         return "view-courses";
+
+
     }
 
     @GetMapping("/statistic")

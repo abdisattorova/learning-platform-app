@@ -117,6 +117,7 @@ public class UserDao {
                 user.setPassword(rs.getString(4));
                 user.setRole(Role.valueOf(rs.getString(5)));
                 user.setImageUrl(rs.getString(6));
+                user.setIs_blocked(rs.getBoolean(7));
                 return user;
             });
         } catch (Exception e) {

@@ -41,7 +41,7 @@ public class CourseDao {
             courseDto1.setName(rs.getString(2));
             courseDto1.setDescription(rs.getString(3));
             courseDto1.setActive(rs.getBoolean(4));
-            courseDto1.setImageUrl(rs.getString("image_url"));
+            courseDto1.setImageUrl(rs.getString(5));
             Array authors = rs.getArray("authors");
             Type type = new TypeToken<ArrayList<AuthorDto>>() {
             }.getType();
