@@ -178,15 +178,15 @@
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
             <a href="/courses" class="nav-item nav-link active">Home</a>
-            <%--            <a href="#" class="nav-item nav-link">About</a>--%>
-            <%--<div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">All courses</a>
-                <div class="dropdown-menu">
-                    <c:forEach items="${courseList}" var="course">
-                        <a href="/courses/info/${course.id}" class="dropdown-item">${course.name}</a>
-                    </c:forEach>
-                </div>
-            </div>--%>
+            <a href="#" class="nav-item nav-link active">About</a>
+<%--            <div class="nav-item dropdown">--%>
+<%--                <a class="nav-link dropdown-toggle active" data-toggle="dropdown">All courses</a>--%>
+<%--                <div class="dropdown-menu">--%>
+<%--                    <c:forEach items="${courseList}" var="course">--%>
+<%--                        <a href="/courses/info/${course.id}" class="dropdown-item">${course.name}</a>--%>
+<%--                    </c:forEach>--%>
+<%--                </div>--%>
+<%--            </div>--%>
         </div>
         <div class="navbar-nav ml-auto">
             <c:choose>
@@ -195,8 +195,7 @@
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge">${unreadMsgs}</span></a></a>
                 </c:when>
-            </c:choose>
-            <c:choose>
+            </c:choose>            <c:choose>
                 <c:when test="${user.role.name().equals('ADMIN')}">
                     <a href="/courses/statistic" class="nav-item nav-link notifications"><i
                             class="fa fa-area-chart"></i></a>
@@ -206,24 +205,18 @@
                             <i class="fa fa-sliders"></i>
                             <b class="caret"></b></a>
                         <div class="dropdown-menu">
-                            <a href="/modules/form?courseId=${course.id}" class="dropdown-item"><i
-                                    class="fas fa-plus"></i>
-                                Add module
-                            </a>
+                            <a href="/courses/form" class="dropdown-item"><i class="fa fa-plus"></i> Add course</a></a>
                         </div>
                     </div>
                 </c:when>
-                <c:when test="${user.role.name().equals('ADMIN')
-                ||isAuthor}">
+                <c:when test="${user.role.name().equals('MENTOR')}">
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown"
                            class="nav-link dropdown-toggle user-action">
                             <i class="fa fa-sliders"></i>
                             <b class="caret"></b></a>
                         <div class="dropdown-menu">
-                            <a href="/modules/form?courseId=${course.id}" class="dropdown-item"><i
-                                    class="fa fa-plus"></i>
-                                Add module</a></a>
+                            <a href="/courses/form" class="dropdown-item"><i class="fa fa-plus"></i> Add course</a></a>
                         </div>
                     </div>
                 </c:when>
@@ -251,6 +244,9 @@
                         </div>
                     </div>
                 </c:when>
+                <c:otherwise>
+                    <a href="/login" class="nav-item nav-link"><i class="fa fa-sign-in"></i> <b>Login</b></a>
+                </c:otherwise>
             </c:choose>
         </div>
     </div>

@@ -48,6 +48,12 @@ public class UserController {
         return "register";
     }
 
+    @RequestMapping(path = "/faq")
+    public String showFaq(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
+        return "faq";
+    }
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public String getAllUsers(Model model, @RequestParam(defaultValue = "1") Integer page) {

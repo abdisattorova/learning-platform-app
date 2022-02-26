@@ -184,8 +184,13 @@
                 Discussion </a>
         </div>
         <div class="navbar-nav ml-auto">
-            <a href="#" class="nav-item nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></a>
             <c:choose>
+                <c:when test="${user!=null}">
+                    <a href="messages/${user.id}" class="nav-item nav-link messages">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge">${unreadMsgs}</span></a></a>
+                </c:when>
+            </c:choose>             <c:choose>
                 <c:when test="${user.role.name().equals('ADMIN')
                 ||isAuthor}">
                     <div class="nav-item dropdown">
