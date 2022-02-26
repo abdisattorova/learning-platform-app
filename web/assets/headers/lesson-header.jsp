@@ -173,8 +173,15 @@
     <a class="navbar-brand"><i class="fa fa-cube"></i>Learning<b> Platform</b></a>
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
+            <a class="nav-item nav-link backspace-icon active"
+               href="/courses/info/${lesson.module.course.id}">
+                <i class="fa fa-hand-o-left"></i>Back</a>
             <a href="/courses" class="nav-item nav-link active">Home</a>
-            <a href="#" class="nav-item nav-link">About</a>
+<%--            <a href="#" class="nav-item nav-link">About</a>--%>
+            <a href="/discussions/${lesson.id}"
+               class="nav-item nav-link active">
+                <ion-icon class="far fa-comment-dots"></ion-icon>
+                Discussion </a>
         </div>
         <div class="navbar-nav ml-auto">
             <a href="#" class="nav-item nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></a>

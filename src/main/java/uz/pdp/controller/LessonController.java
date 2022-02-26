@@ -48,7 +48,6 @@ public class LessonController {
 
     @GetMapping(path = "/{id}")
     public String getLessonById(@PathVariable int id, HttpSession session, Model model) {
-
         User user = (User) session.getAttribute("user");
         Lesson lessonById = lessonService.getLessonById(id);
         List<TaskDto> tasks = new ArrayList<>();

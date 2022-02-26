@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.User;
+import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.OptionService;
 import uz.pdp.service.TaskService;
@@ -24,6 +25,7 @@ public class TaskController {
     @Autowired
     OptionService optionService;
 
+
     @Autowired
     LessonService lessonService;
 
@@ -32,11 +34,12 @@ public class TaskController {
             Model model,
             @RequestParam(name = "lessonId") int lessonId,
             @RequestParam(name = "id", required = false,
-                    defaultValue = "0") int id) {
+                    defaultValue = "0") int id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         model.addAttribute("lessonId", lessonId);
         if (id != 0) {
-            TaskDto task = taskService.getTaskById(id);
-            model.addAttribute("task", task);
+            taskService.getTaskById(id, model, user);
+//            model.addAttribute("task", task);
         }
         return "task-form";
     }
@@ -62,9 +65,9 @@ public class TaskController {
 
     @GetMapping
     public String showTask(Model model,
-                           @RequestParam(name = "id") int id) {
-        TaskDto taskDto = taskService.getTaskById(id);
-        model.addAttribute("task", taskDto);
+                           @RequestParam(name = "id") int id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        taskService.getTaskById(id, model, user);
         return "task-page";
     }
 
@@ -92,13 +95,12 @@ public class TaskController {
                 model.addAttribute("msg", "Correct");
                 List<TaskDto> tasks = taskService.getAllTasks(lessonId, 0);
                 model.addAttribute("tasks", tasks);
-                return "redirect:/lessons/"+lessonId;
+                return "redirect:/lessons/" + lessonId;
             }
         }
 
         model.addAttribute("msg", "Incorrect");
-        TaskDto taskDto = taskService.getTaskById(id);
-        model.addAttribute("task", taskDto);
+        taskService.getTaskById(id, model, user);
         return "task-page";
     }
 
