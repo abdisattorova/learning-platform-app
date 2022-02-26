@@ -186,6 +186,7 @@
                         <span class="badge">${unreadMsgs}</span></a></a>
                 </c:when>
             </c:choose>             <c:choose>
+
                 <c:when test="${user.role.name().equals('ADMIN')
                 ||isAuthor}">
                     <div class="nav-item dropdown">
