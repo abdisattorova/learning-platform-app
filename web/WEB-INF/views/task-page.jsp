@@ -13,6 +13,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link href="https://cdn.rawgit.com/harvesthq/chosen/gh-pages/chosen.min.css" rel="stylesheet"/>
+    <jsp:include page="../../assets/headers/task-header.jsp"/>
 </head>
 <body>
 <div style="padding: 20px">
@@ -41,15 +42,6 @@
         </c:forEach>
         <input type="submit" class="btn btn-primary" value="Submit answer"
                name="submit"/>
-
-        <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
-               href='/tasks/form?id=${task.id}&lessonId=${task.lessonId}'><i
-                class="fas fa-edit"> Edit</i>
-        </a></td>
-        <td><a style="margin-left: 1000px;margin-top: 10px" class="btn btn-danger"
-               href="/tasks/delete/${task.id}/${task.lessonId}"><i
-                class="fas fa-trash"> Delete</i> </a></td>
-        <a class="btn btn-primary my-3" href="/lessons/${task.lessonId}">Back to lesson</a>
     </form>
 </div>
 </body>

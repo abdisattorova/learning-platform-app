@@ -4,14 +4,14 @@ package uz.pdp.service;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import uz.pdp.dao.LessonDao;
-import uz.pdp.dao.OptionDao;
-import uz.pdp.dao.TaskDao;
-import uz.pdp.dao.UsersTasksDao;
+import org.springframework.ui.Model;
+import uz.pdp.dao.*;
+import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Option;
 import uz.pdp.model.Task;
+import uz.pdp.model.User;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
@@ -33,13 +33,16 @@ public class TaskService {
     LessonDao lessonDao;
 
     @Autowired
+    CourseService courseService;
+
+    @Autowired
     UsersTasksDao usersTasksDao;
 
     @Transactional
-    public TaskDto getTaskById(int id) {
+    public void getTaskById(int id, Model model, User user) {
         List<Option> options = optionDao.getOptionsOfTask(id);
         Task taskById = taskDao.getTaskById(id);
-        return new TaskDto(taskById.getId(),
+        TaskDto taskDto = new TaskDto(taskById.getId(),
                 taskById.getLesson().getId(),
                 taskById.getLesson().getModule().getId(),
                 taskById.getLesson().getName(),
@@ -50,6 +53,12 @@ public class TaskService {
                 false,
                 options
         );
+        model.addAttribute("task", taskDto);
+        CourseDto courseById = courseService.getCourseById(taskById.getLesson().getModule().getCourse().getId());
+        if (user != null) {
+            boolean b = courseService.checkIfUserIsMentorOfCourse(courseById, user);
+            model.addAttribute("isAuthor", b);
+        }
     }
 
     @Transactional
