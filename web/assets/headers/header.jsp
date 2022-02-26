@@ -177,8 +177,9 @@
     <!-- Collection of nav links, forms, and other content for toggling -->
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
-<%--            <a href="/courses" class="nav-item nav-link active">Home</a>--%>
+            <%--            <a href="/courses" class="nav-item nav-link active">Home</a>--%>
             <a href="#" class="nav-item nav-link active">About</a>
+            <a href="/faq" class="nav-item nav-link active">FAQ</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" data-toggle="dropdown">All courses</a>
                 <div class="dropdown-menu">
@@ -189,7 +190,13 @@
             </div>
         </div>
         <div class="navbar-nav ml-auto">
-            <a href="#" class="nav-item nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></a>
+            <c:choose>
+                <c:when test="${user!=null}">
+                    <a href="messages/${user.id}" class="nav-item nav-link messages">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge">${unreadMsgs}</span></a></a>
+                </c:when>
+            </c:choose>
             <c:choose>
                 <c:when test="${user.role.name().equals('ADMIN')}">
                     <a href="/courses/statistic" class="nav-item nav-link notifications"><i
