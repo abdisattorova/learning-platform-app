@@ -30,7 +30,8 @@
     <div class="row d-flex justify-content-center">
         <div class="col-md-7">
             <div class="card p-3 py-4">
-                <div class="text-center"><img src="data:image/png;base64,${user.imageUrl}" width="100" class="rounded-circle">
+                <div class="text-center"><img src="data:image/png;base64,${user.imageUrl}" width="100"
+                                              class="rounded-circle">
                 </div>
                 <div class="text-center mt-3"><span class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
                     <h5 class="mt-2 mb-0">${user.fullName}</h5> <span> Mentor </span>
@@ -45,8 +46,16 @@
                     </div>
 
                     <div class="buttons">
-                        <button class="btn btn-outline-primary px-4">Message</button>
-                        <button class="btn btn-primary px-4 ms-3">Contact</button>
+                        <a href="/messages/with/${user.id}" class="btn btn-outline-primary px-4">Message</a>
+                        <c:choose>
+                            <c:when test="${admin.id!=null&&user.is_blocked==false}">
+                                <a href="/users/block/${user.id}" class="btn btn-primary px-4 ms-3">Block</a>
+                            </c:when>
+                            <c:when test="${admin.id!=null&&user.is_blocked==true}">
+                                <a href="/users/block/${user.id}" class="btn btn-primary px-4 ms-3">Unblock</a>
+                            </c:when>
+                        </c:choose>
+                        <%--                        <a class="btn btn-primary px-4 ms-3">Contact</a>--%>
                     </div>
                 </div>
             </div>

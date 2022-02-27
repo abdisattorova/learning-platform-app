@@ -307,7 +307,9 @@
                             <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                            <span>Chat with ${person.fullName}</span>
+                            <a href="/users/info/${person.id}">
+                                <span>Chat with ${person.fullName}</span>
+                            </a>
                         </div>
                         <div class="video_cam">
                             <span><i class="fas fa-video"></i></span>
@@ -362,7 +364,8 @@
                         </div>
                         <div style="padding: 8px">
                             <form action="/messages?personId=${person.id}" method="post">
-                             <textarea cols="180" rows="4" class="form-control"
+                             <textarea cols="180" rows="2" class="form-control"
+
                                        placeholder="Enter your message..."
                                        name="message" required></textarea>
                                 <input type="submit" class="btn btn-primary my-2" style="margin-left: auto" value="Send"
