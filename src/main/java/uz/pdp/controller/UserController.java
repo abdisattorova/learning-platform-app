@@ -51,7 +51,7 @@ public class UserController {
     @RequestMapping(path = "/faq")
     public String showFaq(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        model.addAttribute("user",user);
+        model.addAttribute("user", user);
         return "faq";
     }
 
@@ -191,12 +191,29 @@ public class UserController {
 
 
     @RequestMapping(path = "users/info/{id}")
-    public String showUserInfo(Model model, @PathVariable int id) {
+    public String showUserInfo(Model model, @PathVariable int id, HttpSession session) {
+        User user = (User) session.getAttribute("user");
         User userById = userService.getUserById(id);
         getUserWithImageUrl(userById);
         List<CourseDto> courseDtoList = courseService.getCoursesOfAuthor(id);
         model.addAttribute("courses", courseDtoList);
         model.addAttribute("user", userById);
+        if (user.getRole().name().equals("ADMIN")) {
+            model.addAttribute("admin", user);
+        }
+        return "user-info";
+    }
+
+
+    @GetMapping(path = "/users/block/{userId}")
+    public String blockUser(@PathVariable(name = "userId") Integer userId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        User userById = userService.getUserById(userId);
+        userService.blockUser(userById);
+        model.addAttribute("user", userById);
+        if (user.getRole().name().equals("ADMIN")) {
+            model.addAttribute("admin", user);
+        }
         return "user-info";
     }
 }

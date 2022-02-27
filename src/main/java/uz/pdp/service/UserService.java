@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import uz.pdp.dao.UserDao;
 import uz.pdp.model.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,14 +16,14 @@ public class UserService {
     @Autowired
     UserDao userDao;
 
-    public List<User> getAllUsers(int page ) {
+    public List<User> getAllUsers(int page) {
 
         return userDao.getUsers(page);
 
     }
 
     public int saveUser(User user) {
-        return  userDao.saveUserToDb(user);
+        return userDao.saveUserToDb(user);
     }
 
     public User getUserById(int id) {
@@ -48,6 +49,7 @@ public class UserService {
     public List<User> getAllAuthors() {
         return userDao.getAuthors();
     }
+
     public User getUserByUsernamePassword(String username, String password) {
         return userDao.getUserByUsernamePassword(username, password);
 
@@ -60,5 +62,15 @@ public class UserService {
 
     public List<User> getAllStudents() {
         return userDao.getStudents();
+    }
+
+    @Transactional
+    public void blockUser(User userById) {
+        if (userById.getIs_blocked()) {
+            userById.setIs_blocked(false);
+        } else {
+            userById.setIs_blocked(true);
+        }
+        userDao.saveUser(userById);
     }
 }
