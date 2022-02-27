@@ -33,23 +33,5 @@
 <div style="margin-left: 250px;margin-top: 50px; margin-right:
 100px;font-family:sans-serif"><p>${lesson.body}</p></div>
 
-<c:forEach var="task" items="${tasks}">
-    <c:choose>
-        <c:when test="${task.isCompleted==true}">
-            <td>
-                <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-success"
-                   href='/tasks?id=${task.id}'> ${task.title}</a>
-            </td>
-        </c:when>
-        <c:when test="${task.isCompleted==false}">
-            <td>
-                <a style="margin-left: 1000px;margin-top: 10px" class="btn btn-info"
-                   href='/tasks?id=${task.id}'> ${task.title}</a>
-            </td>
-            <br>
-        </c:when>
-    </c:choose>
-
-</c:forEach>
 </body>
 </html>

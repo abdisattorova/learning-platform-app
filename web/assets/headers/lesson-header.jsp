@@ -177,11 +177,39 @@
                href="/courses/info/${lesson.module.course.id}">
                 <i class="fa fa-hand-o-left"></i>Back</a>
             <a href="/courses" class="nav-item nav-link active">Home</a>
-<%--            <a href="#" class="nav-item nav-link">About</a>--%>
+            <%--            <a href="#" class="nav-item nav-link">About</a>--%>
             <a href="/discussions/${lesson.id}"
                class="nav-item nav-link active">
                 <ion-icon class="far fa-comment-dots"></ion-icon>
                 Discussion </a>
+            <div class="nav-item dropdown">
+                <a href="#" data-toggle="dropdown"
+                   class="nav-link dropdown-toggle user-action">
+                    <button class="btn-btn-primary">
+                        <i class="fas fa-tasks"></i>Tasks
+                    </button>
+                </a>
+                <div class="dropdown-menu">
+                    <c:forEach var="task" items="${tasks}">
+                        <c:choose>
+                            <c:when test="${task.isCompleted==true}">
+                                <td>
+                                    <a class="dropdown-item btn btn-success"
+                                       href='/tasks?id=${task.id}'> ${task.title}</a>
+                                </td>
+                            </c:when>
+                            <c:when test="${task.isCompleted==false}">
+                                <td>
+                                    <a class="dropdown-item btn btn-info"
+                                       href='/tasks?id=${task.id}'> ${task.title}</a>
+                                </td>
+                                <br>
+                            </c:when>
+                        </c:choose>
+
+                    </c:forEach>
+                </div>
+            </div>
         </div>
         <div class="navbar-nav ml-auto">
             <c:choose>
@@ -190,25 +218,25 @@
                         <i class="fa fa-envelope-o"></i>
                         <span class="badge">${unreadMsgs}</span></a></a>
                 </c:when>
-            </c:choose>             <c:choose>
-                <c:when test="${user.role.name().equals('ADMIN')
+            </c:choose> <c:choose>
+            <c:when test="${user.role.name().equals('ADMIN')
                 ||isAuthor}">
-                    <div class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown"
-                           class="nav-link dropdown-toggle user-action">
-                            <i class="fa fa-sliders"></i>
-                            <b class="caret"></b></a>
-                        <div class="dropdown-menu">
-                            <a href="/lessons/form?id=${lesson.id}&moduleId=${lesson.module.id}"
-                               class="dropdown-item"><i class="fa fa-edit"></i> Edit lesson</a></a>
-                            <a href="/lessons/delete/${lesson.id}/${lesson.module.course.id}"
-                               class="dropdown-item"><i class="fa fa-trash"></i> Delete lesson</a></a>
-                            <a href="/tasks/form?lessonId=${lesson.id}"
-                               class="dropdown-item"><i class="fa fa-plus"></i> Add task</a></a>
-                        </div>
+                <div class="nav-item dropdown">
+                    <a href="#" data-toggle="dropdown"
+                       class="nav-link dropdown-toggle user-action">
+                        <i class="fa fa-sliders"></i>
+                        <b class="caret"></b></a>
+                    <div class="dropdown-menu">
+                        <a href="/lessons/form?id=${lesson.id}&moduleId=${lesson.module.id}"
+                           class="dropdown-item"><i class="fa fa-edit"></i> Edit lesson</a></a>
+                        <a href="/lessons/delete/${lesson.id}/${lesson.module.course.id}"
+                           class="dropdown-item"><i class="fa fa-trash"></i> Delete lesson</a></a>
+                        <a href="/tasks/form?lessonId=${lesson.id}"
+                           class="dropdown-item"><i class="fa fa-plus"></i> Add task</a></a>
                     </div>
-                </c:when>
-            </c:choose>
+                </div>
+            </c:when>
+        </c:choose>
             <c:choose>
                 <c:when test="${user!=null}">
                     <div class="nav-item dropdown">
