@@ -1,7 +1,6 @@
 package uz.pdp.service;
 //Sevinch Abdisattorova 02/26/2022 11:58 PM
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
@@ -10,16 +9,13 @@ import uz.pdp.dao.UserDao;
 import uz.pdp.dto.UserDto;
 import uz.pdp.model.Message;
 import uz.pdp.model.User;
-import uz.pdp.util.Constants;
 
 import javax.transaction.Transactional;
-
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static uz.pdp.util.Constants.getUserWithImageUrl;
-import static uz.pdp.util.Constants.promoteMessage;
 
 @Service
 public class MessageService {

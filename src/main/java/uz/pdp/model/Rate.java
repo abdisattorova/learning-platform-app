@@ -25,4 +25,6 @@ public class Rate {
     private Integer rate;
 
 
+    private Integer points;
+
 }

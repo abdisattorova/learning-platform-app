@@ -1,18 +1,25 @@
 package uz.pdp.service;
 
 
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Paragraph;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import uz.pdp.dao.CertificateDao;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dao.TaskDao;
 import uz.pdp.dao.UserDao;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.RateDto;
+import uz.pdp.model.Certificate;
 import uz.pdp.model.Course;
 import uz.pdp.model.Rate;
 import uz.pdp.model.User;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -25,6 +32,12 @@ public class CourseService {
 
     @Autowired
     TaskDao taskDao;
+
+    @Autowired
+    UserDao userDao;
+
+    @Autowired
+    CertificateDao certificateDao;
 
 
     public List<CourseDto> getAllCourses() {
@@ -106,7 +119,8 @@ public class CourseService {
     public boolean checkIfUserIsMentorOfCourse(CourseDto courseById, User user) {
         return courseById.getAuthorDtoList().stream().anyMatch(authorDto -> authorDto.getId() == user.getId());
     }
-@Transactional
+
+    @Transactional
     public void rateCourse(int courseId, User user, Rate rate) {
         Course course = courseDao.getCourse(courseId);
         rate.setCourse(course);
@@ -117,6 +131,49 @@ public class CourseService {
 
     public RateDto checkCourseRate(int id, int user_id) {
         return courseDao.checkCourseRate(id, user_id);
+    }
 
+    @Transactional
+    public void saveCertificate(int courseId, int userId) {
+        int taskCount = taskDao.getTaskCount(courseId);
+        int solvedTask = taskDao.getSolvedTask(userId, courseId);
+        User userByIdFromDb = userDao.getUserByIdFromDb(userId);
+        Course courseByIdFromDb = courseDao.getCourse(courseId);
+        if (taskCount == solvedTask) {
+            Certificate certificate = new Certificate();
+            certificate.setUser(userByIdFromDb);
+            certificate.setCourse(courseByIdFromDb);
+            certificateDao.saveCertificate(certificate);
+        }
+    }
+
+    @Transactional
+    public void generateCertificate(int courseId, int userId) {
+        if (certificateDao.getCertificateId(courseId, userId) != null) {
+            Course courseByIdFromDb = courseDao.getCourse(courseId);
+            User userByIdFromDb = userDao.getUserByIdFromDb(userId);
+            try (PdfWriter pdfWriter = new PdfWriter("src/main/resources/certificate.pdf")) {
+
+                PdfDocument pdfDocument = new PdfDocument(pdfWriter);
+                pdfDocument.addNewPage();
+                Document document = new Document(pdfDocument);
+                Paragraph paragraph = new Paragraph();
+                paragraph.add("Certificate");
+                Paragraph paragraph2 = new Paragraph();
+                paragraph2.add(userByIdFromDb.getFullName());
+
+                Paragraph paragraph3 = new Paragraph();
+                paragraph3.add(courseByIdFromDb.getName());
+
+                document.add(paragraph);
+                document.add(paragraph2);
+                document.add(paragraph3);
+                document.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+        }
     }
 }

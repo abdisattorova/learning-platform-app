@@ -207,4 +207,12 @@ public class CourseController {
     }
 
 
+//    @GetMapping(path = "/certificate")
+//    public String getCertificateOfUser(@RequestParam(name = "courseId") Integer courseId,
+//                                       HttpSession session, Model model) {
+//        User user = (User) session.getAttribute("user");
+//        courseService.saveCertificate(courseId, user.getId());
+//
+//    }
+
 }

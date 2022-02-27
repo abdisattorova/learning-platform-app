@@ -7,6 +7,7 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+import uz.pdp.model.Certificate;
 import uz.pdp.model.Task;
 
 import java.util.List;
