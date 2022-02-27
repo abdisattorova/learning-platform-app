@@ -207,6 +207,7 @@ public class UserController {
     }
 
 
+
     @GetMapping(path = "/users/block/{userId}")
     public String blockUser(@PathVariable(name = "userId") Integer userId, Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
