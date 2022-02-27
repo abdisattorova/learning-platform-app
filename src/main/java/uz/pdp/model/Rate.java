@@ -22,6 +22,5 @@ public class Rate {
     @ManyToOne
     private User user;
 
-    private Integer rate;
-
+    private Double rate;
 }

@@ -15,7 +15,6 @@ import uz.pdp.dto.ModuleDto;
 import uz.pdp.dto.RateDto;
 import uz.pdp.model.Course;
 import uz.pdp.model.Rate;
-import uz.pdp.model.User;
 
 import java.lang.reflect.Type;
 import java.sql.Array;
@@ -35,7 +34,7 @@ public class CourseDao {
     ModuleDao moduleDao;
 
 
-    public Course getCourse(int id){
+    public Course getCourse(int id) {
         Session currentSession = sessionFactory.getCurrentSession();
         Course course = currentSession.get(Course.class, id);
         return course;
@@ -242,15 +241,26 @@ public class CourseDao {
             rate = template.queryForObject(query, (rs, rowNum) -> {
                 RateDto rate1 = new RateDto();
                 rate1.setId(rs.getInt(1));
-                rate1.setRate(rs.getInt(2));
-                rate1.setCourse_id(rs.getInt(3));
-                rate1.setUser_id(rs.getInt(4));
+                rate1.setCourse_id(rs.getInt(2));
+                rate1.setUser_id(rs.getInt(3));
+                rate1.setRate(rs.getDouble(4));
+
 
                 return rate1;
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return rate;
+    }
+
+    public Double getCourseRate(CourseDto courseDto) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = currentSession.createNativeQuery
+                (" select sum(rate)/count(*) from rates where course_id=" + courseDto.getId());
+        Double rate = (Double) nativeQuery.uniqueResult();
+//        DecimalFormat decimalFormat = new DecimalFormat("0.00");
+//        String format = decimalFormat.format(rate);
         return rate;
     }
 }

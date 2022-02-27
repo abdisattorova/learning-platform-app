@@ -59,6 +59,8 @@
                                         <br>
                                         <a href="/courses/info/${course.id}">
                                             <h5 class="card-title">${course.name}</h5>
+                                            <h6><i class="fas fa-star active" style="color: yellow "></i>${course.rate}
+                                            </h6>
                                         </a>
                                         <c:forEach items="${course.authorDtoList}" var="author">
                                             <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
@@ -74,5 +76,6 @@
         </div>
     </div>
 </div>
+<script src="//code-eu1.jivosite.com/widget/u3u4Hztu5O" async></script>
 </body>
 </html>
