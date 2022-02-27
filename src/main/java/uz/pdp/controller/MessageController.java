@@ -17,10 +17,11 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
-    @PostMapping(path = "/askPromotion/{userId}")
-    public String promoteToMentor(Model model, @PathVariable(name = "userId") Integer userId) {
-        messageService.promoteToAdmin(model, userId);
-        return "redirect:/courses";
+    @GetMapping(path = "/contact-with-admin")
+    public String promoteToMentor(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        messageService.contactWithAdmin(model, user);
+        return "chat";
     }
 
     @GetMapping(path = "/{receiverId}")
