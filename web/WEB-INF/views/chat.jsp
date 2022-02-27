@@ -301,6 +301,9 @@
             <div class="card">
                 <div class="card-header msg_head">
                     <div class="d-flex bd-highlight">
+                        <a href="/messages/${user.id}">
+                            <i class="fa fa-arrow-circle-left" style="font-size:36px"></i> </a>
+
                         <div class="img_cont">
                             <img src="data:image/png;base64, ${person.imageUrl}"
                                  class="rounded-circle user_img">

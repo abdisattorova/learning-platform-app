@@ -10,6 +10,7 @@ import uz.pdp.model.User;
 import uz.pdp.service.MessageService;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping(path = "/messages")
@@ -50,4 +51,10 @@ public class MessageController {
         messageService.getMessagesWithPerson(personId, user, model);
         return "chat";
     }
+    @GetMapping(path = "/users/search")
+    public String searchUsers(@RequestParam(name = "search") String search,Model model) {
+       messageService.getUsersBySearch(search,model);
+       return "chat-people";
+    }
+
 }

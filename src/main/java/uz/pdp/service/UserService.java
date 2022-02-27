@@ -83,4 +83,6 @@ public class UserService {
         } else userByIdFromDb.setRole(Role.MENTOR);
         userDao.saveUser(userByIdFromDb);
     }
+
+
 }

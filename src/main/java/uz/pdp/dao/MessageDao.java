@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Message;
 import uz.pdp.model.User;
+import uz.pdp.model.enums.Role;
 
 import java.util.List;
 
@@ -51,5 +52,23 @@ public class MessageDao {
                 "showallmessageswithperson(" + personId + "," + userId + ")");
         nativeQuery.addEntity(Message.class);
         return (List<Message>) nativeQuery.list();
+    }
+
+    public List<User> searchUsers(String search) {
+        String queryStr = "select id, full_name, username, password,image_url,role" +
+                " from users " +
+                "where username like '%" + search + "%'" +
+                "or full_name like '%" + search + "%'";
+        List<User> list = template.query(queryStr, (rs, row) -> {
+            User user = new User();
+            user.setId(rs.getInt(1));
+            user.setFullName(rs.getString(2));
+            user.setUsername(rs.getString(3));
+            user.setPassword(rs.getString(4));
+            user.setImageUrl(rs.getString(5));
+            user.setRole(Role.valueOf(rs.getString(6)));
+            return user;
+        });
+        return list;
     }
 }
