@@ -1,10 +1,12 @@
 package uz.pdp.dao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import uz.pdp.model.enums.Role;
 import uz.pdp.model.User;
 import uz.pdp.util.Constants;
+
 import java.util.List;
 
 @Component
@@ -51,6 +53,24 @@ public class UserDao {
         User user = null;
         try {
             user = template.queryForObject("Select * from users where id =" + id, (rs, rowNum) -> {
+                User user1 = new User();
+                user1.setId(rs.getInt(1));
+                user1.setFullName(rs.getString(2));
+                user1.setUsername(rs.getString(3));
+                user1.setPassword(rs.getString(4));
+                user1.setImageUrl(rs.getString(6));
+                return user1;
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
+    }
+
+    public User getAdminFromDb() {
+        User user = null;
+        try {
+            user = template.queryForObject("Select * from users where role ='ADMIN'", (rs, rowNum) -> {
                 User user1 = new User();
                 user1.setId(rs.getInt(1));
                 user1.setFullName(rs.getString(2));

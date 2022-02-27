@@ -171,40 +171,22 @@
 <body>
 <nav class="navbar navbar-expand-xl navbar-light bg-light">
     <a class="navbar-brand"><i class="fa fa-cube"></i>Learning<b> Platform</b></a>
-    <%--<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-        <span class="navbar-toggler-icon"></span>
-    </button>--%>
-    <!-- Collection of nav links, forms, and other content for toggling -->
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
+            <a class="nav-item nav-link backspace-icon active" href="/lessons/${task.lessonId}">
+                <i class="fa fa-hand-o-left"></i>Back</a>
             <a href="/courses" class="nav-item nav-link active">Home</a>
-            <%--            <a href="#" class="nav-item nav-link">About</a>--%>
-            <%--<div class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" data-toggle="dropdown">All courses</a>
-                <div class="dropdown-menu">
-                    <c:forEach items="${courseList}" var="course">
-                        <a href="/courses/info/${course.id}" class="dropdown-item">${course.name}</a>
-                    </c:forEach>
-                </div>
-            </div>--%>
+<%--            <a href="#" class="nav-item nav-link">About</a>--%>
         </div>
         <div class="navbar-nav ml-auto">
-            <a href="#" class="nav-item nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></a>
             <c:choose>
-                <c:when test="${user.role.name().equals('ADMIN')}">
-                    <a href="/courses/statistic" class="nav-item nav-link notifications"><i
-                            class="fa fa-area-chart"></i></a>
-                    <div class="nav-item dropdown">
-                        <a href="#" data-toggle="dropdown"
-                           class="nav-link dropdown-toggle user-action">
-                            <i class="fa fa-sliders"></i>
-                            <b class="caret"></b></a>
-                        <div class="dropdown-menu">
-                            <a href="/modules/form?courseId=${course.id}" class="dropdown-item"><i class="fas fa-plus"></i> Add module
-                            </a>
-                        </div>
-                    </div>
+                <c:when test="${user!=null}">
+                    <a href="/messages/${user.id}" class="nav-item nav-link messages">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge">${unreadMsgs}</span></a></a>
                 </c:when>
+            </c:choose>             <c:choose>
+
                 <c:when test="${user.role.name().equals('ADMIN')
                 ||isAuthor}">
                     <div class="nav-item dropdown">
@@ -213,7 +195,11 @@
                             <i class="fa fa-sliders"></i>
                             <b class="caret"></b></a>
                         <div class="dropdown-menu">
-                            <a href="/modules/form?courseId=${course.id}" class="dropdown-item"><i class="fa fa-plus"></i> Add module</a></a>
+                            <a href='/tasks/form?id=${task.id}&lessonId=${task.lessonId}'
+                               class="dropdown-item"><i class="fa fa-edit"></i> Edit task</a></a>
+                            <a href="/tasks/delete/${task.id}/${task.lessonId}"
+                               class="dropdown-item"><i class="fa fa-trash"></i> Delete task</a></a>
+
                         </div>
                     </div>
                 </c:when>
@@ -241,6 +227,9 @@
                         </div>
                     </div>
                 </c:when>
+                <c:otherwise>
+                    <a href="/login" class="nav-item nav-link"><i class="fa fa-sign-in"></i> <b>Login</b></a>
+                </c:otherwise>
             </c:choose>
         </div>
     </div>

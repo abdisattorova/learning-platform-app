@@ -171,28 +171,54 @@
 <body>
 <nav class="navbar navbar-expand-xl navbar-light bg-light">
     <a class="navbar-brand"><i class="fa fa-cube"></i>Learning<b> Platform</b></a>
+    <%--<button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>--%>
+    <!-- Collection of nav links, forms, and other content for toggling -->
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
-            <a href="/courses" class="nav-item nav-link active">Home</a>
-            <a href="#" class="nav-item nav-link">About</a>
+            <%--            <a href="/courses" class="nav-item nav-link active">Home</a>--%>
+            <a href="#" class="nav-item nav-link active">About</a>
+            <a href="/faq" class="nav-item nav-link active">FAQ</a>
+            <div class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle active" data-toggle="dropdown">All courses</a>
+                <div class="dropdown-menu">
+                    <c:forEach items="${courseList}" var="course">
+                        <a href="/courses/info/${course.id}" class="dropdown-item">${course.name}</a>
+                    </c:forEach>
+                </div>
+            </div>
         </div>
         <div class="navbar-nav ml-auto">
-            <a href="#" class="nav-item nav-link messages"><i class="fa fa-envelope-o"></i><span class="badge">10</span></a></a>
             <c:choose>
-                <c:when test="${user.role.name().equals('ADMIN')
-                ||isAuthor}">
+                <c:when test="${user!=null}">
+                    <a href="/messages/${user.id}" class="nav-item nav-link messages">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge">${unreadMsgs}</span></a></a>
+                </c:when>
+            </c:choose>
+            <c:choose>
+                <c:when test="${user.role.name().equals('ADMIN')}">
+                    <a href="/courses/statistic" class="nav-item nav-link notifications"><i
+                            class="fa fa-area-chart"></i></a>
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown"
                            class="nav-link dropdown-toggle user-action">
                             <i class="fa fa-sliders"></i>
                             <b class="caret"></b></a>
                         <div class="dropdown-menu">
-                            <a href="/lessons/form?id=${lesson.id}&moduleId=${lesson.module.id}"
-                               class="dropdown-item"><i class="fa fa-edit"></i> Edit lesson</a></a>
-                            <a href="/lessons/delete/${lesson.id}/${lesson.module.course.id}"
-                               class="dropdown-item"><i class="fa fa-trash"></i> Delete lesson</a></a>
-                            <a href="/tasks/form?lessonId=${lesson.id}"
-                               class="dropdown-item"><i class="fa fa-plus"></i> Add task</a></a>
+                            <a href="/courses/form" class="dropdown-item"><i class="fa fa-plus"></i> Add course</a></a>
+                        </div>
+                    </div>
+                </c:when>
+                <c:when test="${user.role.name().equals('MENTOR')}">
+                    <div class="nav-item dropdown">
+                        <a href="#" data-toggle="dropdown"
+                           class="nav-link dropdown-toggle user-action">
+                            <i class="fa fa-sliders"></i>
+                            <b class="caret"></b></a>
+                        <div class="dropdown-menu">
+                            <a href="/courses/form" class="dropdown-item"><i class="fa fa-plus"></i> Add course</a></a>
                         </div>
                     </div>
                 </c:when>

@@ -6,10 +6,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Discussion;
-import uz.pdp.model.User;
 
 import java.util.List;
 
@@ -36,11 +34,13 @@ public class DiscussionDao {
         session.save(discussion);
 
     }
-    public int checkDiscuss(Discussion discussion){
+
+
+    public int checkDiscuss(Discussion discussion) {
         try {
             String query = "select count(*)\n" +
                     "from restricted_words\n" +
-                    "where words ilike '%"+discussion.getMessage()+"%';";
+                    "where word ilike '%" + discussion.getMessage() + "%';";
             Integer integer = template.queryForObject(query, (rs, rowNum) -> {
                 return rs.getInt(1);
             });
@@ -51,10 +51,12 @@ public class DiscussionDao {
         return 0;
 
     }
-    public void changeBlockUser(int user_id){
-        String query="UPDATE users\n" +
+
+
+    public void changeBlockUser(int user_id) {
+        String query = "UPDATE users\n" +
                 "SET is_blocked=false\n" +
-                "    WHERE id= "+user_id+";";
+                "    WHERE id= " + user_id + ";";
         template.update(query);
     }
 }

@@ -13,8 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <title>Courses</title>
-    <jsp:include page="header.jsp"/>
-    <%--  <style><%@include file="/WEB-INF/views/bar.css"%></style>--%>
+    <jsp:include page="../../assets/headers/header.jsp"/>
 </head>
 <body class="container">
 <h1>${message}</h1>
@@ -23,9 +22,8 @@
         <label for="exampleInputEmail1"></label>
         <input type="text" class="form-control" id="exampleInputEmail1" name="search" placeholder="Enter course name">
     </div>
-    <br>
 </form>
-<div class="container" style="padding-top: 2rem">
+<div style="padding-top: 2rem">
 
     <div class="row">
         <div class="col-md-12">
@@ -36,6 +34,25 @@
                         <c:forEach items="${courseList}" var="course" varStatus="loop">
                             <div class="col-md-3 mt-3">
                                 <div class="card">
+                                    <c:choose>
+                                        <c:when test="${user.role.name().equals('ADMIN')||course.isUserAuthor==true}">
+                                            <%--                                            <div class="btn-group dropright">--%>
+                                            <h4 type="text"
+                                                data-toggle="dropdown" aria-haspopup="true"
+                                                aria-expanded="false" style="margin-left: auto">
+                                                <b>...</b>
+                                            </h4>
+                                            <div class="dropdown-menu">
+                                                <a class="dropdown-item" href='/courses/form?id=${course.id}'><i
+                                                        class="fas fa-edit"> edit</i>
+                                                </a>
+                                                <a class="dropdown-item" href="/courses/delete/${course.id}"><i
+                                                        class="fas fa-trash"> delete</i></a>
+                                            </div>
+                                            <%--                                            </div>--%>
+
+                                        </c:when>
+                                    </c:choose>
                                     <div class="card-body" style="text-align: center">
                                         <img src="data:image/png;base64, ${course.imageUrl}"
                                              style="width: 72px; height: 72px" alt="Here should be image">
@@ -46,20 +63,11 @@
                                         <c:forEach items="${course.authorDtoList}" var="author">
                                             <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
                                         </c:forEach>
-                                        <c:choose>
-                                            <c:when test="${user.role.name().equals('ADMIN')||course.isUserAuthor==true}">
-                                                <a class="btn btn-info" href='/courses/form?id=${course.id}'><i
-                                                        class="fas fa-edit"></i>
-                                                </a>
-                                                <a class="btn btn-danger" href="/courses/delete/${course.id}"><i
-                                                        class="fas fa-trash"></i> </a>
-                                            </c:when>
-                                        </c:choose>
+
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
-
                     </div>
                 </div>
             </div>

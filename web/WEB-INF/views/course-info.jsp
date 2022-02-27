@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <%--    <jsp:include page="header.jsp" />--%>
-    <jsp:include page="courses-header.jsp"/>
+    <jsp:include page="../../assets/headers/courses-header.jsp"/>
 </head>
 <body>
 <c:set var="authors" value="${course.authorDtoList}"></c:set>
@@ -42,11 +42,23 @@
                             <summary>${module.name}
                                 <c:choose>
                                     <c:when test="${user.role.name().equals('ADMIN')||isAuthor}">
-                                        <a href="/modules/delete?id=${module.id}&courseId=${course.id}">
-                                            <i class="fas fa-trash" style="color: red"></i></a>
-                                        <a href="/modules/form?id=${module.id}&courseId=${course.id}">
-                                            <i class="fas fa-edit" style="color: green"></i>
-                                        </a>
+                                        <h6 type="text"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false" style="margin-left: auto">
+                                            ...
+                                        </h6>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="/modules/form?id=${module.id}&courseId=${course.id}"><i
+                                                    class="fas fa-edit"> edit</i>
+                                            </a>
+                                            <a class="dropdown-item"
+                                               href="/modules/delete?id=${module.id}&courseId=${course.id}"><i
+                                                    class="fas fa-trash"> delete</i></a>
+                                            <a class="dropdown-item"
+                                               href="/lessons/form?moduleId=${module.id}"><i
+                                                    class="fas fa-plus"> add lesson</i> </a></td>
+                                        </div>
                                     </c:when>
                                 </c:choose>
                             </summary>
@@ -57,7 +69,6 @@
                                 </c:forEach>
                             </p>
                         </details>
-
                     </c:forEach>
                 </div>
             </div>

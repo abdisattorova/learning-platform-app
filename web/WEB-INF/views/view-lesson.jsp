@@ -18,7 +18,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <jsp:include page="lesson-header.jsp"/>
+    <jsp:include page="../../assets/headers/lesson-header.jsp"/>
 </head>
 <body>
 
@@ -51,18 +51,5 @@
     </c:choose>
 
 </c:forEach>
-<a href="/discussions/${lesson.id}" class="btn btn-primary" style=
-        "margin-left: 250px; float: left; margin-bottom: 2rem"
-   onMouseOver="this.style.color='#0F0'"
-   onMouseOut="this.style.color='#00F'">
-    <ion-icon class="far fa-comment-dots"></ion-icon>
-    Discussion</a>
-
-<a href="/courses/info/${lesson.module.course.id}" class="btn btn-danger" style=
-        "margin-left: 30px; float: left; margin-bottom: 2rem"
-   onMouseOver="this.style.color='#0F0'"
-   onMouseOut="this.style.color='#00F'">
-    <ion-icon class="bi bi-youtube"></ion-icon>
-    Back</a>
 </body>
 </html>

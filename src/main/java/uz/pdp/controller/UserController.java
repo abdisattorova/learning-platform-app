@@ -6,19 +6,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
-
 import uz.pdp.dto.CourseDto;
-import uz.pdp.model.Role;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import static uz.pdp.util.Constants.getUserWithImageUrl;
@@ -50,6 +48,12 @@ public class UserController {
         return "register";
     }
 
+    @RequestMapping(path = "/faq")
+    public String showFaq(HttpSession session, Model model) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user",user);
+        return "faq";
+    }
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
     public String getAllUsers(Model model, @RequestParam(defaultValue = "1") Integer page) {
@@ -80,7 +84,9 @@ public class UserController {
         model.addAttribute("userList", allUsers);
         return "view-users";
 
-    }@RequestMapping(path = "/mentors", method = RequestMethod.GET)
+    }
+
+    @RequestMapping(path = "/mentors", method = RequestMethod.GET)
     public String getAllMentors(Model model) {
         List<User> allUsers = userService.getAllAuthors();
         for (User allUser : allUsers) {
@@ -94,11 +100,11 @@ public class UserController {
 
     @RequestMapping(path = "/users/login", method = RequestMethod.POST)
     public String authUser(User user, Model model, HttpSession session) {
-
         String password = user.getPassword();
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
+            getUserWithImageUrl(userFromDb);
             session.setAttribute("user", userFromDb);
             model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
             return "redirect:/courses";
