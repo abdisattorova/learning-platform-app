@@ -75,6 +75,7 @@ public class UserController {
 
     }
 
+
     @RequestMapping(path = "/students", method = RequestMethod.GET)
     public String getAllStudents(Model model) {
         List<User> allUsers = userService.getAllStudents();

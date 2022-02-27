@@ -2,6 +2,7 @@ package uz.pdp.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -179,4 +180,6 @@ public class UserDao {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(userById);
     }
+
+
 }

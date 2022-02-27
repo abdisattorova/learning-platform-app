@@ -54,6 +54,10 @@ public class MessageService {
         User userByIdFromDb = userDao.getUserByIdFromDb(personId);
         model.addAttribute("person", userByIdFromDb);
         List<Message> messagesWithPerson = messageDao.getMessagesWithPerson(personId, user.getId());
+        messagesWithPerson.stream().forEach(message -> {
+            message.setIsRead(true);
+            messageDao.saveMessage(message);
+        });
         model.addAttribute("messages", messagesWithPerson);
     }
 
@@ -77,4 +81,24 @@ public class MessageService {
         messageDao.saveMessage(message);
     }
 
+    @Transactional
+    public void getUsersBySearch(String search, Model model) {
+        List<User> userList = messageDao.searchUsers(search);
+        List<UserDto> userDtoList = new ArrayList<>();
+        for (User user : userList) {
+//            Integer countUnreadMessagesOfChat = messageDao.countUnreadMessagesOfChat(receiverId, user.getId());
+            getUserWithImageUrl(user);
+            UserDto userDto = new UserDto(user.getId(),
+                    user.getFullName(),
+                    user.getUsername(),
+                    user.getPassword(),
+                    user.getRole(),
+                    user.getImageUrl(),
+                    user.getIs_blocked(),
+                    0
+            );
+            userDtoList.add(userDto);
+        }
+        model.addAttribute("people", userDtoList);
+    }
 }
