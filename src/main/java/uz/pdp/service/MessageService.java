@@ -50,13 +50,16 @@ public class MessageService {
 
     @Transactional
     public void getMessagesWithPerson(Integer personId, User user, Model model) {
+
         model.addAttribute("user", user);
         User userByIdFromDb = userDao.getUserByIdFromDb(personId);
         model.addAttribute("person", userByIdFromDb);
         List<Message> messagesWithPerson = messageDao.getMessagesWithPerson(personId, user.getId());
         messagesWithPerson.stream().forEach(message -> {
-            message.setIsRead(true);
-            messageDao.saveMessage(message);
+            if (message.getReceiver().getId() == user.getId()) {
+                message.setIsRead(true);
+                messageDao.saveMessage(message);
+            }
         });
         model.addAttribute("messages", messagesWithPerson);
     }
