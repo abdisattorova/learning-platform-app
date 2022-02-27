@@ -65,7 +65,7 @@ public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/learning_platform_db");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
+        dataSource.setPassword("0308");
         return new JdbcTemplate(dataSource);
     }
 
@@ -89,7 +89,7 @@ public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware {
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/learning_platform_db");
         dataSource.setUsername("postgres");
-        dataSource.setPassword("root123");
+        dataSource.setPassword("0308");
         localSessionFactoryBean.setDataSource(dataSource);
         localSessionFactoryBean.setPackagesToScan(new String[]{"uz.pdp.model"});
         localSessionFactoryBean.setHibernateProperties(hibernateProperties());

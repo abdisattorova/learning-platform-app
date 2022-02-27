@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.RateDto;
+import uz.pdp.model.Course;
+import uz.pdp.model.Rate;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
@@ -138,15 +141,17 @@ public class CourseController {
     public String showInfoAboutCourse(@PathVariable int id, Model model, HttpSession session) {
         CourseDto courseById = courseService.getCourseById(id);
         getCourseWithImageUrl(courseById);
+
         User user = (User) session.getAttribute("user");
         courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
+        RateDto checkCourse = courseService.checkCourseRate(id, user.getId());
         if (user != null) {
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
             boolean result = courseService.checkIfUserIsMentorOfCourse(courseById, user);
             model.addAttribute("isAuthor", result);
         }
         model.addAttribute("user", user);
-
+        model.addAttribute("checkCourse", checkCourse);
         model.addAttribute("course", courseById);
         return "course-info";
     }
@@ -173,6 +178,31 @@ public class CourseController {
     public String deleteCourseById(Model model, @PathVariable int id) {
         String res = courseService.deleteCourseById(id);
         model.addAttribute("message", res);
+        return "redirect:/courses";
+    }
+
+    @GetMapping(path = "/rate/{courseId}")
+    public String showRates(@PathVariable int courseId,
+                            Model model) {
+        CourseDto courseDto = courseService.getCourseById(courseId);
+        model.addAttribute("course", courseDto);
+
+
+        return "rate";
+    }
+
+    @PostMapping(path = "/rate-course/{courseId}")
+    public String rateCourse(@PathVariable int courseId,
+                             Model model,
+                             Rate rate,
+                             HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        System.out.println(rate);
+        CourseDto courseDto = courseService.getCourseById(courseId);
+        model.addAttribute("course", courseDto);
+        courseService.rateCourse(courseId, user, rate);
+        List<CourseDto> allCourses = courseService.getAllCourses();
+        model.addAttribute("courseList", allCourses);
         return "redirect:/courses";
     }
 

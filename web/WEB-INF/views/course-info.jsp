@@ -74,6 +74,15 @@
             </div>
         </div>
     </div>
+<c:choose>
+
+    <c:when test="${course.id eq checkCourse.course_id}">
+        <p>You rated!</p>
+    </c:when>
+    <c:otherwise>
+            <a href="/courses/rate/${course.id}">Rate</a>
+    </c:otherwise>
+</c:choose>
 </div>
 </div>
 <div class="card-footer text-muted">
