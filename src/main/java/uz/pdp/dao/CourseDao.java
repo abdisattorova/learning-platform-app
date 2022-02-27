@@ -12,7 +12,10 @@ import org.springframework.stereotype.Repository;
 import uz.pdp.dto.AuthorDto;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.ModuleDto;
+import uz.pdp.dto.RateDto;
 import uz.pdp.model.Course;
+import uz.pdp.model.Rate;
+import uz.pdp.model.User;
 
 import java.lang.reflect.Type;
 import java.sql.Array;
@@ -134,7 +137,7 @@ public class CourseDao {
     }
 
     public int getAllAuthors() {
-        String query ="select count(*)\n" +
+        String query = "select count(*)\n" +
                 "from users\n" +
                 "where role='MENTOR';";
         Integer authors = template.queryForObject(query, (rs, rowNum) -> {
@@ -144,7 +147,7 @@ public class CourseDao {
     }
 
     public int getAllStudent() {
-        String query ="select count(*)\n" +
+        String query = "select count(*)\n" +
                 "from users\n" +
                 "where role='USER';";
         Integer students = template.queryForObject(query, (rs, rowNum) -> {
@@ -154,7 +157,7 @@ public class CourseDao {
     }
 
     public int getAllCourseCount() {
-        String query ="select count(*)\n" +
+        String query = "select count(*)\n" +
                 "from courses";
         Integer course_count = template.queryForObject(query, (rs, rowNum) -> {
             return rs.getInt(1);
@@ -164,7 +167,7 @@ public class CourseDao {
     }
 
     public int getAllTask() {
-        String query ="select count(*)\n" +
+        String query = "select count(*)\n" +
                 "from tasks;";
         Integer course_count = template.queryForObject(query, (rs, rowNum) -> {
             return rs.getInt(1);
@@ -216,6 +219,39 @@ public class CourseDao {
         return (int) nativeQuery.uniqueResult();
 
 
+    }
+
+    public Course getCourse(int courseId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Course course = currentSession.get(Course.class, courseId);
+        return course;
+    }
+
+    public void rateCourse(Rate rate) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.save(rate);
+    }
+
+    public RateDto checkCourseRate(int id, int user_id) {
+        RateDto rate = null;
+        try {
+            String query = "select *\n" +
+                    "from rates\n" +
+                    "where course_id=" + id + " and user_id=" + user_id + ";";
+            rate = template.queryForObject(query, (rs, rowNum) -> {
+                RateDto rate1 = new RateDto();
+                rate1.setId(rs.getInt(1));
+                rate1.setRate(rs.getInt(2));
+                rate1.setCourse_id(rs.getInt(3));
+                rate1.setUser_id(rs.getInt(4));
+
+
+                return rate1;
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return rate;
     }
 }
 

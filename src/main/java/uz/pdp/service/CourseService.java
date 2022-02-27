@@ -5,9 +5,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.CourseDao;
 import uz.pdp.dao.TaskDao;
+import uz.pdp.dao.UserDao;
 import uz.pdp.dto.CourseDto;
+import uz.pdp.dto.RateDto;
+import uz.pdp.model.Course;
+import uz.pdp.model.Rate;
 import uz.pdp.model.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,6 +25,7 @@ public class CourseService {
 
     @Autowired
     TaskDao taskDao;
+
 
     public List<CourseDto> getAllCourses() {
 
@@ -99,5 +105,18 @@ public class CourseService {
 
     public boolean checkIfUserIsMentorOfCourse(CourseDto courseById, User user) {
         return courseById.getAuthorDtoList().stream().anyMatch(authorDto -> authorDto.getId() == user.getId());
+    }
+@Transactional
+    public void rateCourse(int courseId, User user, Rate rate) {
+        Course course = courseDao.getCourse(courseId);
+        rate.setCourse(course);
+        rate.setUser(user);
+        courseDao.rateCourse(rate);
+
+    }
+
+    public RateDto checkCourseRate(int id, int user_id) {
+        return courseDao.checkCourseRate(id, user_id);
+
     }
 }

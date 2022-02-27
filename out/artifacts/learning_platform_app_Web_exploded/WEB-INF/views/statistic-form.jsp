@@ -19,7 +19,7 @@
     <link type="text/css" href="../assets/demo/demo.css" rel="stylesheet" />
 
     <style type="text/css">
-        <%@include file="bar.css" %>
+        <%@include file="../../assets/css/bar.css" %>
     </style>
 </head>
 <body class="">
