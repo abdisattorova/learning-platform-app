@@ -296,6 +296,7 @@
 <div class="container-fluid h-100">
     <div class="row justify-content-center h-100">
 
+
         <div class="col-md-8 col-xl-10 chat">
             <div class="card">
                 <div class="card-header msg_head">

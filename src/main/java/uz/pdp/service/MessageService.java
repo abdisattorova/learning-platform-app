@@ -80,4 +80,5 @@ public class MessageService {
         message.setIsRead(false);
         messageDao.saveMessage(message);
     }
+
 }
