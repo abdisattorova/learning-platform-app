@@ -71,4 +71,13 @@ public class MessageService {
         model.addAttribute("messages", messagesWithPerson);
     }
 
+    @Transactional
+    public void saveMessage(User user, Integer personId, Model model, Message message) {
+        User userByIdFromDb = userDao.getUserByIdFromDb(personId);
+        message.setSender(user);
+        message.setReceiver(userByIdFromDb);
+        message.setCreated_at(LocalDateTime.now());
+        message.setIsRead(false);
+        messageDao.saveMessage(message);
+    }
 }
