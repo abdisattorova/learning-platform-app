@@ -199,4 +199,10 @@ public class UserController {
         model.addAttribute("user", userById);
         return "user-info";
     }
+
+    @RequestMapping(path = "users/certificate/{id}")
+    public String getCertificate(@PathVariable int id){
+
+        return "user-certification";
+    }
 }
