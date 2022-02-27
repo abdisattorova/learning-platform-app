@@ -104,10 +104,10 @@ public class UserController {
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
+            getUserWithImageUrl(userFromDb);
+            session.setAttribute("user", userFromDb);
+            model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
             if (!userFromDb.getIs_blocked()) {
-                getUserWithImageUrl(userFromDb);
-                session.setAttribute("user", userFromDb);
-                model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
                 return "redirect:/courses";
             } else return "block-page";
         }
@@ -227,7 +227,7 @@ public class UserController {
         if (user.getRole().name().equals("ADMIN")) {
             model.addAttribute("admin", user);
         }
-        model.addAttribute("user",userById);
+        model.addAttribute("user", userById);
         return "user-info";
 
     }

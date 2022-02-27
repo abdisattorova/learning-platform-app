@@ -6,6 +6,7 @@
   Time: 3:17 PM
   To change this template use File | Settings | File Templates.
 --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -13,82 +14,79 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <%--    <jsp:include page="header.jsp" />--%>
+    <jsp:include page="../../assets/headers/courses-header.jsp"/>
 </head>
 <body>
-<h3 style="color: blueviolet">${param.msg}</h3>
 <c:set var="authors" value="${course.authorDtoList}"></c:set>
-<div class="card-header text-muted">
-
-
-    <img src="data:image/png;base64, ${course.imageUrl}" style="width: 500px" alt="Here should be image">
-
-    <h5 class="card-title"> All about ${course.name}</h5>
-    <p class="card-text">${course.description}</p>
-    <h6>Authors: </h6>
-    <ul>
-        <c:forEach items="${authors}" var="author">
-            <a href="/users/info/${author.id}"> ${author.fullName}</a>
-        </c:forEach>
-    </ul>
-
-    <a href='/modules/form?courseId=${course.id}' class="btn btn-primary" style=
-            "margin-left: 3px; float: left;"
-       onMouseOver="this.style.color='#0F0'"
-       onMouseOut="this.style.color='#00F'">
-        <i class="fas fa-plus"></i> Add new module </a>
-    <progress value="${course.solvedTasksNum}" max="${course.allTasksNum}"></progress>
-    <c:set var="pr" scope="session" value="${(course.allTasksNum/course.solvedTasksNum)*100}"/>
-    <p>${pr}%</p>
-</div>
-<div style="top: 44px;">
-    <div id="leftmenuinner" style="padding-top: 44px;">
-        <div id="leftmenuinnerinner">
-            <c:forEach items="${course.moduleDtoList}" var="module">
-                <br>
-                <h5 class="left mx-3"><span class="left_h2">
-                        </span> ${module.name} </h5>
-
-
-                <td><a class="btn btn-danger mx-3"
-                       href="/modules/delete?id=${module.id}&courseId=${course.id}">
-                    <i class="fas fa-trash"></i>
-                    Delete</a>
-                </td>
-                <td>
-                    <a class="btn btn-info "
-                       href="/modules/form?id=${module.id}&courseId=${course.id}">
-                        <i class="fas fa-edit"></i>
-                        Edit</a>
-                </td>
-                <br>
-                <br>
-                <td><a class="btn btn-primary mx-3"
-                       href="/lessons/form?moduleId=${module.id}"><i
-                        class="fas fa-plus"> Add new lesson</i> </a></td>
-                <br>
-                <br>
-                <c:forEach items="${module.lessons}" var="lesson">
-                    <a target="_top" href="/lessons/${lesson.id}" class="active mx-3">${lesson.name}</a><br>
-                </c:forEach>
-            </c:forEach>
-            <br><br>
+<div class="container mt-5">
+    <div class="row d-flex justify-content-center">
+        <div class="col-md-9">
+            <div class="card p-3 py-4">
+                <div class="text-center"><img src="data:image/png;base64,${course.imageUrl}" width="500">
+                </div>
+                <div class="text-center mt-3">
+                    <h5 class="mt-2 mb-0">${course.name}</h5>
+                    <p class="card-text">${course.description}</p>
+                    <br>
+                    <h5> Mentors: </h5>
+                    <div>
+                        <c:forEach items="${authors}" var="author">
+                            <a href="/users/info/${author.id}"> ${author.fullName}</a>
+                        </c:forEach>
+                    </div>
+                    <br>
+                    <h5>Modules</h5>
+                    <c:forEach items="${course.moduleDtoList}" var="module">
+                        <details>
+                            <summary>${module.name}
+                                <c:choose>
+                                    <c:when test="${user.role.name().equals('ADMIN')||isAuthor}">
+                                        <h6 type="text"
+                                            data-toggle="dropdown" aria-haspopup="true"
+                                            aria-expanded="false" style="margin-left: auto">
+                                            ...
+                                        </h6>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item"
+                                               href="/modules/form?id=${module.id}&courseId=${course.id}"><i
+                                                    class="fas fa-edit"> edit</i>
+                                            </a>
+                                            <a class="dropdown-item"
+                                               href="/modules/delete?id=${module.id}&courseId=${course.id}"><i
+                                                    class="fas fa-trash"> delete</i></a>
+                                            <a class="dropdown-item"
+                                               href="/lessons/form?moduleId=${module.id}"><i
+                                                    class="fas fa-plus"> add lesson</i> </a></td>
+                                        </div>
+                                    </c:when>
+                                </c:choose>
+                            </summary>
+                            <p>
+                                <c:forEach items="${module.lessons}" var="lesson">
+                                    <a target="_top" href="/lessons/${lesson.id}"
+                                       class="active mx-3">${lesson.name}</a><br>
+                                </c:forEach>
+                            </p>
+                        </details>
+                    </c:forEach>
+                </div>
+            </div>
         </div>
-        <a href="/courses" class="btn btn-primary mx-3">
-            <i class="bi bi-back"></i>
-            Back</a><br>
-
-
-        <progress value="${solved_task}" max="${task_count}"></progress>
-        <c:set var="pr" scope="session" value="${(task_count/solved_task)*100}"/>
-       <p>${pr}%</p>
-
-        <br>
-        <br>
     </div>
+<c:choose>
+
+    <c:when test="${course.id eq checkCourse.course_id}">
+        <p>You rated!</p>
+    </c:when>
+    <c:otherwise>
+            <a href="/courses/rate/${course.id}">Rate</a>
+    </c:otherwise>
+</c:choose>
+</div>
 </div>
 <div class="card-footer text-muted">
-    <p style="color: aqua">LEARNING IS FUN WITH US </p>
+    <p style="color: blue;justify-content: center;text-align: center">LEARNING IS FUN WITH US </p>
 </div>
 </body>
 </html>
