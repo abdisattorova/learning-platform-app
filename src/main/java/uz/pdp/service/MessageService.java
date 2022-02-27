@@ -30,18 +30,6 @@ public class MessageService {
     @Autowired
     MessageDao messageDao;
 
-    @Transactional
-    public void promoteToAdmin(Model model, Integer userId) {
-        User adminFromDb = userDao.getAdminFromDb();
-        User userFromDb = userDao.getUserByIdFromDb(userId);
-        Message message = new Message(null,
-                promoteMessage,
-                userFromDb,
-                adminFromDb,
-                LocalDateTime.now(),
-                Boolean.FALSE);
-        messageDao.saveMessage(message);
-    }
 
     @Transactional
     public void getMessagingPeopleOfUser(Integer receiverId, Model model) {
@@ -72,4 +60,15 @@ public class MessageService {
         List<Message> messagesWithPerson = messageDao.getMessagesWithPerson(personId, user.getId());
         model.addAttribute("messages", messagesWithPerson);
     }
+
+
+    @Transactional
+    public void contactWithAdmin(Model model, User user) {
+        User adminFromDb = userDao.getAdminFromDb();
+        model.addAttribute("user", user);
+        model.addAttribute("person", adminFromDb);
+        List<Message> messagesWithPerson = messageDao.getMessagesWithPerson(adminFromDb.getId(), user.getId());
+        model.addAttribute("messages", messagesWithPerson);
+    }
+
 }

@@ -28,9 +28,10 @@
                     Of course you can, just click the button below to ask admin
                     <br>
                     <br>
-                <form method="post" action="/messages/askPromotion/${user.id}">
+                <form method="get" action="/messages/contact-with-admin">
                     <button type="submit" class="btn btn-primary">
-                        Please,promote me to admin
+                        Contact with admin
+
                     </button>
                 </form>
                 </p>
