@@ -32,6 +32,12 @@ public class CourseDao {
     ModuleDao moduleDao;
 
 
+    public Course getCourse(int id){
+        Session currentSession = sessionFactory.getCurrentSession();
+        Course course = currentSession.get(Course.class, id);
+        return course;
+    }
+
     public List<CourseDto> getCourses() {
         String query = "select *\n" +
                 "from courses_infos()";
