@@ -23,5 +23,4 @@ public class Rate {
     private User user;
 
     private Double rate;
-
 }
