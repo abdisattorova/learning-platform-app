@@ -4,7 +4,9 @@ package uz.pdp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 import uz.pdp.model.User;
 import uz.pdp.service.MessageService;
 
@@ -17,11 +19,13 @@ public class MessageController {
     @Autowired
     MessageService messageService;
 
+
     @GetMapping(path = "/contact-with-admin")
     public String promoteToMentor(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         messageService.contactWithAdmin(model, user);
         return "chat";
+
     }
 
     @GetMapping(path = "/{receiverId}")

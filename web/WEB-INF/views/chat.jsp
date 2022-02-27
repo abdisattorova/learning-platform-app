@@ -295,44 +295,6 @@
 <body>
 <div class="container-fluid h-100">
     <div class="row justify-content-center h-100">
-        <%--        <div class="col-md-4 col-xl-3 chat">--%>
-        <%--            <div class="card mb-sm-3 mb-md-0 contacts_card">--%>
-        <%--                <div class="card-header">--%>
-        <%--                    <div class="input-group">--%>
-        <%--                        <input type="text" placeholder="Search..." name="" class="form-control search">--%>
-        <%--                        <div class="input-group-prepend">--%>
-        <%--                            <span class="input-group-text search_btn"><i class="fas fa-search"></i></span>--%>
-        <%--                        </div>--%>
-        <%--                    </div>--%>
-        <%--                </div>--%>
-        <%--                <div class="card-body contacts_body">--%>
-        <%--                    <ui class="contacts">--%>
-        <%--                        <c:forEach var="person" items="${people}">--%>
-        <%--                            <li class="active">--%>
-        <%--                                <div class="d-flex bd-highlight">--%>
-        <%--                                    <div class="img_cont">--%>
-        <%--                                        <img src="data:image/png;base64, ${person.imageUrl}"--%>
-        <%--                                             class="rounded-circle user_img">--%>
-        <%--                                        <span class="online_icon"></span>--%>
-        <%--                                    </div>--%>
-        <%--                                    <div class="user_info">--%>
-        <%--                                        <a href="messages/with/${person.id}">--%>
-        <%--                                            <span>${person.fullName}</span>--%>
-        <%--                                        </a>--%>
-        <%--                                        <c:choose>--%>
-        <%--                                            <c:when test="${person.unreadMsgs!=0}">--%>
-        <%--                                                <span style="color: red" class="badge">(${person.unreadMsgs})</span>--%>
-        <%--                                            </c:when>--%>
-        <%--                                        </c:choose>--%>
-        <%--                                    </div>--%>
-        <%--                                </div>--%>
-        <%--                            </li>--%>
-        <%--                        </c:forEach>--%>
-        <%--                    </ui>--%>
-        <%--                </div>--%>
-        <%--                <div class="card-footer"></div>--%>
-        <%--            </div>--%>
-        <%--        </div>--%>
 
         <div class="col-md-8 col-xl-6 chat">
             <div class="card">
@@ -362,6 +324,7 @@
                     </div>
                 </div>
                 <div class="card-body msg_card_body">
+
                     <c:forEach items="${messages}" var="msg">
                         <c:choose>
                             <c:when test="${msg.sender.id==person.id}">
@@ -371,6 +334,7 @@
                                              class="rounded-circle user_img_msg">
                                     </div>
                                     <div class="msg_cotainer">
+
                                             ${msg.message}
                                             <%--                                        <span class="msg_time">${msg.created_at}</span>--%>
                                     </div>
@@ -389,6 +353,7 @@
                                 </div>
                             </c:when>
                         </c:choose>
+
                     </c:forEach>
                 </div>
                 <div class="card-footer">

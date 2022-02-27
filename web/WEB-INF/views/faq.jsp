@@ -31,6 +31,7 @@
                 <form method="get" action="/messages/contact-with-admin">
                     <button type="submit" class="btn btn-primary">
                         Contact with admin
+
                     </button>
                 </form>
                 </p>

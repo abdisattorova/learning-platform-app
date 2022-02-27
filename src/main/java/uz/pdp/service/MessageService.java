@@ -31,7 +31,6 @@ public class MessageService {
     MessageDao messageDao;
 
 
-
     @Transactional
     public void getMessagingPeopleOfUser(Integer receiverId, Model model) {
         List<User> messagingPeopleOfUser = messageDao.getMessagingPeopleOfUser(receiverId);
@@ -62,6 +61,7 @@ public class MessageService {
         model.addAttribute("messages", messagesWithPerson);
     }
 
+
     @Transactional
     public void contactWithAdmin(Model model, User user) {
         User adminFromDb = userDao.getAdminFromDb();
@@ -70,4 +70,5 @@ public class MessageService {
         List<Message> messagesWithPerson = messageDao.getMessagesWithPerson(adminFromDb.getId(), user.getId());
         model.addAttribute("messages", messagesWithPerson);
     }
+
 }
