@@ -365,6 +365,7 @@
                         <div style="padding: 8px">
                             <form action="/messages?personId=${person.id}" method="post">
                              <textarea cols="180" rows="2" class="form-control"
+
                                        placeholder="Enter your message..."
                                        name="message" required></textarea>
                                 <input type="submit" class="btn btn-primary my-2" style="margin-left: auto" value="Send"
