@@ -34,7 +34,7 @@
                                               class="rounded-circle">
                 </div>
                 <div class="text-center mt-3"><span class="bg-secondary p-1 px-4 rounded text-white">Pro</span>
-                    <h5 class="mt-2 mb-0">${user.fullName}</h5> <span> Mentor </span>
+                    <h5 class="mt-2 mb-0">${user.fullName}</h5> <span> ${user.role.name()} </span>
                     <div class="px-4 mt-1">
                         <h6>@${user.username}</h6>
                         <p class="fonts">
@@ -63,6 +63,7 @@
                                 <a href="/users/role/${user.id}" class="btn btn-primary px-4 ms-3">Mentor</a>
                             </c:when>
                         </c:choose>
+
                         <%--                        <a class="btn btn-primary px-4 ms-3">Contact</a>--%>
                     </div>
                 </div>

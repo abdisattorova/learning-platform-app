@@ -194,7 +194,6 @@ public class UserController {
 
     @RequestMapping(path = "users/info/{id}")
     public String showUserInfo(Model model, @PathVariable int id, HttpSession session) {
-
         User user = (User) session.getAttribute("user");
         User userById = userService.getUserById(id);
         getUserWithImageUrl(userById);
