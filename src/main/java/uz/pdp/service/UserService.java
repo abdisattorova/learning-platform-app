@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import uz.pdp.dao.UserDao;
 import uz.pdp.model.User;
+import uz.pdp.model.enums.Role;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -72,5 +73,14 @@ public class UserService {
             userById.setIs_blocked(true);
         }
         userDao.saveUser(userById);
+    }
+
+    @Transactional
+    public void changeRoleOfUser(Integer userId) {
+        User userByIdFromDb = userDao.getUserByIdFromDb(userId);
+        if (userByIdFromDb.getRole().name().equals("MENTOR")) {
+            userByIdFromDb.setRole(Role.USER);
+        } else userByIdFromDb.setRole(Role.MENTOR);
+        userDao.saveUser(userByIdFromDb);
     }
 }

@@ -104,10 +104,12 @@ public class UserController {
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
         if (userFromDb != null) {
-            getUserWithImageUrl(userFromDb);
-            session.setAttribute("user", userFromDb);
-            model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
-            return "redirect:/courses";
+            if (!userFromDb.getIs_blocked()) {
+                getUserWithImageUrl(userFromDb);
+                session.setAttribute("user", userFromDb);
+                model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
+                return "redirect:/courses";
+            } else return "block-page";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
         return "/login";
@@ -192,6 +194,7 @@ public class UserController {
 
     @RequestMapping(path = "users/info/{id}")
     public String showUserInfo(Model model, @PathVariable int id, HttpSession session) {
+
         User user = (User) session.getAttribute("user");
         User userById = userService.getUserById(id);
         getUserWithImageUrl(userById);
@@ -215,5 +218,18 @@ public class UserController {
             model.addAttribute("admin", user);
         }
         return "user-info";
+    }
+
+    @GetMapping(path = "/users/role/{userId}")
+    public String changeRole(@PathVariable Integer userId, Model model, HttpSession session) {
+        userService.changeRoleOfUser(userId);
+        User user = (User) session.getAttribute("user");
+        User userById = userService.getUserById(userId);
+        if (user.getRole().name().equals("ADMIN")) {
+            model.addAttribute("admin", user);
+        }
+        model.addAttribute("user",userById);
+        return "user-info";
+
     }
 }

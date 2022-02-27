@@ -55,6 +55,14 @@
                                 <a href="/users/block/${user.id}" class="btn btn-primary px-4 ms-3">Unblock</a>
                             </c:when>
                         </c:choose>
+                        <c:choose>
+                            <c:when test="${admin.id!=null && user.role.name().equals('MENTOR')}">
+                                <a href="/users/role/${user.id}" class="btn btn-primary px-4 ms-3">USER</a>
+                            </c:when>
+                            <c:when test="${admin.id!=null && user.role.name().equals('USER')}">
+                                <a href="/users/role/${user.id}" class="btn btn-primary px-4 ms-3">Mentor</a>
+                            </c:when>
+                        </c:choose>
                         <%--                        <a class="btn btn-primary px-4 ms-3">Contact</a>--%>
                     </div>
                 </div>
