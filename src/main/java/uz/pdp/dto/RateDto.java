@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 public class RateDto {
     private int id;
-    private int  rate;
+    private double  rate;
     private int course_id;
     private int user_id;
 }

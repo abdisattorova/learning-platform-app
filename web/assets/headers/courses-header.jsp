@@ -205,9 +205,10 @@
         <div class="navbar-nav ml-auto">
             <c:choose>
                 <c:when test="${user!=null}">
-                    <a href="/messages/${user.id}" class="nav-item nav-link messages">
-                        <i class="fa fa-envelope-o"></i>
-                        <span class="badge">${unreadMsgs}</span></a></a>
+
+                        <a href="/messages/${user.id}" class="nav-item nav-link messages">
+                            <i class="fa fa-envelope-o"></i>
+                            <span class="badge">${unreadMsgs}</span></a></a>
                 </c:when>
             </c:choose>
             <c:choose>

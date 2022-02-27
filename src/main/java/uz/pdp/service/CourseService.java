@@ -177,4 +177,12 @@ public class CourseService {
 
         }
     }
+
+    @Transactional
+    public void getRateOfCourse(CourseDto courseDto) {
+        Double courseRate = courseDao.getCourseRate(courseDto);
+        if (courseRate != null) {
+            courseDto.setRate(courseRate);
+        }
+    }
 }

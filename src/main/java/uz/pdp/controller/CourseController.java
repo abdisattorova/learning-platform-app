@@ -50,7 +50,6 @@ public class CourseController {
         List<CourseDto> allCourses = null;
         if (course.equals("0")) {
             allCourses = courseService.getAllCourses();
-
         } else {
             allCourses = courseService.getCoursesBySearch(course);
             if (allCourses.size() == 0) {
@@ -59,6 +58,7 @@ public class CourseController {
         }
         for (CourseDto courseDto : allCourses) {
             courseDto.setAllTasksNum(courseService.countTasksOfCourse(courseDto.getId()));
+            courseService.getRateOfCourse(courseDto);
             if (user != null) {
                 courseDto.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), courseDto.getId()));
                 boolean b = courseService.checkIfUserIsMentorOfCourse(courseDto, user);
@@ -187,8 +187,6 @@ public class CourseController {
                             Model model) {
         CourseDto courseDto = courseService.getCourseById(courseId);
         model.addAttribute("course", courseDto);
-
-
         return "rate";
     }
 

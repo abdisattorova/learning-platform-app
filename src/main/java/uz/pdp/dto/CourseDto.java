@@ -22,11 +22,7 @@ public class CourseDto {
     private List<ModuleDto> moduleDtoList;
     private int count = 0;
     private boolean isUserAuthor;
-
-    public CourseDto(String name, int count) {
-        this.name = name;
-        this.count = count;
-    }
+    private double rate;
 
     public boolean getIsUserAuthor() {
         return isUserAuthor;
