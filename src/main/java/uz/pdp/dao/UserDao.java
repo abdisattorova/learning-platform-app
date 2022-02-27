@@ -63,6 +63,7 @@ public class UserDao {
                 user1.setFullName(rs.getString(2));
                 user1.setUsername(rs.getString(3));
                 user1.setPassword(rs.getString(4));
+                user1.setRole(Role.valueOf(rs.getString(5)));
                 user1.setImageUrl(rs.getString(6));
                 user1.setIs_blocked(rs.getBoolean(7));
                 return user1;
