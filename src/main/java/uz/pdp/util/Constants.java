@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class Constants {
     public static int number_of_elements_in_1_page = 3;
-    public static String path = "C:\\Users\\hp\\Desktop\\team works\\learning-platform-app\\src\\main\\resources/";
+    public static String path = "C:\\Users\\User\\Desktop\\learning-platform-app\\src\\main\\resources/";
     public static String promoteMessage = "promote";
 
     public static void getUserWithImageUrl(User user) {

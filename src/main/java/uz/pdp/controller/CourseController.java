@@ -139,19 +139,20 @@ public class CourseController {
 
     @GetMapping(path = "/info/{id}")
     public String showInfoAboutCourse(@PathVariable int id, Model model, HttpSession session) {
+
         CourseDto courseById = courseService.getCourseById(id);
         getCourseWithImageUrl(courseById);
 
         User user = (User) session.getAttribute("user");
         courseById.setAllTasksNum(courseService.countTasksOfCourse(id));
-        RateDto checkCourse = courseService.checkCourseRate(id, user.getId());
         if (user != null) {
+            RateDto checkCourse = courseService.checkCourseRate(id, user.getId());
             courseById.setSolvedTasksNum(courseService.countSolvedTasksOfCourseByUseer(user.getId(), id));
             boolean result = courseService.checkIfUserIsMentorOfCourse(courseById, user);
             model.addAttribute("isAuthor", result);
+            model.addAttribute("checkCourse", checkCourse);
         }
         model.addAttribute("user", user);
-        model.addAttribute("checkCourse", checkCourse);
         model.addAttribute("course", courseById);
         return "course-info";
     }

@@ -188,6 +188,20 @@
                 </div>
             </div>--%>
         </div>
+        <c:choose>
+            <c:when test="${user!=null}">
+                <c:choose>
+                    <c:when test="${checkCourse!=null}">
+                        <i class="fas fa-star active" style="color: yellow "></i>Rated!
+                    </c:when>
+                    <c:otherwise>
+                        <a href="/courses/rate/${course.id}">
+                            <i class="fas fa-star" style="color: wheat "></i>
+                            Rate</a>
+                    </c:otherwise>
+                </c:choose>
+            </c:when>
+        </c:choose>
         <div class="navbar-nav ml-auto">
             <c:choose>
                 <c:when test="${user!=null}">

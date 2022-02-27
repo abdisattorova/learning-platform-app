@@ -129,6 +129,7 @@ public class CourseService {
 
     }
 
+
     public RateDto checkCourseRate(int id, int user_id) {
         return courseDao.checkCourseRate(id, user_id);
     }

@@ -246,7 +246,6 @@ public class CourseDao {
                 rate1.setCourse_id(rs.getInt(3));
                 rate1.setUser_id(rs.getInt(4));
 
-
                 return rate1;
             });
         } catch (Exception e) {
