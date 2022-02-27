@@ -296,7 +296,8 @@
 <div class="container-fluid h-100">
     <div class="row justify-content-center h-100">
 
-        <div class="col-md-8 col-xl-6 chat">
+
+        <div class="col-md-8 col-xl-10 chat">
             <div class="card">
                 <div class="card-header msg_head">
                     <div class="d-flex bd-highlight">
@@ -306,7 +307,9 @@
                             <span class="online_icon"></span>
                         </div>
                         <div class="user_info">
-                            <span>Chat with ${person.fullName}</span>
+                            <a href="/users/info/${person.id}">
+                                <span>Chat with ${person.fullName}</span>
+                            </a>
                         </div>
                         <div class="video_cam">
                             <span><i class="fas fa-video"></i></span>
@@ -324,7 +327,6 @@
                     </div>
                 </div>
                 <div class="card-body msg_card_body">
-
                     <c:forEach items="${messages}" var="msg">
                         <c:choose>
                             <c:when test="${msg.sender.id==person.id}">
@@ -359,11 +361,16 @@
                 <div class="card-footer">
                     <div class="input-group">
                         <div class="input-group-append">
-                            <span class="input-group-text attach_btn"><i class="fas fa-paperclip"></i></span>
                         </div>
-                        <textarea name="" class="form-control type_msg" placeholder="Type your message..."></textarea>
-                        <div class="input-group-append">
-                            <span class="input-group-text send_btn"><i class="fas fa-location-arrow"></i></span>
+                        <div style="padding: 8px">
+                            <form action="/messages?personId=${person.id}" method="post">
+                             <textarea cols="180" rows="2" class="form-control"
+
+                                       placeholder="Enter your message..."
+                                       name="message" required></textarea>
+                                <input type="submit" class="btn btn-primary my-2" style="margin-left: auto" value="Send"
+                                       name="submit"/>
+                            </form>
                         </div>
                     </div>
                 </div>

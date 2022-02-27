@@ -20,5 +20,8 @@ public class Rate {
     @ManyToOne
     private Course course;
 
+    @ManyToOne
+    private User user;
+
     private Integer points;
 }
