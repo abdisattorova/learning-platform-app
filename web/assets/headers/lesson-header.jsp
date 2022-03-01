@@ -195,7 +195,8 @@
                             <c:when test="${task.isCompleted==true}">
                                 <td>
                                     <a class="dropdown-item btn btn-success"
-                                       href='/tasks?id=${task.id}'> ${task.title}</a>
+                                       href='/tasks?id=${task.id}'> ${task.title}
+                                        <i class="fas fa-check fa-lg"></i></a>
                                 </td>
                             </c:when>
                             <c:when test="${task.isCompleted==false}">
