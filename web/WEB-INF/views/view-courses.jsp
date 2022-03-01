@@ -65,6 +65,7 @@
                                         <c:forEach items="${course.authorDtoList}" var="author">
                                             <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
                                         </c:forEach>
+<%--                                        <progress value="${course.solvedTasksNum/course.allTasksNum}" max="100"></progress>--%>
 
                                     </div>
                                 </div>

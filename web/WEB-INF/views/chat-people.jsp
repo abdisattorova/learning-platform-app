@@ -294,6 +294,9 @@
 <!--Coded With Love By Mutiullah Samim-->
 <body>
 <div class="container-fluid h-200">
+    <div>
+        <a href="/courses" class="btn btn-primary">Back</a>
+    </div>
     <div class="row justify-content-center h-100">
         <div class="col-md-4 col-xl-4 chat">
             <div class="card mb-sm-3 mb-md-0 contacts_card">

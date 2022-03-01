@@ -31,6 +31,8 @@ public class MessageController {
 
     @GetMapping(path = "/{receiverId}")
     public String getMessagingPeople(@PathVariable(name = "receiverId") Integer receiverId, Model model, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);
         messageService.getMessagingPeopleOfUser(receiverId, model);
         return "chat-people";
     }
@@ -39,6 +41,10 @@ public class MessageController {
     @GetMapping(path = "/with/{personId}")
     public String getMessagesWithPerson(HttpSession session, @PathVariable Integer personId, Model model) {
         User user = (User) session.getAttribute("user");
+        if (user == null) {
+            model.addAttribute("msg", "Please login first!");
+            return "login";
+        }
         messageService.getMessagesWithPerson(personId, user, model);
         return "chat";
     }
@@ -51,10 +57,11 @@ public class MessageController {
         messageService.getMessagesWithPerson(personId, user, model);
         return "chat";
     }
+
     @GetMapping(path = "/users/search")
-    public String searchUsers(@RequestParam(name = "search") String search,Model model) {
-       messageService.getUsersBySearch(search,model);
-       return "chat-people";
+    public String searchUsers(@RequestParam(name = "search") String search, Model model) {
+        messageService.getUsersBySearch(search, model);
+        return "chat-people";
     }
 
 }

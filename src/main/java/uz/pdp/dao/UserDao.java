@@ -182,4 +182,20 @@ public class UserDao {
     }
 
 
+    public List<User> getAbout() {
+        String queryStr = "select u.* from team " +
+                "join users u on u.id = team.user_id " +
+                "order by u.id";
+        List<User> list = template.query(queryStr, (rs, row) -> {
+            User user = new User();
+            user.setId(rs.getInt(1));
+            user.setFullName(rs.getString(2));
+            user.setUsername(rs.getString(3));
+            user.setPassword(rs.getString(4));
+            user.setRole(Role.valueOf(rs.getString(5)));
+            user.setImageUrl(rs.getString(6));
+            return user;
+        });
+        return list;
+    }
 }

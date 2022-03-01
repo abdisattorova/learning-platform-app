@@ -66,7 +66,6 @@ public class CourseController {
             }
             getCourseWithImageUrl(courseDto);
         }
-
         model.addAttribute("user", user);
         model.addAttribute("courseList", allCourses);
 
@@ -139,7 +138,6 @@ public class CourseController {
 
     @GetMapping(path = "/info/{id}")
     public String showInfoAboutCourse(@PathVariable int id, Model model, HttpSession session) {
-
         CourseDto courseById = courseService.getCourseById(id);
         getCourseWithImageUrl(courseById);
 
@@ -204,6 +202,7 @@ public class CourseController {
         model.addAttribute("courseList", allCourses);
         return "redirect:/courses";
     }
+
 
 
 //    @GetMapping(path = "/certificate")

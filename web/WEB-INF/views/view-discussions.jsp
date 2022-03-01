@@ -55,22 +55,22 @@
                         </div>
                     </div>
                 </c:forEach>
-                <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
-                    <img src="data:image/png;base64,${user.imageUrl}" width="50"
-                         class="rounded-circle mr-2">
-                    <div style="padding: 8px">
-                        <form action="/discussions" method="post">
+            </div>
+            <div class="mt-3 d-flex flex-row align-items-center p-3 form-color">
+                <img src="data:image/png;base64,${user.imageUrl}" width="50"
+                     class="rounded-circle mr-2">
+                <div style="padding: 8px">
+                    <form action="/discussions" method="post">
                              <textarea cols="70" rows="4" class="form-control"
                                        placeholder="Enter your message..."
                                        name="message" required></textarea>
-                            <input hidden type="number" name="lessonId" value="${lessonId}">
-                            <input type="submit" class="btn btn-primary my-2" style="margin-left: 450px" value="Send"
-                                   name="submit"/>
-                        </form>
-                    </div>
+                        <input hidden type="number" name="lessonId" value="${lessonId}">
+                        <input type="submit" class="btn btn-primary my-2" style="margin-left: 450px" value="Send"
+                               name="submit"/>
+                    </form>
                 </div>
-                <a class="btn btn-primary my-3" href="/lessons/${discussions.get(0).lesson.id}">Back to lesson</a>
             </div>
+            <a class="btn btn-primary my-3" href="/lessons/${lessonId}">Back to lesson</a>
         </div>
     </div>
 </div>
