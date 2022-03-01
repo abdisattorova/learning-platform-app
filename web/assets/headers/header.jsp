@@ -178,7 +178,7 @@
     <div id="navbarCollapse" class="collapse navbar-collapse justify-content-start">
         <div class="navbar-nav">
             <%--            <a href="/courses" class="nav-item nav-link active">Home</a>--%>
-            <a href="#" class="nav-item nav-link active">About</a>
+            <a href="/about" class="nav-item nav-link active">About</a>
             <a href="/faq" class="nav-item nav-link active">FAQ</a>
             <div class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle active" data-toggle="dropdown">All courses</a>

@@ -17,7 +17,7 @@
 </head>
 <body>
 <div style="justify-content: center">
-    <div style="margin-left: 600px ; margin-top: 50px">
+    <div style="margin-left: 450px ; margin-top: 50px">
         <a href="/login" class="btn btn-primary"
            style="padding: 20px 60px"
            onMouseOver="this.style.color='#0F0'"
@@ -30,6 +30,12 @@
            onMouseOut="this.style.color='#00F'">
             <ion-icon name="book-outline"></ion-icon>
             Register</a>
+        <a href="/courses" class="btn btn-primary"
+           style="padding: 20px 60px"
+           onMouseOver="this.style.color='#0F0'"
+           onMouseOut="this.style.color='#00F'">
+            <ion-icon name="people-outline"></ion-icon>
+            View site</a>
     </div>
     <div>
         <img style=" display: block;

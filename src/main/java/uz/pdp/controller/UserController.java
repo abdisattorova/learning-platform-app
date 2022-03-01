@@ -234,4 +234,14 @@ public class UserController {
     }
 
 
+    @GetMapping("/about")
+    public String aboutUs(Model model){
+        List<User> users = userService.getAbout();
+        for (User allUser : users) {
+            getUserWithImageUrl(allUser);
+        }
+        model.addAttribute("members",users);
+        return "team";
+    }
+
 }
