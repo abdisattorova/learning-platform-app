@@ -1,3 +1,4 @@
+/*
 package uz.pdp.config;
 
 import org.springframework.context.annotation.Configuration;
@@ -25,4 +26,4 @@ public class AppInit extends AbstractAnnotationConfigDispatcherServletInitialize
                 "/"
         };
     }
-}
+}*/

@@ -24,7 +24,7 @@ public class MessageController {
     public String promoteToMentor(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         messageService.contactWithAdmin(model, user);
-        return "chat";
+        return "jsp/chat";
 
     }
 
@@ -34,7 +34,7 @@ public class MessageController {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
         messageService.getMessagingPeopleOfUser(receiverId, model);
-        return "chat-people";
+        return "jsp/chat-people";
     }
 
 
@@ -43,10 +43,10 @@ public class MessageController {
         User user = (User) session.getAttribute("user");
         if (user == null) {
             model.addAttribute("msg", "Please login first!");
-            return "login";
+            return "jsp/login";
         }
         messageService.getMessagesWithPerson(personId, user, model);
-        return "chat";
+        return "jsp/chat";
     }
 
 
@@ -55,13 +55,13 @@ public class MessageController {
         User user = (User) session.getAttribute("user");
         messageService.saveMessage(user, personId, model, message);
         messageService.getMessagesWithPerson(personId, user, model);
-        return "chat";
+        return "jsp/chat";
     }
 
     @GetMapping(path = "/users/search")
     public String searchUsers(@RequestParam(name = "search") String search, Model model) {
         messageService.getUsersBySearch(search, model);
-        return "chat-people";
+        return "jsp/chat-people";
     }
 
 }
