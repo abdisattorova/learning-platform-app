@@ -64,12 +64,12 @@ public class ModuleController {
             @RequestParam(name = "id", required = false,
                     defaultValue = "0") int id) {
         model.addAttribute("courseId", courseId);
-        if (id == 0) return "module-form";
+        if (id == 0) return "jsp/module-form";
 
         ModuleDto module = moduleService.getModuleById(id);
         if (module != null) {
             model.addAttribute("module", module);
-            return "module-form";
+            return "jsp/module-form";
 
         } else {
             model.addAttribute("message", "Module not found!!");

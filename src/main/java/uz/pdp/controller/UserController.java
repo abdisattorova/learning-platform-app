@@ -34,25 +34,23 @@ public class UserController {
     @Autowired
     CourseController controller;
 
-    @Autowired
-    UserController userController;
 
     @RequestMapping(path = "/login")
     public String showLoginForm() {
-        return "login";
+        return "jsp/login";
     }
 
 
     @RequestMapping(path = "/register")
     public String showRegisterForm() {
-        return "register";
+        return "jsp/register";
     }
 
     @RequestMapping(path = "/faq")
     public String showFaq(HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
         model.addAttribute("user", user);
-        return "faq";
+        return "jsp/faq";
     }
 
     @RequestMapping(path = "/users", method = RequestMethod.GET)
@@ -71,7 +69,7 @@ public class UserController {
 
         model.addAttribute("pages", pages);
         model.addAttribute("userList", allUsers);
-        return "view-users";
+        return "jsp/view-users";
 
     }
 
@@ -83,7 +81,7 @@ public class UserController {
             getUserWithImageUrl(allUser);
         }
         model.addAttribute("userList", allUsers);
-        return "view-users";
+        return "jsp/view-users";
 
     }
 
@@ -94,7 +92,7 @@ public class UserController {
             getUserWithImageUrl(allUser);
         }
         model.addAttribute("userList", allUsers);
-        return "view-users";
+        return "jsp/view-users";
 
     }
 
@@ -110,10 +108,10 @@ public class UserController {
             model.addAttribute("msg", "Welcome " + userFromDb.getFullName());
             if (!userFromDb.getIs_blocked()) {
                 return "redirect:/courses";
-            } else return "block-page";
+            } else return "jsp/block-page";
         }
         model.addAttribute("msg", "Username or password is incorrect!");
-        return "/login";
+        return "jsp/login";
 
     }
 
@@ -127,11 +125,11 @@ public class UserController {
 
     @RequestMapping("/users/form")
     public String getUserForm(Model model, @RequestParam(name = "id", required = false, defaultValue = "0") int id) {
-        if (id == 0) return "user-form";
+        if (id == 0) return "jsp/user-form";
         User user = userService.getUserById(id);
         if (user != null) {
             model.addAttribute("selectedUser", user);
-            return "user-form";
+            return "jsp/user-form";
         } else {
             model.addAttribute("message",
                     "User not found!!");
@@ -173,13 +171,13 @@ public class UserController {
         } else {
             if (userService.saveUser(user) == 0) {
                 model.addAttribute("msg", "Username is already taken!");
-                return "/register";
+                return "jsp/register";
             } else {
                 model.addAttribute("msg", "Successfully registered");
-                return "/login";
+                return "jsp/login";
             }
         }
-        return "/login";
+        return "jsp/login";
     }
 
     @RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
@@ -204,7 +202,7 @@ public class UserController {
         if (user.getRole().name().equals("ADMIN")) {
             model.addAttribute("admin", user);
         }
-        return "user-info";
+        return "jsp/user-info";
     }
 
 
@@ -217,7 +215,7 @@ public class UserController {
         if (user.getRole().name().equals("ADMIN")) {
             model.addAttribute("admin", user);
         }
-        return "user-info";
+        return "jsp/user-info";
     }
 
     @GetMapping(path = "/users/role/{userId}")
@@ -229,19 +227,19 @@ public class UserController {
             model.addAttribute("admin", user);
         }
         model.addAttribute("user", userById);
-        return "user-info";
+        return "jsp/user-info";
 
     }
 
 
     @GetMapping("/about")
-    public String aboutUs(Model model){
+    public String aboutUs(Model model) {
         List<User> users = userService.getAbout();
         for (User allUser : users) {
             getUserWithImageUrl(allUser);
         }
-        model.addAttribute("members",users);
-        return "team";
+        model.addAttribute("members", users);
+        return "jsp/team";
     }
 
 }

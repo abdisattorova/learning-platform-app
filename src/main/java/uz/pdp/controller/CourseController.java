@@ -69,7 +69,7 @@ public class CourseController {
         model.addAttribute("user", user);
         model.addAttribute("courseList", allCourses);
 
-        return "view-courses";
+        return "jsp/view-courses";
 
 
     }
@@ -94,7 +94,7 @@ public class CourseController {
         model.addAttribute("courseStatistics", courseStatistics);
         model.addAttribute("sum", sum);
 
-        return "statistic-form";
+        return "jsp/statistic-form";
     }
 
     @PostMapping
@@ -152,7 +152,7 @@ public class CourseController {
         }
         model.addAttribute("user", user);
         model.addAttribute("course", courseById);
-        return "course-info";
+        return "jsp/course-info";
     }
 
     @GetMapping(path = "/form")
@@ -160,11 +160,11 @@ public class CourseController {
         List<User> authors = userService.getAllAuthors();
         System.out.println(authors);
         model.addAttribute("authors", authors);
-        if (id == 0) return "course-form";
+        if (id == 0) return "jsp/course-form";
         CourseDto courseDto = courseService.getCourseById(id);
         if (courseDto != null) {
             model.addAttribute("selectedCourse", courseDto);
-            return "course-form";
+            return "jsp/course-form";
         } else {
             model.addAttribute("message", "Course not found!!");
             return "redirect:/courses";
@@ -185,7 +185,7 @@ public class CourseController {
                             Model model) {
         CourseDto courseDto = courseService.getCourseById(courseId);
         model.addAttribute("course", courseDto);
-        return "rate";
+        return "jsp/rate";
     }
 
     @PostMapping(path = "/rate-course/{courseId}")

@@ -38,7 +38,7 @@ public class DiscussionController {
             getUserWithImageUrl(user);
             model.addAttribute("user", user);
             model.addAttribute("discussions", discussions);
-            return "view-discussions";
+            return "jsp/view-discussions";
         }
 
         model.addAttribute("msg", "Please login first!");
@@ -66,10 +66,10 @@ public class DiscussionController {
         getUserWithImageUrl(user);
         model.addAttribute("user", user);
         model.addAttribute("discussions", discussions);
-        return "view-discussions";}
+        return "jsp/view-discussions";}
 
         else{
             discussionService.blockedUser(user.getId());
-            return "block-page";}
+            return "jsp/block-page";}
     }
 }

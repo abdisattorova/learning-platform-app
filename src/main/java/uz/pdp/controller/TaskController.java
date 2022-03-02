@@ -41,7 +41,7 @@ public class TaskController {
             taskService.getTaskById(id, model, user);
 //            model.addAttribute("task", task);
         }
-        return "task-form";
+        return "jsp/task-form";
     }
 
     @PostMapping
@@ -60,7 +60,7 @@ public class TaskController {
             tasks = taskService.getAllTasks(taskDto.getLessonId(), 0);
         }
         model.addAttribute("tasks", tasks);
-        return "view-lesson";
+        return "jsp/view-lesson";
     }
 
     @GetMapping
@@ -68,7 +68,7 @@ public class TaskController {
                            @RequestParam(name = "id") int id, HttpSession session) {
         User user = (User) session.getAttribute("user");
         taskService.getTaskById(id, model, user);
-        return "task-page";
+        return "jsp/task-page";
     }
 
     @GetMapping("/check/{id}/{lessonId}")
@@ -88,7 +88,7 @@ public class TaskController {
                 model.addAttribute("msg", "Correct");
                 List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
                 model.addAttribute("tasks", tasks);
-                return "view-lesson";
+                return "jsp/view-lesson";
             }
         } else {
             if (optionService.checkAnswer(answer)) {
@@ -101,7 +101,7 @@ public class TaskController {
 
         model.addAttribute("msg", "Incorrect");
         taskService.getTaskById(id, model, user);
-        return "task-page";
+        return "jsp/task-page";
     }
 
 
@@ -117,7 +117,7 @@ public class TaskController {
         List<TaskDto> tasks = taskService.getAllTasks(lessonId, user.getId());
         model.addAttribute("tasks", tasks);
         model.addAttribute("lesson", lessonById);
-        return "view-lesson";
+        return "jsp/view-lesson";
     }
 }
 

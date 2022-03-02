@@ -62,7 +62,7 @@ public class LessonController {
         }
         model.addAttribute("lesson", lessonById);
         model.addAttribute("tasks", tasks);
-        return "view-lesson";
+        return "jsp/view-lesson";
     }
 
 
@@ -76,7 +76,7 @@ public class LessonController {
             model.addAttribute("lesson", lessonById);
         }
         model.addAttribute("moduleId", moduleId);
-        return "lesson-form";
+        return "jsp/lesson-form";
     }
 
 
