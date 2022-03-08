@@ -48,6 +48,7 @@ public class UserController {
     public String showRegisterForm(@ModelAttribute("user") User user) {
         System.out.println(55);
         return "thymeleaf/register";
+
     }
 
     @RequestMapping(path = "/faq")
@@ -182,8 +183,13 @@ public class UserController {
         if (user.getId() != null) {
             userService.editUser(user);
         } else {
-            model.addAttribute("msg", "Successfully registered");
-            return "jsp/login";
+            if (userService.saveUser(user) == 0) {
+                model.addAttribute("msg", "Username is already taken!");
+                return "jsp/register";
+            } else {
+                model.addAttribute("msg", "Successfully registered");
+                return "jsp/login";
+            }
         }
         return "jsp/login";
     }

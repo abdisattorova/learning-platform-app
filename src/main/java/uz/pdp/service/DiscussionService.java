@@ -16,7 +16,7 @@ public class DiscussionService {
     @Autowired
     DiscussionDao discussionDao;
 
-    @Transactional
+//    @Transactional
     public List<Discussion> getDiscussionsOfLesson(int lessonId) {
         List<Discussion> discussionsOfLesson = discussionDao.getDiscussionsOfLesson(lessonId);
         for (Discussion discussion : discussionsOfLesson) {

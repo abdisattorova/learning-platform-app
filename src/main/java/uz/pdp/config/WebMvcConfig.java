@@ -99,7 +99,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
         return hibernateTransactionManager;
     }*/
 
-   /*   @Bean
+ /*   @Bean
+>>>>>>> f56847ed942d60bb05e0d83ea8b210220ddfded7
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
         resourceBundleMessageSource.setBasename("Messages");

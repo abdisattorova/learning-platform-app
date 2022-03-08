@@ -47,10 +47,12 @@
             <artifactId>tomcat-embed-jasper</artifactId>
             <scope>provided</scope>
         </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
+
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-webmvc -->
         <!-- <dependency>
              <groupId>org.springframework</groupId>
@@ -72,11 +74,11 @@
             <version>2.6</version>
         </dependency>
 
-      <!--  <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>5.6.5.Final</version>
-        </dependency>-->
+        <!--  <dependency>
+              <groupId>org.hibernate</groupId>
+              <artifactId>hibernate-core</artifactId>
+              <version>5.6.5.Final</version>
+          </dependency>-->
 
         <dependency>
             <groupId>org.springframework</groupId>
@@ -118,6 +120,7 @@
             <artifactId>jstl</artifactId>
             <version>1.2</version>
         </dependency>
+
         <!--        &lt;!&ndash; https://mvnrepository.com/artifact/jstl/jstl &ndash;&gt;-->
         <!--        <dependency>-->
         <!--            <groupId>jstl</groupId>-->
@@ -144,11 +147,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.3.2</version>
         </dependency>
-<!--        <dependency>-->
-<!--            <groupId>org.springframework</groupId>-->
-<!--            <artifactId>spring-core</artifactId>-->
-<!--            <version>5.3.15</version>-->
-<!--        </dependency>-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.springframework</groupId>-->
+        <!--            <artifactId>spring-core</artifactId>-->
+        <!--            <version>5.3.15</version>-->
+        <!--        </dependency>-->
 
         <dependency>
             <groupId>com.itextpdf</groupId>

@@ -58,6 +58,7 @@ public class DiscussionController {
         User user = (User) session.getAttribute("user");
         if (i == 0) {
 
+
             Lesson lessonById = lessonService.getLessonById(lessonId);
             discussion.setLesson(lessonById);
             discussion.setUser(user);
