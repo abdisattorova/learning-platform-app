@@ -30,6 +30,6 @@ public class Message {
 
     LocalDateTime created_at;
 
-//    @Column(columnDefinition = "false")
+    //    @Column(columnDefinition = "false")
     Boolean isRead;
 }

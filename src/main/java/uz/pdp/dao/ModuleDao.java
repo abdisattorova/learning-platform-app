@@ -4,7 +4,6 @@ package uz.pdp.dao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -12,6 +11,8 @@ import uz.pdp.dto.ModuleDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.Module;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.lang.reflect.Type;
 import java.sql.Array;
 import java.util.ArrayList;
@@ -23,8 +24,8 @@ public class ModuleDao {
     @Autowired
     JdbcTemplate template;
 
-    @Autowired
-    SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public List<ModuleDto> getModulesOfCourses(int courseId) {
         String query = "SELECT * FROM get_module_lessons(" + courseId + ")";
@@ -104,7 +105,7 @@ public class ModuleDao {
     }
 
     public Module getModule(int id) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        return currentSession.get(Module.class, id);
+        Session session = entityManager.unwrap(Session.class);
+        return session.get(Module.class, id);
     }
 }

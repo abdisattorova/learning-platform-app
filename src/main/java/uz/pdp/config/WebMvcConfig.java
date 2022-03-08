@@ -7,16 +7,12 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
-import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-
-import java.util.Properties;
 
 @Configuration
 //@EnableWebMvc
@@ -70,7 +66,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     }
 
 
-    private Properties hibernateProperties() {
+   /* private Properties hibernateProperties() {
         Properties hibernateProperties = new Properties();
         hibernateProperties.put(
                 "hibernate.hbm2ddl.auto", "update");
@@ -101,9 +97,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
         HibernateTransactionManager hibernateTransactionManager = new HibernateTransactionManager();
         hibernateTransactionManager.setSessionFactory(sessionFactory().getObject());
         return hibernateTransactionManager;
-    }
+    }*/
 
- /*   @Bean
+   /*   @Bean
     public ResourceBundleMessageSource messageSource() {
         ResourceBundleMessageSource resourceBundleMessageSource = new ResourceBundleMessageSource();
         resourceBundleMessageSource.setBasename("Messages");

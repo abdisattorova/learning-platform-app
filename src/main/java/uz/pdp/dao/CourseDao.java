@@ -3,7 +3,6 @@ package uz.pdp.dao;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -16,6 +15,8 @@ import uz.pdp.dto.RateDto;
 import uz.pdp.model.Course;
 import uz.pdp.model.Rate;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.lang.reflect.Type;
 import java.sql.Array;
 import java.util.ArrayList;
@@ -25,8 +26,13 @@ import java.util.List;
 @Component
 @Repository
 public class CourseDao {
-    @Autowired
-    SessionFactory sessionFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+//    @Autowired
+//    SessionFactory sessionFactory;
+
     @Autowired
     JdbcTemplate template;
 
@@ -35,8 +41,8 @@ public class CourseDao {
 
 
     public Course getCourse(int id) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Course course = currentSession.get(Course.class, id);
+        Session session = entityManager.unwrap(Session.class);
+        Course course = session.get(Course.class, id);
         return course;
     }
 
@@ -219,8 +225,9 @@ public class CourseDao {
     }
 
     public int countAllCourses() {
-        Session currentSession = sessionFactory.getCurrentSession();
-        NativeQuery nativeQuery = currentSession.createNativeQuery("select count(*) from courses");
+        Session session = entityManager.unwrap(Session.class);
+//        Session currentSession = sessionFactory.getCurrentSession();
+        NativeQuery nativeQuery = session.createNativeQuery("select count(*) from courses");
         return (int) nativeQuery.uniqueResult();
 
 
@@ -228,8 +235,8 @@ public class CourseDao {
 
 
     public void rateCourse(Rate rate) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.save(rate);
+        Session session = entityManager.unwrap(Session.class);
+        session.save(rate);
     }
 
     public RateDto checkCourseRate(int id, int user_id) {
@@ -255,8 +262,8 @@ public class CourseDao {
     }
 
     public Double getCourseRate(CourseDto courseDto) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        NativeQuery nativeQuery = currentSession.createNativeQuery
+        Session session = entityManager.unwrap(Session.class);
+        NativeQuery nativeQuery = session.createNativeQuery
                 (" select sum(rate)/count(*) from rates where course_id=" + courseDto.getId());
         Double rate = (Double) nativeQuery.uniqueResult();
 //        DecimalFormat decimalFormat = new DecimalFormat("0.00");

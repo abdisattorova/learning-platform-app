@@ -105,7 +105,7 @@ public class LessonController {
 
         }
         model.addAttribute("course", courseById);
-        return "redirect:/courses/info/"+courseId;
+        return "redirect:/courses/info/" + courseId;
 
 
     }
@@ -136,7 +136,7 @@ public class LessonController {
 
         }
         model.addAttribute("course", courseById);
-        return "redirect:/courses/info/"+courseId;
+        return "redirect:/courses/info/" + courseId;
 
     }
 

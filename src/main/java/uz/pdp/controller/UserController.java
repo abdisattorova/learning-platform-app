@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -104,6 +103,7 @@ public class UserController {
 
     @RequestMapping(path = "/users/login", method = RequestMethod.POST)
     public String authUser(User user, Model model, HttpSession session) {
+
         String password = user.getPassword();
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
