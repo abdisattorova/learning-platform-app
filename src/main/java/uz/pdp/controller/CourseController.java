@@ -1,6 +1,5 @@
 package uz.pdp.controller;
 
-import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,30 +8,25 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
 import uz.pdp.dto.CourseDto;
 import uz.pdp.dto.RateDto;
-import uz.pdp.model.Course;
 import uz.pdp.model.Rate;
 import uz.pdp.model.User;
 import uz.pdp.service.CourseService;
 import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
-import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
-import javax.xml.bind.DatatypeConverter;
-import java.awt.image.BufferedImage;
-import java.io.*;
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.List;
 
 import static uz.pdp.util.Constants.getCourseWithImageUrl;
-
-import static uz.pdp.util.Constants.path;
 
 @Controller
 @RequestMapping("/courses")
 public class CourseController {
 
-    @Autowired
-    SessionFactory sessionFactory;
 
     @Autowired
     CourseService courseService;
@@ -202,7 +196,6 @@ public class CourseController {
         model.addAttribute("courseList", allCourses);
         return "redirect:/courses";
     }
-
 
 
 //    @GetMapping(path = "/certificate")

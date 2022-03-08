@@ -3,7 +3,6 @@ package uz.pdp.dao;
 
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -12,26 +11,28 @@ import uz.pdp.model.Message;
 import uz.pdp.model.User;
 import uz.pdp.model.enums.Role;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class MessageDao {
 
-    @Autowired
-    SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
 
     @Autowired
     JdbcTemplate template;
 
     public void saveMessage(Message message) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(message);
+        Session session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(message);
     }
 
     public List<User> getMessagingPeopleOfUser(Integer receiverId) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        NativeQuery nativeQuery = currentSession.createSQLQuery(" select * from showAllMessagingPeople(" + receiverId + ")");
+        Session session = entityManager.unwrap(Session.class);
+        NativeQuery nativeQuery = session.createSQLQuery(" select * from showAllMessagingPeople(" + receiverId + ")");
         nativeQuery.addEntity(User.class);
         List<User> messagingPeople = nativeQuery.list();
         return messagingPeople;
@@ -47,8 +48,8 @@ public class MessageDao {
     }
 
     public List<Message> getMessagesWithPerson(Integer personId, Integer userId) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        NativeQuery nativeQuery = currentSession.createNativeQuery("select * from " +
+        Session session = entityManager.unwrap(Session.class);
+        NativeQuery nativeQuery = session.createNativeQuery("select * from " +
                 "showallmessageswithperson(" + personId + "," + userId + ")");
         nativeQuery.addEntity(Message.class);
         return (List<Message>) nativeQuery.list();

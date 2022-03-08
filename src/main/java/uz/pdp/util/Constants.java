@@ -2,9 +2,7 @@ package uz.pdp.util;
 //Sevinch Abdisattorova 02/14/2022 12:07 AM
 
 
-import org.springframework.ui.Model;
 import uz.pdp.dto.CourseDto;
-import uz.pdp.model.Course;
 import uz.pdp.model.User;
 
 import javax.imageio.ImageIO;
@@ -16,7 +14,8 @@ import java.io.IOException;
 
 public class Constants {
     public static int number_of_elements_in_1_page = 3;
-    public static String path = "C:\\Users\\User\\Downloads\\learning-platform-app-master (1)\\learning-platform-app-master\\src\\main\\resources\\photos/";
+    public static String path = "C:\\Users\\User\\Desktop\\learning-platform-app\\src\\main\\resources\\photos/";
+
     public static String promoteMessage = "promote";
 
     public static void getUserWithImageUrl(User user) {

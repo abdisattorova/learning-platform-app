@@ -7,15 +7,22 @@ import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
 @Repository
 public class UsersTasksDao {
-    @Autowired
-    SessionFactory sessionFactory;
+
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
 
     public void deleteTaskFromUsersTask(int taskId) {
         try {
-            Session currentSession = sessionFactory.getCurrentSession();
-            NativeQuery nativeQuery = currentSession.createNativeQuery("delete from users_tasks where task_id=" + taskId);
+            Session session = entityManager.unwrap(Session.class);
+            NativeQuery nativeQuery = session.createNativeQuery("delete from users_tasks" +
+                    " where task_id=" + taskId);
             nativeQuery.executeUpdate();
         } catch (NullPointerException e) {
             e.printStackTrace();

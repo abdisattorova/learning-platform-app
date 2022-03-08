@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 import uz.pdp.dto.TaskDto;
 import uz.pdp.model.Lesson;
 import uz.pdp.model.User;
-import uz.pdp.service.CourseService;
 import uz.pdp.service.LessonService;
 import uz.pdp.service.OptionService;
 import uz.pdp.service.TaskService;

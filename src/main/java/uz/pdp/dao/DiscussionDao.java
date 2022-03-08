@@ -2,26 +2,31 @@ package uz.pdp.dao;
 //Sevinch Abdisattorova 02/18/2022 1:36 PM
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 import uz.pdp.model.Discussion;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 public class DiscussionDao {
 
-    @Autowired
-    SessionFactory sessionFactory;
+    //    @Autowired
+//    SessionFactory sessionFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     @Autowired
     JdbcTemplate template;
 
 
     public List<Discussion> getDiscussionsOfLesson(int lessonId) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManager.unwrap(Session.class);
         NativeQuery sqlQuery = session.createSQLQuery(
                 "select * from  discussions where lesson_id =" + lessonId);
         sqlQuery.addEntity(Discussion.class);
@@ -30,7 +35,7 @@ public class DiscussionDao {
     }
 
     public void addDiscussion(Discussion discussion) {
-        Session session = sessionFactory.getCurrentSession();
+        Session session = entityManager.unwrap(Session.class);
         session.save(discussion);
 
     }

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import uz.pdp.model.enums.Role;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,9 +17,14 @@ public class User {
     @Id
     @GeneratedValue
     private Integer id;
+
     @Column(name = "full_name")
+    @Size(min = 2,message = "Full name should contain at least two letters")
     private String fullName;
     private String username;
+
+//    @NotBlank
+    @Size(min = 5, message = "Password length should be at least 5")
     private String password;
 
     @Enumerated(EnumType.STRING)

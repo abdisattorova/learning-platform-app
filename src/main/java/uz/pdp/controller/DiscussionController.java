@@ -56,20 +56,21 @@ public class DiscussionController {
         int i = discussionService.checkDiscussion(discussion);
 
         User user = (User) session.getAttribute("user");
-        if (i==0){
+        if (i == 0) {
 
-        Lesson lessonById = lessonService.getLessonById(lessonId);
-        discussion.setLesson(lessonById);
-        discussion.setUser(user);
-        discussionService.addDiscussion(discussion);
-        List<Discussion> discussions = discussionService.getDiscussionsOfLesson(lessonId);
-        getUserWithImageUrl(user);
-        model.addAttribute("user", user);
-        model.addAttribute("discussions", discussions);
-        return "jsp/view-discussions";}
 
-        else{
+            Lesson lessonById = lessonService.getLessonById(lessonId);
+            discussion.setLesson(lessonById);
+            discussion.setUser(user);
+            discussionService.addDiscussion(discussion);
+            List<Discussion> discussions = discussionService.getDiscussionsOfLesson(lessonId);
+            getUserWithImageUrl(user);
+            model.addAttribute("user", user);
+            model.addAttribute("discussions", discussions);
+            return "jsp/view-discussions";
+        } else {
             discussionService.blockedUser(user.getId());
-            return "jsp/block-page";}
+            return "jsp/block-page";
+        }
     }
 }

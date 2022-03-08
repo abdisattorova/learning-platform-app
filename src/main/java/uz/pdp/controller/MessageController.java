@@ -10,7 +10,6 @@ import uz.pdp.model.User;
 import uz.pdp.service.MessageService;
 
 import javax.servlet.http.HttpSession;
-import java.util.List;
 
 @Controller
 @RequestMapping(path = "/messages")

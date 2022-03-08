@@ -1,15 +1,15 @@
 package uz.pdp.dao;
 
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
-import uz.pdp.model.enums.Role;
 import uz.pdp.model.User;
+import uz.pdp.model.enums.Role;
 import uz.pdp.util.Constants;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Component
@@ -18,8 +18,9 @@ public class UserDao {
     @Autowired
     JdbcTemplate template;
 
-    @Autowired
-    SessionFactory sessionFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
+
 
     public List<User> getUsers(int page) {
         String queryStr = "select id, full_name, username, password,image_url from users " +
@@ -177,8 +178,8 @@ public class UserDao {
     }
 
     public void saveUser(User userById) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(userById);
+        Session session = entityManager.unwrap(Session.class);
+        session.saveOrUpdate(userById);
     }
 
 

@@ -27,13 +27,12 @@ public class MessageService {
     MessageDao messageDao;
 
 
-    @Transactional
+//    @Transactional
     public void getMessagingPeopleOfUser(Integer receiverId, Model model) {
         List<User> messagingPeopleOfUser = messageDao.getMessagingPeopleOfUser(receiverId);
         List<UserDto> userDtoList = new ArrayList<>();
         for (User user : messagingPeopleOfUser) {
             Integer countUnreadMessagesOfChat = messageDao.countUnreadMessagesOfChat(receiverId, user.getId());
-            getUserWithImageUrl(user);
             UserDto userDto = new UserDto(user.getId(),
                     user.getFullName(),
                     user.getUsername(),
@@ -43,6 +42,7 @@ public class MessageService {
                     user.getIs_blocked(),
                     countUnreadMessagesOfChat
             );
+            getUserWithImageUrl(user);
             userDtoList.add(userDto);
         }
         model.addAttribute("people", userDtoList);
@@ -65,7 +65,7 @@ public class MessageService {
     }
 
 
-    @Transactional
+//    @Transactional
     public void contactWithAdmin(Model model, User user) {
         User adminFromDb = userDao.getAdminFromDb();
         model.addAttribute("user", user);
@@ -74,7 +74,7 @@ public class MessageService {
         model.addAttribute("messages", messagesWithPerson);
     }
 
-    @Transactional
+//    @Transactional
     public void saveMessage(User user, Integer personId, Model model, Message message) {
         User userByIdFromDb = userDao.getUserByIdFromDb(personId);
         message.setSender(user);
@@ -84,7 +84,7 @@ public class MessageService {
         messageDao.saveMessage(message);
     }
 
-    @Transactional
+//    @Transactional
     public void getUsersBySearch(String search, Model model) {
         List<User> userList = messageDao.searchUsers(search);
         List<UserDto> userDtoList = new ArrayList<>();

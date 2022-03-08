@@ -3,6 +3,8 @@ package uz.pdp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -13,6 +15,7 @@ import uz.pdp.service.UserService;
 import uz.pdp.util.Constants;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -42,8 +45,10 @@ public class UserController {
 
 
     @RequestMapping(path = "/register")
-    public String showRegisterForm() {
-        return "jsp/register";
+    public String showRegisterForm(@ModelAttribute("user") User user) {
+        System.out.println(55);
+        return "thymeleaf/register";
+
     }
 
     @RequestMapping(path = "/faq")
@@ -99,6 +104,7 @@ public class UserController {
 
     @RequestMapping(path = "/users/login", method = RequestMethod.POST)
     public String authUser(User user, Model model, HttpSession session) {
+
         String password = user.getPassword();
         String username = user.getUsername();
         User userFromDb = userService.getUserByUsernamePassword(username, password);
@@ -139,9 +145,17 @@ public class UserController {
 
 
     @RequestMapping(path = "/users", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user") User user,
+    public String addUser(@ModelAttribute("user") @Valid User user,
+                          BindingResult result,
                           @RequestParam(value = "file", required = false) CommonsMultipartFile file,
                           Model model) {
+        if (userService.saveUser(user) == 0) {
+            FieldError fieldError = new FieldError("username", "username", "Username is already taken!");
+            result.addError(fieldError);
+        }
+        if (result.hasErrors()) {
+            return "thymeleaf/register";
+        }
         String filename = "";
         if (file != null) {
             if (file.getOriginalFilename().endsWith(".jpg")
@@ -179,6 +193,7 @@ public class UserController {
         }
         return "jsp/login";
     }
+
 
     @RequestMapping(path = "/users/delete/{id}", method = RequestMethod.GET)
     public RedirectView deleteUserById(Model model, @PathVariable int id) {
