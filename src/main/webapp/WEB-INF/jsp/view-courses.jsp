@@ -50,7 +50,6 @@
                                                         class="fas fa-trash"> delete</i></a>
                                             </div>
                                             <%--                                            </div>--%>
-
                                         </c:when>
                                     </c:choose>
                                     <div class="card-body" style="text-align: center">
@@ -65,8 +64,25 @@
                                         <c:forEach items="${course.authorDtoList}" var="author">
                                             <a href="/users/info/${author.id}"> ${author.fullName}</a><br>
                                         </c:forEach>
-<%--                                        <progress value="${course.solvedTasksNum/course.allTasksNum}" max="100"></progress>--%>
-
+                                        <br>
+                                        <c:choose>
+                                            <c:when test="${user!=null}">
+                                                <c:choose>
+                                                    <c:when test="${course.solvedTasksNum>0}">
+                                                        <progress value="${course.solvedTasksNum}"
+                                                                  max="${course.allTasksNum}"></progress>
+                                                        <c:set var="pr" scope="session"
+                                                               value="${(course.solvedTasksNum/course.allTasksNum)*100}"/>
+                                                        <p>${pr}%</p>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <progress value="${course.solvedTasksNum}"
+                                                                  max="${course.allTasksNum}"></progress>
+                                                        <p>0%</p>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </c:when>
+                                        </c:choose>
                                     </div>
                                 </div>
                             </div>

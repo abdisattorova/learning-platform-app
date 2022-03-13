@@ -166,6 +166,38 @@
                 width: 100%;
             }
         }
+
+        .starrating > input {
+            display: none;
+        }
+
+        /* Remove radio buttons */
+
+        .starrating > label:before {
+            content: "\f005"; /* Star */
+            margin: 1px;
+            font-size: 1em;
+            font-family: FontAwesome;
+            display: inline-block;
+        }
+
+        .starrating > label {
+            color: #222222; /* Start color when not clicked */
+        }
+
+        .starrating > input:checked ~ label {
+            color: #ffca08;
+        }
+
+        /* Set yellow color when star checked */
+
+        .starrating > input:hover ~ label {
+            color: #ffca08;
+        }
+
+        /* Set yellow color when star hover */
+
+
     </style>
 </head>
 <body>
@@ -191,13 +223,43 @@
         <c:choose>
             <c:when test="${user!=null}">
                 <c:choose>
-                    <c:when test="${checkCourse!=null}">
-                        <i class="fas fa-star active" style="color: yellow "></i>Rated!
+                    <c:when test="${checkCourse==null}">
+                        <%--                        <a href="/courses/rate/${course.id}">--%>
+                        <%--                            <i class="fas fa-star" style="color: wheat "></i>--%>
+                        <%--                            Rate</a>--%>
+
+                        <div class="container">
+                            <form method="post" action="/courses/rate-course/${course.id}">
+                                <div class="starrating risingstar d-flex justify-content-center flex-row-reverse">
+                                    <input type="radio" id="star5" name="rate" value="5"/><label for="star5"
+                                                                                                 title="5 star"></label>
+                                    <input type="radio" id="star4" name="rate" value="4"/><label for="star4"
+                                                                                                 title="4 star"></label>
+                                    <input type="radio" id="star3" name="rate" value="3"/><label for="star3"
+                                                                                                 title="3 star"></label>
+                                    <input type="radio" id="star2" name="rate" value="2"/><label for="star2"
+                                                                                                 title="2 star"></label>
+                                    <input type="radio" id="star1" name="rate" value="1"/><label for="star1"
+                                                                                                 title="1 star"></label>
+                                    <button type="submit" class="btn btn-primary">Rate</button>
+                                </div>
+                            </form>
+                        </div>
+                    </c:when>
+                </c:choose>
+                <c:choose>
+                    <c:when test="${course.solvedTasksNum>0}">
+                        <progress value="${course.solvedTasksNum}"
+                                  max="${course.allTasksNum}"></progress>
+                        <c:set var="pr" scope="session"
+                               value="${(course.solvedTasksNum/course.allTasksNum)*100}"/>
+                        <br>
+                        <p>${pr}%</p>
                     </c:when>
                     <c:otherwise>
-                        <a href="/courses/rate/${course.id}">
-                            <i class="fas fa-star" style="color: wheat "></i>
-                            Rate</a>
+                        <progress value="${course.solvedTasksNum}"
+                                  max="${course.allTasksNum}"></progress>
+                        <p>0%</p>
                     </c:otherwise>
                 </c:choose>
             </c:when>
@@ -206,9 +268,9 @@
             <c:choose>
                 <c:when test="${user!=null}">
 
-                        <a href="/messages/${user.id}" class="nav-item nav-link messages">
-                            <i class="fa fa-envelope-o"></i>
-                            <span class="badge">${unreadMsgs}</span></a></a>
+                    <a href="/messages/${user.id}" class="nav-item nav-link messages">
+                        <i class="fa fa-envelope-o"></i>
+                        <span class="badge">${unreadMsgs}</span></a></a>
                 </c:when>
             </c:choose>
             <c:choose>
@@ -245,6 +307,7 @@
             </c:choose>
             <c:choose>
                 <c:when test="${user!=null}">
+
                     <div class="nav-item dropdown">
                         <a href="#" data-toggle="dropdown"
                            class="nav-link dropdown-toggle user-action">
