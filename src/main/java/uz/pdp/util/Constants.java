@@ -12,13 +12,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 
-public class Constants {
-    public static int number_of_elements_in_1_page = 3;
-    public static String path = "C:\\Users\\User\\Desktop\\learning-platform-app\\src\\main\\resources\\photos/";
+public interface Constants {
+    int number_of_elements_in_1_page = 3;
+    String path = "S:\\PC items\\Desktop\\learning-platform-app\\src\\main\\resources\\photos/";
 
-    public static String promoteMessage = "promote";
+    String promoteMessage = "promote";
 
-    public static void getUserWithImageUrl(User user) {
+    static void getUserWithImageUrl(User user) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(path + user.getImageUrl()));
@@ -37,7 +37,7 @@ public class Constants {
         }
     }
 
-    public static void getCourseWithImageUrl(CourseDto course) {
+    static void getCourseWithImageUrl(CourseDto course) {
         BufferedImage image = null;
         try {
             image = ImageIO.read(new File(path + course.getImageUrl()));
