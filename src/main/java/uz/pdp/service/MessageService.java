@@ -33,7 +33,8 @@ public class MessageService {
         List<UserDto> userDtoList = new ArrayList<>();
         for (User user : messagingPeopleOfUser) {
             Integer countUnreadMessagesOfChat = messageDao.countUnreadMessagesOfChat(receiverId, user.getId());
-            UserDto userDto = new UserDto(user.getId(),
+            UserDto userDto = new UserDto(
+                    user.getId(),
                     user.getFullName(),
                     user.getUsername(),
                     user.getPassword(),

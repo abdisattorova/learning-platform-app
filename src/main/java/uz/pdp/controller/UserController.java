@@ -37,6 +37,10 @@ public class UserController {
     @Autowired
     CourseController controller;
 
+    @RequestMapping(path = "/")
+    public String showForm() {
+        return "jsp/login";
+    }
 
     @RequestMapping(path = "/login")
     public String showLoginForm() {
