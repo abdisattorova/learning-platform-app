@@ -19,11 +19,11 @@ public class User {
     private Integer id;
 
     @Column(name = "full_name")
-    @Size(min = 2,message = "Full name should contain at least two letters")
+    @Size(min = 2, message = "Full name should contain at least two letters")
     private String fullName;
     private String username;
-
-//    @NotBlank
+    private Boolean is_blocked;
+    //    @NotBlank
     @Size(min = 5, message = "Password length should be at least 5")
     private String password;
 
@@ -33,7 +33,7 @@ public class User {
 
     @Column(name = "image_url")
     private String imageUrl;
-    private Boolean is_blocked;
+
 
     public User(Integer id) {
         this.id = id;
